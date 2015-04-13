@@ -9,10 +9,6 @@
  */
 
 
-// Объявление модулей
-var debug   = require('debug')('hosts:index');
-
-
 // Подключения сервера
 var router = require('../../server/router');
 
@@ -61,7 +57,7 @@ var host;
 
 if (process.env.NODE_ENV !== 'prod') {
     host = process.env.HOST || 'dev.ismax';
-    debug('host:%s', host);
+    console.log('host: %s', host);
 } else {
     host = process.env.HOST || 'ismax';
 }

@@ -7,12 +7,11 @@
  */
 
 // Объявление модулей
-var cluster       = require('cluster'),
-    debug         = require('debug')('app');
+var cluster       = require('cluster');
 
 // Главный процесс
 if (cluster.isMaster) {
-    debug('%s - Start master', (new Date()).toUTCString());
+    console.log('%s - Start master', (new Date()).toUTCString());
 
     cluster.fork();
 
@@ -25,8 +24,8 @@ if (cluster.isMaster) {
 
 // Дочерний процесс
 } else {
-    debug('%s - Start worker', (new Date()).toUTCString());
-    debug('Worker %s pid %s', cluster.worker && cluster.worker.id, process.pid);
+    console.log('%s - Start worker', (new Date()).toUTCString());
+    console.log('Worker %s pid %s', cluster.worker && cluster.worker.id, process.pid);
 
     // Модуль web-сервера
     var server        = require('./server');

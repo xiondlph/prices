@@ -9,7 +9,6 @@
   },
   "author": "ismax <admin@ismax.ru> (http://ismax.ru)",
   "dependencies": {
-    "debug": "^2.1.3",
     "just": "^0.1.8",
     "mongodb": "^2.0.25",
     "node-static": "^0.7.6",

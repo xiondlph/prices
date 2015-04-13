@@ -1,0 +1,33 @@
+{
+  "name": "Yandex.MarketAPI",
+  "version": "1.0.0",
+  "description": "Yandex Market API",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xiondlph/icsystem.git"
+  },
+  "author": "ismax <admin@ismax.ru> (http://ismax.ru)",
+  "dependencies": {
+    "debug": "^2.1.3",
+    "just": "^0.1.8",
+    "mongodb": "^2.0.25",
+    "node-static": "^0.7.6",
+    "nodemailer": "^1.3.2",
+    "password-generator": "^0.2.4",
+    "validator": "^3.37.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-uglify": "^0.8.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jslint": "^1.1.14",
+    "grunt-mocha-test": "^0.12.7",
+    "load-grunt-config": "^0.16.0",
+    "mocha": "^2.2.1"
+  }
+}

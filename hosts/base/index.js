@@ -79,3 +79,9 @@ router.get('^http://www.' + host + '.ru/404/?$', controller.index.notfound);
 
 // Главная стр.
 router.get('^http://www.' + host + '.ru/?$', controller.index.index);
+
+// Текстовые стр.
+router.get('^http://www.' + host + '.ru/about/?$', controller.index.about);
+
+// Sitemap.xml
+router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap);

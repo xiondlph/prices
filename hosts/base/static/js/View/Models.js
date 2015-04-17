@@ -12,64 +12,14 @@ define([
     'backbone',
     'validator',
     'View/Popup',
-    'text!Templates/Models/Categories.tpl',
-    'text!Templates/Models/Category.tpl',
-    'text!Templates/Models/List.tpl',
+    'text!Templates/Models/Models.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _categories, _category, _list, _success, _error) {
+], function (Backbone, Validator, Popup, _models, _success, _error) {
 
 
     /**
-     * Представление списка категорий
-     *
-     * @class       Categories
-     * @namespace   View
-     * @constructor
-     * @extends     Backbone.View
-     */
-    var Categories = Backbone.View.extend({
-        className:  'b-categories',
-
-        events: {
-
-        },
-
-        render: function () {
-            this.$el.append(_.template(_categories));
-
-            this.options.obj.append(this.$el);
-            return this.$el;
-        },
-
-        fetch: function (categoryId) {
-            var me = this;
-
-            $('.b-models').trigger('clear');
-            $.ajax({
-                url         : '/models/categories',
-                type        : 'POST',
-                dataType    : 'json',
-                data        : {
-                    categoryId: categoryId
-                }
-            }).done(function (data) {
-                me.$el.find('.j-categories__container').html(_.template(_category)(data.categories));
-
-                if (categoryId) {
-                    $('.b-models').trigger('fetch', [categoryId]);
-                }
-                
-            }).fail(function () {
-                popup = new Popup({content: $(_error)});
-                popup.render();
-            });
-        }
-    });
-
-
-    /**
-     * Представление списка моделей
+     * Представление списка категорий и моделей
      *
      * @class       List
      * @namespace   View
@@ -77,43 +27,43 @@ define([
      * @extends     Backbone.View
      */
     var List = Backbone.View.extend({
-        className:  'b-models',
+        className:  'b-models b-switch b-switch_animate',
 
         events: {
-            'fetch':    'fetch',
-            'clear':    'clear'
+
         },
 
         render: function () {
-            this.options.obj.append(this.$el);
-            return this.$el;
-        },
-
-        fetch: function (e, categoryId) {
-            var me = this;
+            var me = this,
+                popup;
 
             $.ajax({
-                url         : '/models',
+                url         : '/models/categories',
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    categoryId: categoryId
+                    categoryId: me.options.categoryId
                 }
             }).done(function (data) {
-                me.$el.html(_.template(_list)(data.models));
+                me.$el.append(_.template(_models)(data));
+                me.$el.removeClass('b-switch_animate');
+
+                setTimeout(function () {
+                    me.options.obj.find('.b-switch_animate').remove();
+                }, 200);
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
-        },
 
-        clear: function () {
-            this.$el.html('');
+            me.options.obj.find('.b-switch').addClass('b-switch_animate');
+            me.options.obj.append(me.$el);
+
+            return this.$el;
         }
     });
 
     return {
-        Categories: Categories,
         List: List
     };
 });

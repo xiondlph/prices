@@ -190,11 +190,6 @@ b, strong {
     column-width: 150px;
 }
 
-.b-table__tr__td_col3 a {
-    display: inline-block;
-    width: 140px;
-}
-
 /*** Кнопки ***/
 .f-btn {
     -webkit-transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
@@ -588,7 +583,7 @@ b, strong {
     min-height: 100%;
     margin: 0 auto;
     height: auto;
-	width: 800px;
+    width: 800px;
 }
 
 /*** Раздел ***/
@@ -748,8 +743,15 @@ b, strong {
     background-color: #e2dec8;
 }
 
-.b-grid__cell_item {
+.b-grid__row {
     background-color: #f4f3eb;
+}
+
+.b-grid__row:nth-child(odd) {
+    background-color: #faf9ef;
+}
+
+.b-grid__cell_item {
     text-align: center;
 }
 

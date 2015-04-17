@@ -25,7 +25,7 @@ var http            = require('http'),
  * @param {Function} next
  */
 exports.index = function (req, res, next) {
-        res.render(__dirname + '/../view/', 'models');
+    res.render(__dirname + '/../view/', 'models');
 };
 
 
@@ -49,14 +49,14 @@ exports.list = function (req, res, next) {
             // 'X-Forwarded-Proto':  'http',
             // 'X-Forwarded-For':    '78.24.219.141'
         }
-    }, function(response){
+    }, function (response) {
         var data = '';
 
-        response.on('data', function(chunk){
+        response.on('data', function (chunk) {
             data += chunk.toString();
         });
 
-        response.on('end', function(){
+        response.on('end', function () {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application-json; charset=UTF-8');
             res.end(data);
@@ -76,36 +76,121 @@ exports.list = function (req, res, next) {
  * @param {Function} next
  */
 exports.categories = function (req, res, next) {
-    var url;
-    if (req.params.hasOwnProperty('categoryId')) {
-        url = '/v1/category/' + req.params.categoryId + '/children.json?count=30';
-    } else {
-        url = '/v1/category.json?count=30'
-    }
-    var request = http.request({
-        host:     'market.icsystem.ru',
-        //port:     3000,
-        path:     url,
-        method:   'GET',
-        headers: {
-            'Host':                 'market.icsystem.ru',
-            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
-            // 'X-Forwarded-Proto':  'http',
-            // 'X-Forwarded-For':    '78.24.219.141'
-        }
-    }, function(response){
-        var data = '';
+    var result = {
+        path: []
+    };
 
-        response.on('data', function(chunk){
-            data += chunk.toString();
+    function _path(categoryId, accept) {
+        if (categoryId && categoryId > 0) {
+            var request = http.request({
+                host:     'market.icsystem.ru',
+                //port:     3000,
+                path:     '/v1/category/' + categoryId + '.json',
+                method:   'GET',
+                headers: {
+                    'Host':                 'market.icsystem.ru',
+                    'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+                    // 'X-Forwarded-Proto':  'http',
+                    // 'X-Forwarded-For':    '78.24.219.141'
+                }
+            }, function (response) {
+                var data = '';
+
+                response.on('data', function (chunk) {
+                    data += chunk.toString();
+                });
+
+                response.on('end', function () {
+                    var _data = JSON.parse(data);
+                    result.path.unshift(_data);
+                    _path(_data.category.parentId, accept);
+                });
+            });
+
+            request.end();
+        } else {
+            accept();
+        }
+    }
+
+    function _categories(accept) {
+        var url,
+            request;
+        if (req.params.hasOwnProperty('categoryId')) {
+            url = '/v1/category/' + req.params.categoryId + '/children.json?count=30';
+        } else {
+            url = '/v1/category.json?count=30';
+        }
+
+        request = http.request({
+            host:     'market.icsystem.ru',
+            //port:     3000,
+            path:     url,
+            method:   'GET',
+            headers: {
+                'Host':                 'market.icsystem.ru',
+                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+                // 'X-Forwarded-Proto':  'http',
+                // 'X-Forwarded-For':    '78.24.219.141'
+            }
+        }, function (response) {
+            var data = '';
+
+            response.on('data', function (chunk) {
+                data += chunk.toString();
+            });
+
+            response.on('end', function () {
+                accept(data);
+            });
         });
 
-        response.on('end', function(){
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-            res.end(data);
+        request.end();
+    }
+
+    function _list(accept) {
+        var request = http.request({
+            host:     'market.icsystem.ru',
+            //port:     3000,
+            path:     '/v1/category/' + req.params.categoryId + '/models.json?count=30&geo_id=213',
+            method:   'GET',
+            headers: {
+                'Host':                 'market.icsystem.ru',
+                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+                // 'X-Forwarded-Proto':  'http',
+                // 'X-Forwarded-For':    '78.24.219.141'
+            }
+        }, function (response) {
+            var data = '';
+
+            response.on('data', function (chunk) {
+                data += chunk.toString();
+            });
+
+            response.on('end', function () {
+                accept(data);
+            });
+        });
+
+        request.end();
+    }
+
+    _path(req.params.categoryId, function () {
+        _categories(function (data) {
+            result.categories = JSON.parse(data).categories;
+            if (result.path.length > 0) {
+                _list(function (data) {
+                    result.models = JSON.parse(data).models;
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+                    res.end(JSON.stringify(result, null, "\t"));
+                });
+            } else {
+                result.models = JSON.parse(data).models;
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+                res.end(JSON.stringify(result, null, "\t"));
+            }
         });
     });
-
-    request.end();
 };

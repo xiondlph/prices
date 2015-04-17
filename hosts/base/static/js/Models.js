@@ -33,29 +33,21 @@ require([
     'View/Models',
     'View/Loader'
 ], function ($, Models, Loader) {
-    var List        = new Models.List({obj: $('.b-section')}),
-        Categories  = new Models.Categories({obj: $('.b-section')});
 
     // Маршруты
     function Index(categoryId) {
-        if (categoryId) {
-            Categories.fetch(categoryId);
-        } else {
-            Categories.fetch();
-        }
-        
-    };
+        var List  = new Models.List({obj: $('.b-section'), categoryId: categoryId || undefined});
+        List.render();
+    }
 
     $(function () {
         var router      = new Backbone.Router(),
             loader      = new Loader({obj: $('body')});
 
         loader.render();
-        Categories.render();
-        List.render();
 
         // Маршрутизация
-        router.route('(:categoryId)', 'categories', Index);
+        router.route('(:categoryId)', 'models', Index);
         router.route('*other', 'default', Index);
 
         Backbone.history.start();

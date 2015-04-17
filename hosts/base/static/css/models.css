@@ -1,15 +1,16 @@
-.b-categories {
+.b-models {
     width: 100%;
 }
 
-.b-categories__table {
+.b-categories__table,
+.b-models__table {
     background-color: #fff;
     padding: 10px;
     width: 100%;
 }
 
-.b-models {
-    background-color: #fff;
-    padding: 20px;
-    width: 100%;
+.b-categories__item {
+    display: inline-block;
+    outline: none;
+    width: 140px;
 }

@@ -8,7 +8,7 @@ module.exports = {
         }
     },
 
-    index: {
+    models: {
         options: {
             banner: '/* Index minified */'
         },

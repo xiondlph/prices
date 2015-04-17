@@ -6,20 +6,17 @@
     <meta name="description" content="Сервис отслеживания и мониторинга цен" />
 <# if (process.env.NODE_ENV !== 'prod') { #>
     <link href="/css/common.css" rel="stylesheet" type="text/css" />
-    <link href="/css/index.css" rel="stylesheet" type="text/css" />
-    <script data-main="/js/Index" src="/lib/requirejs/require.js"></script>
+    <link href="/css/models.css" rel="stylesheet" type="text/css" />
+    <script data-main="/js/Models" src="/lib/requirejs/require.js"></script>
 <# } else { #>
-    <link href="/build/index.css" rel="stylesheet" type="text/css" />
-    <script src="/build/index.js"></script>
+    <link href="/build/models.css" rel="stylesheet" type="text/css" />
+    <script src="/build/models.js"></script>
 <# } #>
-    <title>Сервис мониторинга цен</title>
+    <title>О сервисе мониторинга цен</title>
 </head>
 <body>
 <#@ /inc/header #>
-    <section class="b-section">
-        <h1>Сервис мониторинга цен</h1>
-        <a href="/models" class="f-btn f-btn_red f-btn_redirect">Начать использовать</a>
-    </section>
+    <section class="b-section"></section>
 <#@ /inc/footer #>
 </body>
 </html>

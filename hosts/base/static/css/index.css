@@ -5,3 +5,8 @@ h1 {
 p {
     text-align: center;
 }
+
+.f-btn_redirect {
+	display: table;
+	margin: 0 auto;
+}

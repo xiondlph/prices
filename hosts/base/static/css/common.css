@@ -176,8 +176,23 @@ b, strong {
     width: 50%;
 }
 
+.b-table__tr__td_wide {
+    width: 100%;
+}
+
 .b-table__tr__td_right {
     text-align: right;
+}
+
+.b-table__tr__td_col3 {
+    -webkit-column-width: 150px;
+    -moz-column-width: 150px;
+    column-width: 150px;
+}
+
+.b-table__tr__td_col3 a {
+    display: inline-block;
+    width: 140px;
 }
 
 /*** Кнопки ***/

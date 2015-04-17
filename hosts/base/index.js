@@ -45,7 +45,8 @@ var model = {};
  * @type Object
  */
 var controller = {
-    index:      require('./controller/index')
+    index:      require('./controller/index'),
+    models:     require('./controller/models')
 };
 
 
@@ -81,3 +82,8 @@ router.get('^http://www.' + host + '.ru/about/?$', controller.index.about);
 
 // Sitemap.xml
 router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap);
+
+// Models
+router.get('^http://www.' + host + '.ru/models/?$', controller.models.index);
+router.post('^http://www.' + host + '.ru/models/?$', controller.models.list);
+router.post('^http://www.' + host + '.ru/models/categories/?$', controller.models.categories);

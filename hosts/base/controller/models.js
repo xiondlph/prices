@@ -39,15 +39,14 @@ exports.index = function (req, res, next) {
  */
 exports.list = function (req, res, next) {
     var request = http.request({
-        host:     'market.icsystem.ru',
-        //port:     3000,
+        host:     'localhost',
+        port:     3000,
         path:     '/v1/category/' + req.params.categoryId + '/models.json?count=30&geo_id=213',
         method:   'GET',
         headers: {
             'Host':                 'market.icsystem.ru',
             'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
-            // 'X-Forwarded-Proto':  'http',
-            // 'X-Forwarded-For':    '78.24.219.141'
+            'X-Forwarded-Proto':    'http',
         }
     }, function (response) {
         var data = '';
@@ -83,15 +82,14 @@ exports.categories = function (req, res, next) {
     function _path(categoryId, accept) {
         if (categoryId && categoryId > 0) {
             var request = http.request({
-                host:     'market.icsystem.ru',
-                //port:     3000,
+                host:     'localhost',
+                port:     3000,
                 path:     '/v1/category/' + categoryId + '.json',
                 method:   'GET',
                 headers: {
                     'Host':                 'market.icsystem.ru',
                     'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
-                    // 'X-Forwarded-Proto':  'http',
-                    // 'X-Forwarded-For':    '78.24.219.141'
+                    'X-Forwarded-Proto':    'http'
                 }
             }, function (response) {
                 var data = '';
@@ -123,15 +121,14 @@ exports.categories = function (req, res, next) {
         }
 
         request = http.request({
-            host:     'market.icsystem.ru',
-            //port:     3000,
+            host:     'localhost',
+            port:     3000,
             path:     url,
             method:   'GET',
             headers: {
                 'Host':                 'market.icsystem.ru',
                 'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
-                // 'X-Forwarded-Proto':  'http',
-                // 'X-Forwarded-For':    '78.24.219.141'
+                'X-Forwarded-Proto':    'http'
             }
         }, function (response) {
             var data = '';
@@ -150,15 +147,14 @@ exports.categories = function (req, res, next) {
 
     function _list(accept) {
         var request = http.request({
-            host:     'market.icsystem.ru',
-            //port:     3000,
+            host:     'localhost',
+            port:     3000,
             path:     '/v1/category/' + req.params.categoryId + '/models.json?count=30&geo_id=213',
             method:   'GET',
             headers: {
                 'Host':                 'market.icsystem.ru',
                 'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
-                // 'X-Forwarded-Proto':  'http',
-                // 'X-Forwarded-For':    '78.24.219.141'
+                'X-Forwarded-Proto':    'http'
             }
         }, function (response) {
             var data = '';

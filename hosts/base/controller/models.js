@@ -45,7 +45,7 @@ exports.list = function (req, res, next) {
         method:   'GET',
         headers: {
             'Host':                 'market.icsystem.ru',
-            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
             'X-Forwarded-Proto':    'http',
         }
     }, function (response) {
@@ -88,7 +88,7 @@ exports.categories = function (req, res, next) {
                 method:   'GET',
                 headers: {
                     'Host':                 'market.icsystem.ru',
-                    'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+                    'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
                     'X-Forwarded-Proto':    'http'
                 }
             }, function (response) {
@@ -127,7 +127,7 @@ exports.categories = function (req, res, next) {
             method:   'GET',
             headers: {
                 'Host':                 'market.icsystem.ru',
-                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
                 'X-Forwarded-Proto':    'http'
             }
         }, function (response) {
@@ -153,7 +153,7 @@ exports.categories = function (req, res, next) {
             method:   'GET',
             headers: {
                 'Host':                 'market.icsystem.ru',
-                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370'
+                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
                 'X-Forwarded-Proto':    'http'
             }
         }, function (response) {

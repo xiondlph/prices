@@ -13,9 +13,12 @@ define([
     'validator',
     'View/Popup',
     'text!Templates/Models/Models.tpl',
+    'text!Templates/Models/Path.tpl',
+    'text!Templates/Models/Categories.tpl',
+    'text!Templates/Models/List.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _models, _success, _error) {
+], function (Backbone, Validator, Popup, _models, _path, _categories, _list, _success, _error) {
 
 
     /**
@@ -34,6 +37,27 @@ define([
         },
 
         render: function () {
+            var me = this;
+
+            me.path();
+            me.categories();
+            me.list(me.options.categoryId, me.options.page);
+
+            me.$el.append(_.template(_models));
+            me.options.obj.find('.b-switch').addClass('b-switch_animate');
+            me.options.obj.append(me.$el);
+            setTimeout(function () {
+                me.$el.removeClass('b-switch_animate');
+            });
+
+            setTimeout(function () {
+                me.options.obj.find('.b-switch_animate').remove();
+            }, 200);
+
+            return this.$el;
+        },
+
+        categories: function () {
             var me = this,
                 popup;
 
@@ -45,21 +69,51 @@ define([
                     categoryId: me.options.categoryId
                 }
             }).done(function (data) {
-                me.$el.append(_.template(_models)(data));
-                me.$el.removeClass('b-switch_animate');
-
-                setTimeout(function () {
-                    me.options.obj.find('.b-switch_animate').remove();
-                }, 200);
+                me.$el.find('.j-categories').replaceWith(_.template(_categories)(data));
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
+        },
 
-            me.options.obj.find('.b-switch').addClass('b-switch_animate');
-            me.options.obj.append(me.$el);
+        path: function () {
+            var me = this,
+                popup;
 
-            return this.$el;
+            $.ajax({
+                url         : '/path',
+                type        : 'POST',
+                dataType    : 'json',
+                data        : {
+                    categoryId: me.options.categoryId
+                }
+            }).done(function (data) {
+                me.$el.find('.j-path').replaceWith(_.template(_path)(data));
+            }).fail(function () {
+                popup = new Popup({content: $(_error)});
+                popup.render();
+            });
+        },
+
+        list: function (categoryId, page) {
+            var me = this,
+                popup;
+
+            $.ajax({
+                url         : '/models',
+                type        : 'POST',
+                dataType    : 'json',
+                data        : {
+                    categoryId: categoryId,
+                    page:       page
+                }
+            }).done(function (data) {
+                data = _.extend(data, {categoryId: me.options.categoryId});
+                me.$el.find('.j-models').replaceWith(_.template(_list)(data));
+            }).fail(function () {
+                popup = new Popup({content: $(_error)});
+                popup.render();
+            });
         }
     });
 

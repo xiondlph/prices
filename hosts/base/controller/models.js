@@ -38,15 +38,19 @@ exports.index = function (req, res, next) {
  * @param {Function} next
  */
 exports.list = function (req, res, next) {
-    var request = http.request({
+    var categoryId  = req.params.categoryId || 0,
+        page        = req.params.page || 1,
+        request;
+
+    request = http.request({
         host:     'localhost',
         port:     3000,
-        path:     '/v1/category/' + req.params.categoryId + '/models.json?count=30&geo_id=213',
+        path:     '/v1/category/' + categoryId + '/models.json?count=30&page=' + page + '&geo_id=213',
         method:   'GET',
         headers: {
             'Host':                 'market.icsystem.ru',
             'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-            'X-Forwarded-Proto':    'http',
+            'X-Forwarded-Proto':    'http'
         }
     }, function (response) {
         var data = '';
@@ -67,14 +71,14 @@ exports.list = function (req, res, next) {
 
 
 /**
- * Список категорий
+ * Хлебные крошки
  *
- * @method categories
+ * @method path
  * @param {Object} req Объект запроса сервера
  * @param {Object} res Объект ответа сервера
  * @param {Function} next
  */
-exports.categories = function (req, res, next) {
+exports.path = function (req, res, next) {
     var result = {
         path: []
     };
@@ -111,82 +115,54 @@ exports.categories = function (req, res, next) {
         }
     }
 
-    function _categories(accept) {
-        var url,
-            request;
-        if (req.params.hasOwnProperty('categoryId')) {
-            url = '/v1/category/' + req.params.categoryId + '/children.json?count=30';
-        } else {
-            url = '/v1/category.json?count=30';
-        }
-
-        request = http.request({
-            host:     'localhost',
-            port:     3000,
-            path:     url,
-            method:   'GET',
-            headers: {
-                'Host':                 'market.icsystem.ru',
-                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-                'X-Forwarded-Proto':    'http'
-            }
-        }, function (response) {
-            var data = '';
-
-            response.on('data', function (chunk) {
-                data += chunk.toString();
-            });
-
-            response.on('end', function () {
-                accept(data);
-            });
-        });
-
-        request.end();
-    }
-
-    function _list(accept) {
-        var request = http.request({
-            host:     'localhost',
-            port:     3000,
-            path:     '/v1/category/' + req.params.categoryId + '/models.json?count=30&geo_id=213',
-            method:   'GET',
-            headers: {
-                'Host':                 'market.icsystem.ru',
-                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-                'X-Forwarded-Proto':    'http'
-            }
-        }, function (response) {
-            var data = '';
-
-            response.on('data', function (chunk) {
-                data += chunk.toString();
-            });
-
-            response.on('end', function () {
-                accept(data);
-            });
-        });
-
-        request.end();
-    }
-
     _path(req.params.categoryId, function () {
-        _categories(function (data) {
-            result.categories = JSON.parse(data).categories;
-            if (result.path.length > 0) {
-                _list(function (data) {
-                    result.models = JSON.parse(data).models;
-                    res.statusCode = 200;
-                    res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-                    res.end(JSON.stringify(result, null, "\t"));
-                });
-            } else {
-                result.models = JSON.parse(data).models;
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-                res.end(JSON.stringify(result, null, "\t"));
-            }
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+        res.end(JSON.stringify(result, null, "\t"));
+    });
+};
+
+
+/**
+ * Список категорий
+ *
+ * @method categories
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.categories = function (req, res, next) {
+    var url,
+        request;
+    if (req.params.hasOwnProperty('categoryId')) {
+        url = '/v1/category/' + req.params.categoryId + '/children.json?count=30';
+    } else {
+        url = '/v1/category.json?count=30';
+    }
+
+    request = http.request({
+        host:     'localhost',
+        port:     3000,
+        path:     url,
+        method:   'GET',
+        headers: {
+            'Host':                 'market.icsystem.ru',
+            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
+            'X-Forwarded-Proto':    'http'
+        }
+    }, function (response) {
+        var data = '';
+
+        response.on('data', function (chunk) {
+            data += chunk.toString();
+        });
+
+        response.on('end', function () {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+            res.end(data);
         });
     });
+
+    request.end();
 };

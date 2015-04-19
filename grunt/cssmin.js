@@ -8,6 +8,15 @@ module.exports = {
         }
     },
 
+    simple: {
+        options: {
+            banner: '/* Index minified */'
+        },
+        files: {
+            'hosts/base/static/build/simple.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/simple.css']
+        }
+    },
+
     models: {
         options: {
             banner: '/* Index minified */'

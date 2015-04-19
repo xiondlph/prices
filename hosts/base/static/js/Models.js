@@ -33,11 +33,21 @@ require([
     'View/Models',
     'View/Loader'
 ], function ($, Models, Loader) {
+    var List;
 
     // Маршруты
     function Index(categoryId) {
-        var List  = new Models.List({obj: $('.b-section'), categoryId: categoryId || undefined});
+        List  = new Models.List({obj: $('.b-section'), categoryId: categoryId || undefined, page: undefined});
         List.render();
+    }
+
+    function More(categoryId, page) {
+        if (List) {
+            List.list(categoryId, page);
+        } else {
+            List  = new Models.List({obj: $('.b-section'), categoryId: categoryId || undefined, page: page || undefined});
+            List.render();
+        }
     }
 
     $(function () {
@@ -48,7 +58,8 @@ require([
 
         // Маршрутизация
         router.route('(:categoryId)', 'models', Index);
-        router.route('*other', 'default', Index);
+        router.route(':categoryId/:page', 'more', More);
+        //router.route('*other', 'default', Index);
 
         Backbone.history.start();
     });

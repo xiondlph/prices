@@ -1,0 +1,9 @@
+.b-offers {
+    width: 100%;
+}
+
+.b-offers__table {
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+}

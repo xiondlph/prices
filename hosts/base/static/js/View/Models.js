@@ -69,7 +69,7 @@ define([
                     categoryId: me.options.categoryId
                 }
             }).done(function (data) {
-                me.$el.find('.j-categories').replaceWith(_.template(_categories)(data));
+                me.$el.find('.j-categories').html(_.template(_categories)(data));
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
@@ -88,7 +88,7 @@ define([
                     categoryId: me.options.categoryId
                 }
             }).done(function (data) {
-                me.$el.find('.j-path').replaceWith(_.template(_path)(data));
+                me.$el.find('.j-path').html(_.template(_path)(data));
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
@@ -108,8 +108,8 @@ define([
                     page:       page
                 }
             }).done(function (data) {
-                data = _.extend(data, {categoryId: me.options.categoryId});
-                me.$el.find('.j-models').replaceWith(_.template(_list)(data));
+                data = _.extend(data, {categoryId: categoryId});
+                me.$el.find('.j-models').html(_.template(_list)(data));
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();

@@ -46,7 +46,8 @@ var model = {};
  */
 var controller = {
     index:      require('./controller/index'),
-    models:     require('./controller/models')
+    models:     require('./controller/models'),
+    offers:     require('./controller/offers')
 };
 
 
@@ -88,3 +89,7 @@ router.get('^http://www.' + host + '.ru/models/?$', controller.models.index);
 router.post('^http://www.' + host + '.ru/models/?$', controller.models.list);
 router.post('^http://www.' + host + '.ru/models/categories/?$', controller.models.categories);
 router.post('^http://www.' + host + '.ru/path/?$', controller.models.path);
+
+// Offers
+router.get('^http://www.' + host + '.ru/offers/?$', controller.offers.index);
+router.post('^http://www.' + host + '.ru/offers/?$', controller.offers.list);

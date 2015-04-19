@@ -80,8 +80,8 @@ module.exports = {
             },
             preserveLicenseComments: false,
             optimize: 'uglify2',
-            name: "Models",
-            out: "hosts/base/static/build/models.js",
+            name: "Offers",
+            out: "hosts/base/static/build/offers.js",
             include: ["requireLib"]
         }
     }

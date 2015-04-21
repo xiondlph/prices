@@ -2,6 +2,8 @@
     width: 100%;
 }
 
+.b-layout__table,
+.b-path__table,
 .b-categories__table,
 .b-models__table {
     background-color: #fff;
@@ -12,5 +14,5 @@
 .b-categories__item {
     display: inline-block;
     outline: none;
-    width: 140px;
+    width: 190px;
 }

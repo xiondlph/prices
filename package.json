@@ -9,6 +9,8 @@
   },
   "author": "ismax <admin@ismax.ru> (http://ismax.ru)",
   "dependencies": {
+    "csv": "^0.4.1",
+    "json2csv": "^2.2.1",
     "just": "^0.1.8",
     "mongodb": "^2.0.25",
     "node-static": "^0.7.6",

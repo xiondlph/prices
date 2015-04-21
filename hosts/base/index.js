@@ -46,6 +46,7 @@ var model = {};
  */
 var controller = {
     index:      require('./controller/index'),
+    category:   require('./controller/category'),
     models:     require('./controller/models'),
     offers:     require('./controller/offers')
 };
@@ -84,12 +85,17 @@ router.get('^http://www.' + host + '.ru/about/?$', controller.index.about);
 // Sitemap.xml
 router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap);
 
+// Category
+router.post('^http://www.' + host + '.ru/category/?$', controller.category.get);
+router.post('^http://www.' + host + '.ru/path/?$', controller.category.path);
+router.post('^http://www.' + host + '.ru/categories/?$', controller.category.list);
+
 // Models
 router.get('^http://www.' + host + '.ru/models/?$', controller.models.index);
+router.post('^http://www.' + host + '.ru/model/?$', controller.models.get);
 router.post('^http://www.' + host + '.ru/models/?$', controller.models.list);
-router.post('^http://www.' + host + '.ru/models/categories/?$', controller.models.categories);
-router.post('^http://www.' + host + '.ru/path/?$', controller.models.path);
 
 // Offers
 router.get('^http://www.' + host + '.ru/offers/?$', controller.offers.index);
 router.post('^http://www.' + host + '.ru/offers/?$', controller.offers.list);
+router.post('^http://www.' + host + '.ru/csv/?$', controller.offers.csv);

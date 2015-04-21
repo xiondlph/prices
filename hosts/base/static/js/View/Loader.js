@@ -39,10 +39,9 @@ define([
                 };
 
                 xhr.onreadystatechange = function () {
-
                     me.$el.find('.b-loader__line').stop().animate({
-                        width: (xhr.readyState * 100) + '%'
-                    }, 100);
+                        width: (xhr.readyState * 25) + '%'
+                    }, 200);
                 };
 
                 return xhr;

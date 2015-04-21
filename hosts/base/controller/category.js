@@ -1,8 +1,8 @@
 /**
- * Models контроллер
+ * Category контроллер
  *
- * @module      Hosts.Base.Controller.Models
- * @class       Controller.Models
+ * @module      Hosts.Base.Controller.Category
+ * @class       Controller.Category
  * @namespace   Hosts.Base
  * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
@@ -17,20 +17,7 @@ var http            = require('http'),
 
 
 /**
- * Основная страница
- *
- * @method index
- * @param {Object} req Объект запроса сервера
- * @param {Object} res Объект ответа сервера
- * @param {Function} next
- */
-exports.index = function (req, res, next) {
-    res.render(__dirname + '/../view/', 'models');
-};
-
-
-/**
- * Информация о модели
+ * Информация о категории
  *
  * @method get
  * @param {Object} req Объект запроса сервера
@@ -38,14 +25,14 @@ exports.index = function (req, res, next) {
  * @param {Function} next
  */
 exports.get = function (req, res, next) {
-    var modelId = req.params.modelId || 0,
+    var categoryId = req.params.categoryId || 0,
         request;
 
 
     request = http.request({
         host:     '194.58.98.18',
         port:     3000,
-        path:     '/v1/model/' + modelId + '.json',
+        path:     '/v1/category/' + categoryId + '.json',
         method:   'GET',
         headers: {
             'Host':                 'market.icsystem.ru',
@@ -71,7 +58,60 @@ exports.get = function (req, res, next) {
 
 
 /**
- * Список моделей категории
+ * Хлебные крошки
+ *
+ * @method path
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.path = function (req, res, next) {
+    var result = {
+        path: []
+    };
+
+    function _path(categoryId, accept) {
+        if (categoryId && categoryId > 0) {
+            var request = http.request({
+                host:     '194.58.98.18',
+                port:     3000,
+                path:     '/v1/category/' + categoryId + '.json',
+                method:   'GET',
+                headers: {
+                    'Host':                 'market.icsystem.ru',
+                    'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
+                    'X-Forwarded-Proto':    'http'
+                }
+            }, function (response) {
+                var data = '';
+
+                response.on('data', function (chunk) {
+                    data += chunk.toString();
+                });
+
+                response.on('end', function () {
+                    var _data = JSON.parse(data);
+                    result.path.unshift(_data);
+                    _path(_data.category.parentId, accept);
+                });
+            });
+
+            request.end();
+        } else {
+            accept();
+        }
+    }
+
+    _path(req.params.categoryId, function () {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+        res.end(JSON.stringify(result, null, "\t"));
+    });
+};
+
+
+/**
+ * Список категорий
  *
  * @method list
  * @param {Object} req Объект запроса сервера
@@ -79,14 +119,19 @@ exports.get = function (req, res, next) {
  * @param {Function} next
  */
 exports.list = function (req, res, next) {
-    var categoryId  = req.params.categoryId || 0,
-        page        = req.params.page || 1,
+    var url,
         request;
+
+    if (req.params.hasOwnProperty('categoryId')) {
+        url = '/v1/category/' + req.params.categoryId + '/children.json?count=30';
+    } else {
+        url = '/v1/category.json?count=30';
+    }
 
     request = http.request({
         host:     '194.58.98.18',
         port:     3000,
-        path:     '/v1/category/' + categoryId + '/models.json?count=30&page=' + page + '&geo_id=213',
+        path:     url,
         method:   'GET',
         headers: {
             'Host':                 'market.icsystem.ru',

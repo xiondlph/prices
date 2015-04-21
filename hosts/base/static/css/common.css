@@ -185,9 +185,9 @@ b, strong {
 }
 
 .b-table__tr__td_col3 {
-    -webkit-column-width: 150px;
-    -moz-column-width: 150px;
-    column-width: 150px;
+    -webkit-column-width: 190px;
+    -moz-column-width: 190px;
+    column-width: 190px;
 }
 
 /*** Кнопки ***/

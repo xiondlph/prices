@@ -25,7 +25,8 @@ module.exports = {
                 '$',
                 'define',
                 '_',
-                'Backbone'
+                'Backbone',
+                'Blob'
             ]
         },
         options: {

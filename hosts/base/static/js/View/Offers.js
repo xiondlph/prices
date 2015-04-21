@@ -12,34 +12,41 @@ define([
     'backbone',
     'validator',
     'View/Popup',
+    'text!Templates/Offers/Layout.tpl',
     'text!Templates/Offers/Offers.tpl',
-    'text!Templates/Offers/List.tpl',
+    'text!Templates/Offers/Model.tpl',
+    'text!Templates/Offers/Path.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _offers, _list, _success, _error) {
+], function (Backbone, Validator, Popup, _layout, _offers, _model, _path, _success, _error) {
 
 
     /**
-     * Представление списка категорий и товарных предложений
+     * Представление списка товарных предложений
      *
-     * @class       List
+     * @class       Layot
      * @namespace   View
      * @constructor
      * @extends     Backbone.View
      */
-    var List = Backbone.View.extend({
+    var Layout = Backbone.View.extend({
         className:  'b-offers b-switch b-switch_animate',
 
         events: {
-
+            'click .j-export > a': 'export'
         },
+
+        _state:         0,
+        _path:          null,
+        _model:         null,
+        _offers:        null,
 
         render: function () {
             var me = this;
 
-            me.list(me.options.modelId, me.options.page);
+            me.model(me.options.modelId);
 
-            me.$el.append(_.template(_offers));
+            me.$el.append(_.template(_layout));
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
             setTimeout(function () {
@@ -53,7 +60,48 @@ define([
             return this.$el;
         },
 
-        list: function (modelId, page) {
+        model: function (modelId) {
+            var me = this,
+                popup;
+
+            $.ajax({
+                url         : '/model',
+                type        : 'POST',
+                dataType    : 'json',
+                data        : {
+                    modelId: modelId
+                }
+            }).done(function (data) {
+                me.path(data.model.categoryId);
+                me._model = data;
+                me.statge();
+            }).fail(function () {
+                popup = new Popup({content: $(_error)});
+                popup.render();
+            });
+        },
+
+        path: function (categoryId) {
+            var me = this,
+                popup;
+
+            $.ajax({
+                url         : '/path',
+                type        : 'POST',
+                dataType    : 'json',
+                data        : {
+                    categoryId: categoryId
+                }
+            }).done(function (data) {
+                me._path = data;
+                me.statge();
+            }).fail(function () {
+                popup = new Popup({content: $(_error)});
+                popup.render();
+            });
+        },
+
+        offers: function (modelId, page) {
             var me = this,
                 popup;
 
@@ -67,15 +115,93 @@ define([
                 }
             }).done(function (data) {
                 data = _.extend(data, {modelId: modelId});
-                me.$el.find('.j-offers').replaceWith(_.template(_list)(data));
+                me._offers = data;
+                me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
+        },
+
+        statge: function () {
+            if (this._state < 4) {
+                this._state++;
+            }
+
+            if (this._state > 3) {
+                this.$el.find('.j-offers').html(_.template(_offers)(this._offers));
+            }
+
+            if (this._state === 3) {
+                this.$el.find('.j-model').html(_.template(_model)(this._model));
+                this.$el.find('.j-path').html(_.template(_path)(this._path));
+                this.$el.find('.j-offers').html(_.template(_offers)(this._offers));
+            }
+        },
+
+        export: function (e) {
+            e.preventDefault();
+            var me = this,
+                popup;
+
+            $.ajax({
+                url         : '/csv',
+                type        : 'POST',
+                dataType    : 'json',
+                data        : {
+                    modelId: me.options.modelId
+                }
+            }).done(function (data) {
+                var out = '',
+                    i;
+
+                for (i = 0; i < data.length; i++) {
+                    out += '"' + data[i].name + '",';
+                    out += '"' + data[i].price.value + '",';
+                    out += '"' + data[i].price.currencyName + '"\n';
+                }
+
+                me.download(out, 'test.csv', 'text/csv');
+            }).fail(function () {
+                popup = new Popup({content: $(_error)});
+                popup.render();
+            });
+            return false;
+        },
+
+        download: function (content, fileName, mimeType) {
+            var a = document.createElement('a'),
+                f;
+            mimeType = mimeType || 'application/octet-stream';
+
+            if (navigator.msSaveBlob) { // IE10
+                return navigator.msSaveBlob(new Blob([content], {type: mimeType}), fileName);
+            }
+
+            if (a.hasOwnProperty('download')) { //html5 A[download]
+                a.href = 'data:' + mimeType + ',' + encodeURIComponent(content);
+                a.setAttribute('download', fileName);
+                document.body.appendChild(a);
+                setTimeout(function () {
+                    a.click();
+                    document.body.removeChild(a);
+                }, 66);
+                return true;
+            }
+
+            //do iframe dataURL download (old ch+FF):
+            f = document.createElement('iframe');
+            document.body.appendChild(f);
+            f.src = 'data:' + mimeType + ',' + encodeURIComponent(content);
+
+            setTimeout(function () {
+                document.body.removeChild(f);
+            }, 333);
+            return true;
         }
     });
 
     return {
-        List: List
+        Layout: Layout
     };
 });

@@ -12,38 +12,42 @@ define([
     'backbone',
     'validator',
     'View/Popup',
-    'text!Templates/Models/Models.tpl',
+    'text!Templates/Models/Layout.tpl',
     'text!Templates/Models/Path.tpl',
     'text!Templates/Models/Categories.tpl',
-    'text!Templates/Models/List.tpl',
+    'text!Templates/Models/Models.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _models, _path, _categories, _list, _success, _error) {
+], function (Backbone, Validator, Popup, _layout, _path, _categories, _models, _success, _error) {
 
 
     /**
      * Представление списка категорий и моделей
      *
-     * @class       List
+     * @class       Layout
      * @namespace   View
      * @constructor
      * @extends     Backbone.View
      */
-    var List = Backbone.View.extend({
+    var Layout = Backbone.View.extend({
         className:  'b-models b-switch b-switch_animate',
 
         events: {
 
         },
 
+        _state: 0,
+        _path: null,
+        _categories: null,
+        _models: null,
+
         render: function () {
             var me = this;
 
             me.path();
             me.categories();
-            me.list(me.options.categoryId, me.options.page);
 
-            me.$el.append(_.template(_models));
+            me.$el.append(_.template(_layout));
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
             setTimeout(function () {
@@ -62,14 +66,15 @@ define([
                 popup;
 
             $.ajax({
-                url         : '/models/categories',
+                url         : '/categories',
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
                     categoryId: me.options.categoryId
                 }
             }).done(function (data) {
-                me.$el.find('.j-categories').html(_.template(_categories)(data));
+                me._categories = data;
+                me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
@@ -88,14 +93,15 @@ define([
                     categoryId: me.options.categoryId
                 }
             }).done(function (data) {
-                me.$el.find('.j-path').html(_.template(_path)(data));
+                me._path = data;
+                me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
         },
 
-        list: function (categoryId, page) {
+        models: function (categoryId, page) {
             var me = this,
                 popup;
 
@@ -108,16 +114,35 @@ define([
                     page:       page
                 }
             }).done(function (data) {
-                data = _.extend(data, {categoryId: categoryId});
-                me.$el.find('.j-models').html(_.template(_list)(data));
+                me._models = _.extend(data, {categoryId: categoryId});
+                me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
+        },
+
+        statge: function () {
+            if (this._state < 4) {
+                this._state++;
+            }
+
+            if (this._state > 3) {
+                this.$el.find('.j-models').html(_.template(_models)(this._models));
+            }
+
+            if (this._state === 3) {
+                this.$el.find('.j-path').html(_.template(_path)(this._path));
+
+                _.extend(this._categories, {last: this._path.path[this._path.path.length - 1]});
+                this.$el.find('.j-categories').html(_.template(_categories)(this._categories));
+
+                this.$el.find('.j-models').html(_.template(_models)(this._models));
+            }
         }
     });
 
     return {
-        List: List
+        Layout: Layout
     };
 });

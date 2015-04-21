@@ -33,21 +33,38 @@ require([
     'View/Offers',
     'View/Loader'
 ], function ($, Offers, Loader) {
-    var List;
+    var Params = Backbone.Model.extend({}),
+        params,
+        Layout;
+
+    params = new Params({
+        modelsId:   null,
+        page:       null
+    });
+
+
+    params.on('change:modelId', function () {
+        Layout  = new Offers.Layout({obj: $('.b-section'), modelId: params.get('modelId') || undefined});
+        Layout.render();
+        if (!params.hasChanged('page')) {
+            params.set({
+                page: 1
+            });
+        }
+    });
+
+    params.on('change:page', function () {
+        if (Layout) {
+            Layout.offers(params.get('modelId'), params.get('page'));
+        }
+    });
 
     // Маршруты
-    function Index(modelId) {
-        List  = new Offers.List({obj: $('.b-section'), modelId: modelId || undefined, page: undefined});
-        List.render();
-    }
-
-    function More(modelId, page) {
-        if (List) {
-            List.list(modelId, page);
-        } else {
-            List  = new Offers.List({obj: $('.b-section'), modelId: modelId || undefined, page: page || undefined});
-            List.render();
-        }
+    function Index(modelId, page) {
+        params.set({
+            modelId: modelId    || undefined,
+            page:       page    || undefined
+        });
     }
 
     $(function () {
@@ -57,8 +74,7 @@ require([
         loader.render();
 
         // Маршрутизация
-        router.route('(:modelId)', 'offers', Index);
-        router.route(':modelId/:page', 'more', More);
+        router.route('(:modelId)(/:page)', 'index', Index);
         //router.route('*other', 'default', Index);
 
         Backbone.history.start();

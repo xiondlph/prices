@@ -10,9 +10,7 @@
 
 
 // Объявление модулей
-var http            = require('http'),
-    json2csv        = require('json2csv'),
-    urlencode       = require("urlencode");
+var http            = require('http');
 
 //---------------------- HTTP запросы ----------------------//
 

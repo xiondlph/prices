@@ -1,4 +1,0 @@
-<% if (obj.model) { %>
-<h3><%= model.name %></h3>
-<p><%= model.description %></p>
-<% } %>

@@ -2,6 +2,7 @@
     width: 100%;
 }
 
+.b-loader__table,
 .b-offers__table {
     background-color: #fff;
     padding: 10px;

@@ -12,13 +12,12 @@ define([
     'backbone',
     'validator',
     'View/Popup',
+    'text!Templates/Models/Loader.tpl',
     'text!Templates/Models/Layout.tpl',
-    'text!Templates/Models/Path.tpl',
-    'text!Templates/Models/Categories.tpl',
     'text!Templates/Models/Models.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _layout, _path, _categories, _models, _success, _error) {
+], function (Backbone, Validator, Popup, _loader, _layout, _models, _success, _error) {
 
 
     /**
@@ -47,7 +46,7 @@ define([
             me.path();
             me.categories();
 
-            me.$el.append(_.template(_layout));
+            me.$el.append(_.template(_loader));
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
             setTimeout(function () {
@@ -70,7 +69,9 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    categoryId: me.options.categoryId
+                    categoryId: me.options.categoryId,
+                    geo_id:     213,
+                    count:      30
                 }
             }).done(function (data) {
                 me._categories = data;
@@ -90,7 +91,8 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    categoryId: me.options.categoryId
+                    categoryId: me.options.categoryId || 90401,
+                    geo_id:     213
                 }
             }).done(function (data) {
                 me._path = data;
@@ -102,7 +104,8 @@ define([
         },
 
         models: function (categoryId, page) {
-            var me = this,
+            var me          = this,
+                _categoryId = categoryId || 90401,
                 popup;
 
             $.ajax({
@@ -110,13 +113,15 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    categoryId: categoryId,
-                    page:       page
+                    categoryId: _categoryId,
+                    count:      30,
+                    page:       page,
+                    geo_id:     213
                 }
             }).done(function (data) {
                 me._models = _.extend(data, {categoryId: categoryId});
                 me.statge();
-            }).fail(function () {
+            }).fail(function (data) {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
@@ -132,10 +137,10 @@ define([
             }
 
             if (this._state === 3) {
-                this.$el.find('.j-path').html(_.template(_path)(this._path));
-
-                _.extend(this._categories, {last: this._path.path[this._path.path.length - 1]});
-                this.$el.find('.j-categories').html(_.template(_categories)(this._categories));
+                this.$el.html(_.template(_layout)({
+                    path: this._path.path,
+                    categories: this._categories.categories
+                }));
 
                 this.$el.find('.j-models').html(_.template(_models)(this._models));
             }

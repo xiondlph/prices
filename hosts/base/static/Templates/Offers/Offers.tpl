@@ -26,6 +26,10 @@
 <%                 } %>
 <%             } %>
 <%         } %>
+<%         if (offers.total > ((offers.page + 3) * 30) - 30) { %>
+                        <span>...</span>
+                        <a href="#<%= modelId %>/<%= Math.ceil(offers.total / 30) %>"><%= Math.ceil(offers.total / 30) %></a>
+<%         } %>
 <%         if (offers.total > ((offers.page + 1) * 30) - 30) { %>
                         <a href="#<%= modelId %>/<%= offers.page + 1 %>">&rarr;</a>
 <%         } %>

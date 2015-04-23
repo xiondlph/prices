@@ -12,13 +12,12 @@ define([
     'backbone',
     'validator',
     'View/Popup',
+    'text!Templates/Offers/Loader.tpl',
     'text!Templates/Offers/Layout.tpl',
     'text!Templates/Offers/Offers.tpl',
-    'text!Templates/Offers/Model.tpl',
-    'text!Templates/Offers/Path.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _layout, _offers, _model, _path, _success, _error) {
+], function (Backbone, Validator, Popup, _loader, _layout, _offers, _success, _error) {
 
 
     /**
@@ -46,7 +45,7 @@ define([
 
             me.model(me.options.modelId);
 
-            me.$el.append(_.template(_layout));
+            me.$el.append(_.template(_loader));
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
             setTimeout(function () {
@@ -69,7 +68,8 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    modelId: modelId
+                    modelId:    modelId,
+                    geo_id:     213
                 }
             }).done(function (data) {
                 me.path(data.model.categoryId);
@@ -90,7 +90,8 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    categoryId: categoryId
+                    categoryId: categoryId,
+                    geo_id:     213
                 }
             }).done(function (data) {
                 me._path = data;
@@ -110,8 +111,10 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    modelId: modelId,
-                    page:       page
+                    modelId:    modelId,
+                    page:       page,
+                    count:      30,
+                    geo_id:     213
                 }
             }).done(function (data) {
                 data = _.extend(data, {modelId: modelId});
@@ -133,8 +136,11 @@ define([
             }
 
             if (this._state === 3) {
-                this.$el.find('.j-model').html(_.template(_model)(this._model));
-                this.$el.find('.j-path').html(_.template(_path)(this._path));
+                this.$el.html(_.template(_layout)({
+                    path:   this._path.path,
+                    model:  this._model.model
+                }));
+
                 this.$el.find('.j-offers').html(_.template(_offers)(this._offers));
             }
         },
@@ -149,7 +155,9 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    modelId: me.options.modelId
+                    modelId:    me.options.modelId,
+                    geo_id:     213,
+                    count:      30
                 }
             }).done(function (data) {
                 var out = '',

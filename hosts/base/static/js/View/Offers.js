@@ -103,19 +103,20 @@ define([
         },
 
         offers: function (modelId, page) {
-            var me = this,
+            var me      = this,
+                params  = {},
                 popup;
+
+            params.modelId  = modelId;
+            params.page     = page;
+            params.count    = 30;
+            params.geo_id   = 213;
 
             $.ajax({
                 url         : '/offers',
                 type        : 'POST',
                 dataType    : 'json',
-                data        : {
-                    modelId:    modelId,
-                    page:       page,
-                    count:      30,
-                    geo_id:     213
-                }
+                data        : params
             }).done(function (data) {
                 data = _.extend(data, {modelId: modelId});
                 me._offers = data;

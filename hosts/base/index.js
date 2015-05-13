@@ -89,6 +89,7 @@ router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap)
 router.post('^http://www.' + host + '.ru/category/?$', controller.category.get);
 router.post('^http://www.' + host + '.ru/path/?$', controller.category.path);
 router.post('^http://www.' + host + '.ru/categories/?$', controller.category.list);
+router.post('^http://www.' + host + '.ru/filters/?$', controller.category.filters);
 
 // Models
 router.get('^http://www.' + host + '.ru/models/?$', controller.models.index);

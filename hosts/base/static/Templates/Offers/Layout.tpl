@@ -22,6 +22,8 @@
             <a href="#">Экспорт</a>
         </div>
     </div>
+</div>
+<div class="b-table b-offers__table">
     <div class="b-table__tr">
         <div class="b-table__tr__td j-offers"></div>
     </div>

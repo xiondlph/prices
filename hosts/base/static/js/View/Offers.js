@@ -167,7 +167,7 @@ define([
                 for (i = 0; i < data.length; i++) {
                     out += '"' + data[i].name + '",';
                     out += '"' + data[i].price.value + '",';
-                    out += '"' + data[i].price.currencyName + '"\n';
+                    //out += '"' + data[i].price.currencyName + '"\n';
                 }
 
                 me.download(out, 'test.csv', 'text/csv');

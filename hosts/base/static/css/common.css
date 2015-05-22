@@ -375,7 +375,7 @@ b, strong {
     text-align: right;
     display: block;
     margin: 0 auto;
-    width: 800px;
+    width: 1024px;
     height: 40px;
 }
 
@@ -583,7 +583,7 @@ b, strong {
     min-height: 100%;
     margin: 0 auto;
     height: auto;
-    width: 800px;
+    width: 1024px;
 }
 
 /*** Раздел ***/
@@ -789,10 +789,10 @@ b, strong {
     background-position: left center;
     background-repeat: no-repeat;
     padding: 10px 0 10px 50px;
-    margin: 0 0 0 -400px;
+    margin: 0 0 0 -512px;
     position: absolute;
     font-size: 14px;
-    width: 800px;
+    width: 1024px;
     top: -60px;
     left: 50%;
 }
@@ -801,7 +801,7 @@ b, strong {
     list-style: none;
     display: block;
     margin: 0 auto;
-    width: 800px;
+    width: 1024px;
     padding: 0;
 }
 

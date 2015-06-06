@@ -10,16 +10,25 @@ module.exports = {
 
     simple: {
         options: {
-            banner: '/* Index minified */'
+            banner: '/* Simple minified */'
         },
         files: {
             'hosts/base/static/build/simple.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/simple.css']
         }
     },
 
+    categories: {
+        options: {
+            banner: '/* Categories minified */'
+        },
+        files: {
+            'hosts/base/static/build/categories.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/categories.css']
+        }
+    },
+
     models: {
         options: {
-            banner: '/* Index minified */'
+            banner: '/* Sodels minified */'
         },
         files: {
             'hosts/base/static/build/models.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/models.css']
@@ -28,7 +37,7 @@ module.exports = {
 
     offers: {
         options: {
-            banner: '/* Index minified */'
+            banner: '/* Offers minified */'
         },
         files: {
             'hosts/base/static/build/offers.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/offers.css']

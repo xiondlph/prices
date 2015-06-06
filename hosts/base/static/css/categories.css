@@ -1,0 +1,31 @@
+.b-categories {
+    width: 100%;
+}
+
+.b-loader__table,
+.b-categories__table {
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+}
+
+.b-categories__item {
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    width: 235px;
+}
+
+.b-categories__item:after {
+    -webkit-box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+    -moz-box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+    box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+
+    position: absolute;
+    content: "\00a0";
+    display: block;
+    right: -5px;
+    top: 0;
+}

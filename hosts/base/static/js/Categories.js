@@ -1,7 +1,7 @@
 /**
- * Модуль инициализации стр. списка моделей
+ * Модуль инициализации стр. списка категорий
  *
- * @module      Models
+ * @module      Categories
  * @category    Client side
  * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
@@ -30,39 +30,26 @@ require.config({
 
 require([
     'jquery',
-    'View/Models',
+    'View/Categories',
     'View/Loader'
-], function ($, Models, Loader) {
+], function ($, Categories, Loader) {
     var Params = Backbone.Model.extend({}),
         params,
         Layout;
 
     params = new Params({
-        categoryId: null,
-        page:       null
+        categoryId: null
     });
 
     params.on('change:categoryId', function () {
-        Layout  = new Models.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined});
+        Layout  = new Categories.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined});
         Layout.render();
-        if (!params.hasChanged('page')) {
-            params.set({
-                page: 1
-            });
-        }
-    });
-
-    params.on('change:page', function () {
-        if (Layout) {
-            Layout.models(params.get('categoryId'), params.get('page'));
-        }
     });
 
     // Маршруты
     function Index(categoryId, page) {
         params.set({
-            categoryId: categoryId  || undefined,
-            page:       page        || undefined
+            categoryId: categoryId  || undefined
         });
     }
 
@@ -73,7 +60,7 @@ require([
         loader.render();
 
         // Маршрутизация
-        router.route(':categoryId(/:page)', 'index', Index);
+        router.route('(:categoryId)', 'index', Index);
         //router.route('*other', 'default', Index);
 
         Backbone.history.start();

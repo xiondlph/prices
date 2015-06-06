@@ -17,6 +17,19 @@ var http            = require('http'),
 
 
 /**
+ * Основная страница
+ *
+ * @method index
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.index = function (req, res, next) {
+    res.render(__dirname + '/../view/', 'categories');
+};
+
+
+/**
  * Информация о категории
  *
  * @method get
@@ -25,46 +38,15 @@ var http            = require('http'),
  * @param {Function} next
  */
 exports.get = function (req, res, next) {
-    var categoryId = req.params.categoryId,
-        request;
+    var categoryId = req.params.categoryId;
 
     delete req.params.categoryId;
-    if (!req.params.hasOwnProperty('geo_id')) {
-        req.params.remote_ip = req.headers['x-forwarded-for'];
-    }
 
-    request = http.request({
-        host:     '194.58.98.18',
-        port:     3000,
-        path:     '/v1/category/' + categoryId + '.json?' + querystring.stringify(req.params),
-        method:   'GET',
-        headers: {
-            'Host':                 'market.icsystem.ru',
-            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-            'X-Forwarded-Proto':    'http',
-            'X-Forwarded-for':      req.headers['x-forwarded-for']
-        }
-    }, function (response) {
-        var data = '';
-
-        response.on('data', function (chunk) {
-            data += chunk.toString();
-        });
-
-        response.on('end', function () {
-            res.statusCode = response.statusCode;
-            res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-            res.end(data);
-        });
-    });
-
-    request.on('error', function (err) {
-        res.statusCode = 500;
+    req.api('/v1/category/' + categoryId + '.json?' + querystring.stringify(req.params), function (status, data) {
+        res.statusCode = status;
         res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-        res.end(JSON.stringify({errors: [err.message]}, null, "\t"));
+        res.end(data);
     });
-
-    request.end();
 };
 
 
@@ -83,11 +65,8 @@ exports.path = function (req, res, next) {
         };
 
     delete req.params.categoryId;
-    if (!req.params.hasOwnProperty('geo_id')) {
-        req.params.remote_ip = req.headers['x-forwarded-for'];
-    }
 
-    function _path(categoryId, accept) {
+    function loop(categoryId, accept) {
         var request = http.request({
             host:     '194.58.98.18',
             port:     3000,
@@ -112,7 +91,7 @@ exports.path = function (req, res, next) {
                 if (response.statusCode === 200) {
                     result.path.unshift(_data);
                     if (_data.category.parentId > 0) {
-                        _path(_data.category.parentId, accept);
+                        loop(_data.category.parentId, accept);
                     } else {
                         accept(200);
                     }
@@ -134,7 +113,7 @@ exports.path = function (req, res, next) {
         request.end();
     }
 
-    _path(categoryId, function (statusCode) {
+    loop(categoryId, function (statusCode) {
         res.statusCode = statusCode;
         res.setHeader('Content-Type', 'application-json; charset=UTF-8');
         res.end(JSON.stringify(result, null, "\t"));
@@ -151,14 +130,10 @@ exports.path = function (req, res, next) {
  * @param {Function} next
  */
 exports.list = function (req, res, next) {
-    var categoryId  = req.params.categoryId,
-        request,
+    var categoryId = req.params.categoryId,
         url;
 
     delete req.params.categoryId;
-    if (!req.params.hasOwnProperty('geo_id')) {
-        req.params.remote_ip = req.headers['x-forwarded-for'];
-    }
 
     if (categoryId) {
         url = '/v1/category/' + categoryId + '/children.json?' + querystring.stringify(req.params);
@@ -166,38 +141,11 @@ exports.list = function (req, res, next) {
         url = '/v1/category.json?' + querystring.stringify(req.params);
     }
 
-    request = http.request({
-        host:     '194.58.98.18',
-        port:     3000,
-        path:     url,
-        method:   'GET',
-        headers: {
-            'Host':                 'market.icsystem.ru',
-            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-            'X-Forwarded-Proto':    'http',
-            'X-Forwarded-for':      req.headers['x-forwarded-for']
-        }
-    }, function (response) {
-        var data = '';
-
-        response.on('data', function (chunk) {
-            data += chunk.toString();
-        });
-
-        response.on('end', function () {
-            res.statusCode = response.statusCode;
-            res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-            res.end(data);
-        });
-    });
-
-    request.on('error', function (err) {
-        res.statusCode = 500;
+    req.api(url, function (status, data) {
+        res.statusCode = status;
         res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-        res.end(JSON.stringify({errors: [err.message]}, null, "\t"));
+        res.end(data);
     });
-
-    request.end();
 };
 
 
@@ -210,44 +158,13 @@ exports.list = function (req, res, next) {
  * @param {Function} next
  */
 exports.filters = function (req, res, next) {
-    var categoryId  = req.params.categoryId,
-        request;
+    var categoryId = req.params.categoryId;
 
     delete req.params.categoryId;
-    if (!req.params.hasOwnProperty('geo_id')) {
-        req.params.remote_ip = req.headers['x-forwarded-for'];
-    }
 
-    request = http.request({
-        host:     '194.58.98.18',
-        port:     3000,
-        path:     '/v1/category/' + categoryId + '/filters.json?' + querystring.stringify(req.params),
-        method:   'GET',
-        headers: {
-            'Host':                 'market.icsystem.ru',
-            'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-            'X-Forwarded-Proto':    'http',
-            'X-Forwarded-for':      req.headers['x-forwarded-for']
-        }
-    }, function (response) {
-        var data = '';
-
-        response.on('data', function (chunk) {
-            data += chunk.toString();
-        });
-
-        response.on('end', function () {
-            res.statusCode = response.statusCode;
-            res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-            res.end(data);
-        });
-    });
-
-    request.on('error', function (err) {
-        res.statusCode = 500;
+    req.api('/v1/category/' + categoryId + '/filters.json?' + querystring.stringify(req.params), function (status, data) {
+        res.statusCode = status;
         res.setHeader('Content-Type', 'application-json; charset=UTF-8');
-        res.end(JSON.stringify({errors: [err.message]}, null, "\t"));
+        res.end(data);
     });
-
-    request.end();
 };

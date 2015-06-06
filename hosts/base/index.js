@@ -45,6 +45,7 @@ var model = {};
  * @type Object
  */
 var controller = {
+    request:    require('./controller/request'),
     index:      require('./controller/index'),
     category:   require('./controller/category'),
     models:     require('./controller/models'),
@@ -86,17 +87,18 @@ router.get('^http://www.' + host + '.ru/about/?$', controller.index.about);
 router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap);
 
 // Category
-router.post('^http://www.' + host + '.ru/category/?$', controller.category.get);
+router.get('^http://www.' + host + '.ru/categories/?$', controller.category.index);
+router.post('^http://www.' + host + '.ru/category/?$', controller.request.api, controller.category.get);
 router.post('^http://www.' + host + '.ru/path/?$', controller.category.path);
-router.post('^http://www.' + host + '.ru/categories/?$', controller.category.list);
-router.post('^http://www.' + host + '.ru/filters/?$', controller.category.filters);
+router.post('^http://www.' + host + '.ru/categories/?$', controller.request.api, controller.category.list);
+router.post('^http://www.' + host + '.ru/filters/?$', controller.request.api, controller.category.filters);
 
 // Models
 router.get('^http://www.' + host + '.ru/models/?$', controller.models.index);
-router.post('^http://www.' + host + '.ru/model/?$', controller.models.get);
-router.post('^http://www.' + host + '.ru/models/?$', controller.models.list);
+router.post('^http://www.' + host + '.ru/model/?$', controller.request.api, controller.models.get);
+router.post('^http://www.' + host + '.ru/models/?$', controller.request.api, controller.models.list);
 
 // Offers
 router.get('^http://www.' + host + '.ru/offers/?$', controller.offers.index);
-router.post('^http://www.' + host + '.ru/offers/?$', controller.offers.list);
+router.post('^http://www.' + host + '.ru/offers/?$', controller.request.api, controller.offers.list);
 router.post('^http://www.' + host + '.ru/csv/?$', controller.offers.csv);

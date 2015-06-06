@@ -46,8 +46,8 @@ define([
         render: function () {
             var me = this;
 
+            me.result = {};
             me.path();
-            me.categories();
             me.filters();
 
             me.$el.append(_.template(_loader));
@@ -73,28 +73,6 @@ define([
             document.location.href = filterUrl;
         },
 
-        categories: function () {
-            var me = this,
-                popup;
-
-            $.ajax({
-                url         : '/categories',
-                type        : 'POST',
-                dataType    : 'json',
-                data        : {
-                    categoryId: me.options.categoryId,
-                    geo_id:     213,
-                    count:      30
-                }
-            }).done(function (data) {
-                me._categories = data;
-                me.statge();
-            }).fail(function () {
-                popup = new Popup({content: $(_error)});
-                popup.render();
-            });
-        },
-
         path: function () {
             var me = this,
                 popup;
@@ -108,7 +86,7 @@ define([
                     geo_id:     213
                 }
             }).done(function (data) {
-                me._path = data;
+                me.result.path = data.path;
                 me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
@@ -155,8 +133,12 @@ define([
                 dataType    : 'json',
                 data        : params
             }).done(function (data) {
-                me._models = _.extend(data, {categoryId: categoryId});
-                me.statge();
+                me.result.models = _.extend(data.models, {categoryId: categoryId});
+                if (me.result.hasOwnProperty('models')) {
+                    me.list();
+                } else {
+                    me.statge();
+                }
             }).fail(function (data) {
                 popup = new Popup({content: $(_error)});
                 popup.render();
@@ -176,7 +158,7 @@ define([
                     geo_id:     213
                 }
             }).done(function (data) {
-                me._filters = data;
+                me.result.filters = data.filters;
                 me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
@@ -185,23 +167,18 @@ define([
         },
 
         statge: function () {
-            if (this._state < 5) {
-                this._state++;
-            }
-
-            if (this._state > 4) {
-                this.$el.find('.j-models').html(_.template(_models)(this._models));
-            }
-
-            if (this._state === 4) {
+            if (this.result.hasOwnProperty('path') && this.result.hasOwnProperty('models') && this.result.hasOwnProperty('filters')) {
                 this.$el.html(_.template(_layout)({
-                    path: this._path.path,
-                    categories: this._categories.categories
+                    path: this.result.path
                 }));
 
-                this.$el.find('.j-filters').html(_.template(_filters)(this._filters));
-                this.$el.find('.j-models').html(_.template(_models)(this._models));
+                this.$el.find('.j-filters').html(_.template(_filters)({filters: this.result.filters}));
+                this.list();
             }
+        },
+
+        list: function () {
+            this.$el.find('.j-models').html(_.template(_models)({models: this.result.models}));
         }
     });
 

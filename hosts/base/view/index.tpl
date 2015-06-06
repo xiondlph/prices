@@ -18,7 +18,7 @@
 <#@ /inc/header #>
     <section class="b-section">
         <h1>Сервис мониторинга цен</h1>
-        <a href="/models" class="f-btn f-btn_red f-btn_redirect">Начать использовать</a>
+        <a href="/categories" class="f-btn f-btn_red f-btn_redirect">Начать использовать</a>
     </section>
 <#@ /inc/footer #>
 </body>

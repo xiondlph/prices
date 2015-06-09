@@ -38,7 +38,7 @@
 <%         } %>
 <%         if (models.total > ((models.page + 3) * 30) - 30) { %>
                         <span>...</span>
-<%             if ( Math.ceil(models.total / 30) <= 50 ) %>
+<%             if ( Math.ceil(models.total / 30) <= 50 ) { %>
                         <a href="#<%= models.categoryId %>/<%= Math.ceil(models.total / 30) %>"><%= Math.ceil(models.total / 30) %></a>
 <%             } else { %>
                         <a href="#<%= models.categoryId %>/50">50</a>

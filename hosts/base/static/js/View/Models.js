@@ -127,12 +127,17 @@ define([
                 dataType    : 'json',
                 data        : params
             }).done(function (data) {
-                me.result.models = _.extend(data.models, {categoryId: categoryId});
+                var call;
+
                 if (me.result.hasOwnProperty('models')) {
-                    me.list();
+                    call = me.list();
                 } else {
-                    me.statge();
+                    call = me.statge();
                 }
+
+                me.result.models = _.extend(data.models, {categoryId: categoryId});
+                call();
+
             }).fail(function (data) {
                 popup = new Popup({content: $(_error)});
                 popup.render();

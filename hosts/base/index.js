@@ -101,4 +101,4 @@ router.post('^http://www.' + host + '.ru/models/?$', controller.request.api, con
 // Offers
 router.get('^http://www.' + host + '.ru/offers/?$', controller.offers.index);
 router.post('^http://www.' + host + '.ru/offers/?$', controller.request.api, controller.offers.list);
-router.post('^http://www.' + host + '.ru/csv/?$', controller.request.api, controller.offers.csv);
+router.post('^http://www.' + host + '.ru/offers/all/?$', controller.request.api, controller.offers.all);

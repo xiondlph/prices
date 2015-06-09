@@ -152,7 +152,7 @@ define([
                 popup;
 
             $.ajax({
-                url         : '/csv',
+                url         : '/offers/all',
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {

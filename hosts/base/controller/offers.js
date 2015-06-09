@@ -51,14 +51,14 @@ exports.list = function (req, res, next) {
 
 
 /**
- * Генирация csv формата
+ * Все товарные предложения
  *
- * @method csv
+ * @method all
  * @param {Object} req Объект запроса сервера
  * @param {Object} res Объект ответа сервера
  * @param {Function} next
  */
-exports.csv = function (req, res, next) {
+exports.all = function (req, res, next) {
     var modelId     = req.params.modelId,
         result = [];
 

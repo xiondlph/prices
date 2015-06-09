@@ -71,7 +71,7 @@ exports.csv = function (req, res, next) {
             if (status === 200) {
                 if (_data.hasOwnProperty('offers') && _data.offers.count > 0) {
                     result = result.concat(_data.offers.items);
-                    _request(_data.offers.page + 1, accept);
+                    loop(_data.offers.page + 1, accept);
                 } else {
                     accept(200);
                 }

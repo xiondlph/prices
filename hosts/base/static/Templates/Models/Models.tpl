@@ -44,7 +44,7 @@
                         <a href="#<%= models.categoryId %>/50">50</a>
 <%             } %>
 <%         } %>
-<%         if (models.total > ((models.page + 1) * 30) - 30) { %>
+<%         if (models.total > ((models.page + 1) * 30) - 30 && 50 > ((models.page + 1) * 30) - 30) { %>
                         <a href="#<%= models.categoryId %>/<%= models.page + 1 %>">&rarr;</a>
 <%         } %>
                     </td>

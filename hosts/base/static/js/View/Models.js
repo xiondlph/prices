@@ -130,9 +130,9 @@ define([
                 var call;
 
                 if (me.result.hasOwnProperty('models')) {
-                    call = me.list;
+                    call = me.list.bind(me);
                 } else {
-                    call = me.statge;
+                    call = me.statge.bind(me);
                 }
 
                 me.result.models = _.extend(data.models, {categoryId: categoryId});

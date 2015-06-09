@@ -66,55 +66,26 @@ exports.path = function (req, res, next) {
 
     delete req.params.categoryId;
 
-    function loop(categoryId, accept) {
-        var request = http.request({
-            host:     '194.58.98.18',
-            port:     3000,
-            path:     '/v1/category/' + categoryId + '.json?' + querystring.stringify(req.params),
-            method:   'GET',
-            headers: {
-                'Host':                 'market.icsystem.ru',
-                'X-Ismax-Key':          '85d1fb3b78dfab1d14aebdb44d78eb9ff6b9811515e0698078ad93d7477dc370',
-                'X-Forwarded-Proto':    'http',
-                'X-Forwarded-for':      req.headers['x-forwarded-for']
-            }
-        }, function (response) {
-            var data = '';
+    function loop(category, accept) {
+        req.api('/v1/category/' + category + '.json?' + querystring.stringify(req.params), function (status, data) {
+            var _data = JSON.parse(data);
 
-            response.on('data', function (chunk) {
-                data += chunk.toString();
-            });
-
-            response.on('end', function () {
-                var _data = JSON.parse(data);
-
-                if (response.statusCode === 200) {
-                    result.path.unshift(_data);
-                    if (_data.category.parentId > 0) {
-                        loop(_data.category.parentId, accept);
-                    } else {
-                        accept(200);
-                    }
+            if (status === 200) {
+                result.path.unshift(_data);
+                if (_data.category.parentId > 0) {
+                    loop(_data.category.parentId, accept);
                 } else {
-                    result = _data;
-                    accept(response.statusCode);
+                    accept(200);
                 }
-            });
-        });
-
-        request.on('error', function (err) {
-            result = {
-                errors: [err.message]
-            };
-
-            accept(500);
-        });
-
-        request.end();
+            } else {
+                result = _data;
+                accept(status);
+            }
+        });        
     }
 
-    loop(categoryId, function (statusCode) {
-        res.statusCode = statusCode;
+    loop(categoryId, function (status) {
+        res.statusCode = status;
         res.setHeader('Content-Type', 'application-json; charset=UTF-8');
         res.end(JSON.stringify(result, null, "\t"));
     });

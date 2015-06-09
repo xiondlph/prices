@@ -37,12 +37,6 @@ define([
             'change select':       'filtersChange'
         },
 
-        _state: 0,
-        _path: null,
-        _categories: null,
-        _models: null,
-        _filters: null,
-
         render: function () {
             var me = this;
 

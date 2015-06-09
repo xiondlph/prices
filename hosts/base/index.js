@@ -89,7 +89,7 @@ router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap)
 // Category
 router.get('^http://www.' + host + '.ru/categories/?$', controller.category.index);
 router.post('^http://www.' + host + '.ru/category/?$', controller.request.api, controller.category.get);
-router.post('^http://www.' + host + '.ru/path/?$', controller.category.path);
+router.post('^http://www.' + host + '.ru/path/?$', controller.request.api, controller.category.path);
 router.post('^http://www.' + host + '.ru/categories/?$', controller.request.api, controller.category.list);
 router.post('^http://www.' + host + '.ru/filters/?$', controller.request.api, controller.category.filters);
 

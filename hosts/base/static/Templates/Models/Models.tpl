@@ -31,7 +31,7 @@
 <%             if (i > 0) { %>
 <%                 if (i == models.page) { %>
                         <span><%= i %></span>
-<%                 } else if (models.total > (i * 30) - 30) { %>
+<%                 } else if (models.total > (i * 30) - 30 && (i * 30) - 30 <= 50) { %>
                         <a href="#<%= models.categoryId %>/<%= i %>"><%= i %></a>
 <%                 } %>
 <%             } %>

@@ -81,7 +81,7 @@ exports.path = function (req, res, next) {
                 result = _data;
                 accept(status);
             }
-        });        
+        });
     }
 
     loop(categoryId, function (status) {

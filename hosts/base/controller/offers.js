@@ -65,7 +65,7 @@ exports.all = function (req, res, next) {
     delete req.params.modelId;
     delete req.params.page;
 
-    function loop(page, accept){
+    function loop(page, accept) {
         req.api('/v1/model/' + modelId + '/offers.json?page=' + page + '&' + querystring.stringify(req.params), function (status, data) {
             var _data = JSON.parse(data);
             if (status === 200) {

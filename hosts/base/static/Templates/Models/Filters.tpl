@@ -1,5 +1,18 @@
 <form id="filters">
     <table>
+        <tr>
+            <td>
+                <label for="vendor"><%= filters[2].name %></label>
+            </td>
+            <td>
+                <select id="vendor">
+                    <option value="0">Все</option>
+<%          for (index in filters[2].options){ %>
+                    <option value="<%= filters[2].options[index].valueId %>"><%= filters[2].options[index].valueText %></option>
+<%          } %>
+                </select>
+            </td>
+        </tr>
 <% for (var i = 1; i < filters.length; i++) { %>
 <%     if (filters[i].type === 'BOOL') { %>
         <tr>
@@ -15,7 +28,7 @@
             </td>
         </tr>
 <%     } %>
-<%     if (filters[i].type === 'ENUMERATOR') { %>
+<%     if (filters[i].type === 'ENUMERATOR' && filters[i].enumFilterType !== 'VENDOR') { %>
         <tr>
             <td>
                 <label for="<%= filters[i].id %>"><%= filters[i].name %></label>

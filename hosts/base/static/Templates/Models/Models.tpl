@@ -20,7 +20,10 @@
                     <td class="b-grid__cell b-grid__cell_item"><a href="/offers#<%= models.items[i].id %>"><%= models.items[i].offersCount %></a></td>
                 </tr>
 <%     } %>
-<%     if (models.total > 30) { %>
+<%
+       models.total = models.total <= 1500 ? models.total : 1500;
+
+       if (models.total > 30) { %>
                 <tr class="b-grid__row b-pagination j-pagination">
                     <td class="b-grid__cell" colspan="7">
 <%         if (models.page > 1) { %>
@@ -31,20 +34,16 @@
 <%             if (i > 0) { %>
 <%                 if (i == models.page) { %>
                         <span><%= i %></span>
-<%                 } else if (models.total > (i * 30) - 30 && (i * 30) - 30 <= 50) { %>
+<%                 } else if (models.total > (i * 30) - 30) { %>
                         <a href="#<%= models.categoryId %>/<%= i %>"><%= i %></a>
 <%                 } %>
 <%             } %>
 <%         } %>
 <%         if (models.total > ((models.page + 3) * 30) - 30) { %>
                         <span>...</span>
-<%             if ( Math.ceil(models.total / 30) <= 50 ) { %>
                         <a href="#<%= models.categoryId %>/<%= Math.ceil(models.total / 30) %>"><%= Math.ceil(models.total / 30) %></a>
-<%             } else { %>
-                        <a href="#<%= models.categoryId %>/50">50</a>
-<%             } %>
 <%         } %>
-<%         if (models.total > ((models.page + 1) * 30) - 30 && 50 > ((models.page + 1) * 30) - 30) { %>
+<%         if (models.total > ((models.page + 1) * 30) - 30) { %>
                         <a href="#<%= models.categoryId %>/<%= models.page + 1 %>">&rarr;</a>
 <%         } %>
                     </td>

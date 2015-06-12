@@ -1,10 +1,10 @@
 <div class="b-table b-offers__table">
     <div class="b-table__tr j-path">
         <div class="b-table__tr__td b-table__tr__td_wide">
-            <a href="/models">Категории</a>
+            <a href="/categories">Категории</a>
 <% if (path.length > 1) { %>
 <%     for (var i = 1; i < path.length; i++) { %>
-            <a href="/models#<%= path[i].category.id %>"><%= path[i].category.name %></a>
+            <a href="/categories#<%= path[i].category.id %>"><%= path[i].category.name %></a>
 <%     } %>
 <% } %>
         </div>

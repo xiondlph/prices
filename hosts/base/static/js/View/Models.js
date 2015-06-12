@@ -116,6 +116,7 @@ define([
                 }
             }
 
+            params.vendor_id    = $('#vendor').val();
             params.categoryId   = _categoryId;
             params.page         = page;
             params.count        = 30;

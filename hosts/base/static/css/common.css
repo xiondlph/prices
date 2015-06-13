@@ -455,14 +455,14 @@ b, strong {
     top: 0;
 }
 
-/*** Всплывающий блок меню пользователя ***/
-.b-user {
+/*** Всплывающий блок вложенного меню ***/
+.b-menu {
     position: relative;
     text-align: left;
     float: right;
 }
 
-.b-user__label {
+.b-menu__label {
     -webkit-transition: color 0.3s linear;
     -moz-transition: color 0.3s linear;
     -o-transition: color 0.3s linear;
@@ -473,11 +473,11 @@ b, strong {
     line-height: 40px;
     font-weight: bold;
     cursor: pointer;
-    margin: 0 0 0 10px;
+    margin: 0 10px 0 10px;
     color: #aeaeae;
 }
 
-.b-user__label_active:before {
+.b-menu__label_active:before {
     background-color: #e05d6f;
     position: absolute;
     display: block;
@@ -488,12 +488,12 @@ b, strong {
     top: 0;
 }
 
-.b-user__menu_active + .b-user__label,
-.b-user__label:hover {
+.b-menu__sub_active + .b-menu__label,
+.b-menu__label:hover {
     color: #e05d6f;
 }
 
-.b-user__menu {
+.b-menu__sub {
     -webkit-transition: top 0.1s linear;
     -moz-transition: top 0.1s linear;
     -o-transition: top 0.1s linear;
@@ -512,7 +512,7 @@ b, strong {
     right: 0;
 }
 
-.b-user__menu:before {
+.b-menu__sub:before {
     border-left: 1px solid rgba(0,0,0,.1);
     border-bottom: 1px solid rgba(0,0,0,.1);
 
@@ -531,21 +531,22 @@ b, strong {
     top: -7px;
 }
 
-.b-user__menu_active {
+.b-menu__sub_active {
     visibility: visible;
     display: block;
     top: 38px;
 }
 
-.b-user__menu__item {
+.b-menu__sub__item {
     position: relative;
+    padding: 0;
 }
 
-.b-user__menu__item:hover {
+.b-menu__sub__item:hover {
     background-color: #fee9a5;
 }
 
-.b-user__menu__item__link {
+.b-menu__sub__item__link {
     background-position: 15px center;
     background-repeat: no-repeat;
     padding: 10px 10px 10px 40px;
@@ -554,22 +555,22 @@ b, strong {
     float: none;
 }
 
-.b-user__menu__item__link:hover {
+.b-menu__sub__item__link:hover {
     text-decoration: none;
 }
 
-.b-user__menu__item__link:before {
+.b-menu__sub__item__link:before {
     position: absolute;
     font-size: 16px;
     left: 15px;
     top: 11px;
 }
 
-.b-user__menu__item__link:hover:before {
+.b-menu__sub__item__link:hover:before {
     color: #e05d6f;
 }
 
-.b-user__menu__item__link_active {
+.b-menu__sub__item__link_active {
     background-position: 13px center;
     border-left: 3px solid #e05d6f;
     padding: 10px 10px 10px 38px;

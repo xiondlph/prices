@@ -34,7 +34,9 @@ var middleware = {
  * @attribute model 
  * @type Object
  */
-var model = {};
+var model = {
+    secure:     require('./model/secure')
+};
 
 
 
@@ -45,8 +47,11 @@ var model = {};
  * @type Object
  */
 var controller = {
-    request:    require('./controller/request'),
     index:      require('./controller/index'),
+    secure:     require('./controller/secure'),
+    user:       require('./controller/user'),
+    profile:    require('./controller/profile'),
+    request:    require('./controller/request'),
     category:   require('./controller/category'),
     models:     require('./controller/models'),
     offers:     require('./controller/offers')
@@ -66,39 +71,75 @@ if (process.env.NODE_ENV !== 'prod') {
     host = process.env.HOST || 'ismax';
 }
 
+/*** Установка текущего хоста ***/
+router.setCurrentHost(host);
+
 /*** Назначение HTTP маршрутов ***/
 
 // Общие настройки для GET запросов
-router.get('^http://www.' + host + '.ru/.*$', middleware.view);
+router.get('^(http|https)://www.' + host + '.ru/.*$', middleware.view);
 
 // Общие настройки для POST запросов
-router.post('^http://www.' + host + '.ru/.*$', middleware.post);
+router.post('^(http|https)://www.' + host + '.ru/.*$', middleware.post);
+
+// Общие настройки для OPTIONS запросов (разрешительный заголовок для кросс-доменных запросов)
+router.options('^(http|https)://www.' + host + '.ru/.*$', controller.secure.options);
 
 // Стр. 404 (Not found)
-router.get('^http://www.' + host + '.ru/404/?$', controller.index.notfound);
+router.get('^(http|https)://www.' + host + '.ru/404/?$', controller.index.notfound);
 
 // Главная стр.
-router.get('^http://www.' + host + '.ru/?$', controller.index.index);
+router.get('^http://www.' + host + '.ru/?$', controller.secure.guest, controller.index.index);
+router.get('^https://www.' + host + '.ru/?$', controller.secure.guest, controller.secure.http);
 
 // Текстовые стр.
-router.get('^http://www.' + host + '.ru/about/?$', controller.index.about);
+router.get('^http://www.' + host + '.ru/(about)/?$', controller.secure.auth);
+router.get('^https://www.' + host + '.ru/(about)/?$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+
+router.get('^(http|https)://www.' + host + '.ru/about/?$', controller.index.about);
 
 // Sitemap.xml
 router.get('^http://www.' + host + '.ru/Sitemap.xml$', controller.index.sitemap);
 
+// Secure
+router.get('^(http|https)://www.' + host + '.ru/user.*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user);
+router.post('^https://www.' + host + '.ru/user.*$', middleware.sessions, model.secure, controller.secure.user);
+
+router.get('^https://www.' + host + '.ru/user/?$', controller.secure.guest, controller.secure.index);
+router.post('^https://www.' + host + '.ru/user/signin/?$', controller.secure.guest, controller.secure.signin);
+router.get('^https://www.' + host + '.ru/user/signout/?$', controller.secure.auth, controller.secure.signout);
+
+// User
+router.post('^https://www.' + host + '.ru/user/create/?$', middleware.view, controller.secure.guest, controller.user.create);
+router.post('^https://www.' + host + '.ru/user/forgot/?$', middleware.view, controller.secure.guest, controller.user.forgot);
+
+// Profile
+router.get('^(http|https)://www.' + host + '.ru/profile.*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+router.post('^https://www.' + host + '.ru/profile.*$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+
+router.get('^https://www.' + host + '.ru/profile/?$', controller.profile.index);
+router.get('^https://www.' + host + '.ru/profile/get/?$', controller.profile.get);
+router.post('^https://www.' + host + '.ru/profile/email/?$', controller.profile.email);
+router.post('^https://www.' + host + '.ru/profile/pass/?$', controller.profile.password);
+
+// Secure zone
+router.get('^(http|https)://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+router.post('^https://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+
 // Category
-router.get('^http://www.' + host + '.ru/categories/?$', controller.category.index);
-router.post('^http://www.' + host + '.ru/category/?$', controller.request.api, controller.category.get);
-router.post('^http://www.' + host + '.ru/path/?$', controller.request.api, controller.category.path);
-router.post('^http://www.' + host + '.ru/categories/?$', controller.request.api, controller.category.list);
-router.post('^http://www.' + host + '.ru/filters/?$', controller.request.api, controller.category.filters);
+
+router.get('^https://www.' + host + '.ru/categories/?$', controller.category.index);
+router.post('^https://www.' + host + '.ru/category/?$', controller.request.api, controller.category.get);
+router.post('^https://www.' + host + '.ru/path/?$', controller.request.api, controller.category.path);
+router.post('^https://www.' + host + '.ru/categories/?$', controller.request.api, controller.category.list);
+router.post('^https://www.' + host + '.ru/filters/?$', controller.request.api, controller.category.filters);
 
 // Models
-router.get('^http://www.' + host + '.ru/models/?$', controller.models.index);
-router.post('^http://www.' + host + '.ru/model/?$', controller.request.api, controller.models.get);
-router.post('^http://www.' + host + '.ru/models/?$', controller.request.api, controller.models.list);
+router.get('^https://www.' + host + '.ru/models/?$', controller.models.index);
+router.post('^https://www.' + host + '.ru/model/?$', controller.request.api, controller.models.get);
+router.post('^https://www.' + host + '.ru/models/?$', controller.request.api, controller.models.list);
 
 // Offers
-router.get('^http://www.' + host + '.ru/offers/?$', controller.offers.index);
-router.post('^http://www.' + host + '.ru/offers/?$', controller.request.api, controller.offers.list);
-router.post('^http://www.' + host + '.ru/offers/all/?$', controller.request.api, controller.offers.all);
+router.get('^https://www.' + host + '.ru/offers/?$', controller.offers.index);
+router.post('^https://www.' + host + '.ru/offers/?$', controller.request.api, controller.offers.list);
+router.post('^https://www.' + host + '.ru/offers/all/?$', controller.request.api, controller.offers.all);

@@ -30,9 +30,10 @@ require.config({
 
 require([
     'jquery',
+    'View/Menu',
     'View/Categories',
     'View/Loader'
-], function ($, Categories, Loader) {
+], function ($, Menu, Categories, Loader) {
     var Params = Backbone.Model.extend({}),
         params,
         Layout;
@@ -55,8 +56,10 @@ require([
 
     $(function () {
         var router      = new Backbone.Router(),
+            menu        = new Menu({el: $('.b-menu')}),
             loader      = new Loader({obj: $('body')});
 
+        menu.render();
         loader.render();
 
         // Маршрутизация

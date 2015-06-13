@@ -1,7 +1,7 @@
 /**
- * Модуль инициализации главной стр.
+ * Модуль инициализации стр. системы безопастности
  *
- * @module      Index
+ * @module      Secure
  * @category    Client side
  * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
@@ -12,7 +12,6 @@ require.config({
     paths: {
         text        : '../lib/requirejs/text',
         jquery      : '../lib/jquery/jquery-2.1.1.min',
-        ui          : '../lib/jquery-ui/jquery-ui.min',
         validator   : '../lib/validator.min',
         underscore  : '../lib/underscore/underscore-min',
         backbone    : '../lib/backbone/backbone-min',
@@ -31,18 +30,33 @@ require.config({
 require([
     'jquery',
     'View/Menu',
-    'View/Signup',
+    'View/Secure',
     'View/Loader'
-], function ($, Menu, Signup, Loader) {
+], function ($, Menu, Secure, Loader) {
+
+    // Маршруты
+    function signin() {
+        var Signin = new Secure.Signin({obj: $('.b-section')});
+        Signin.render();
+    }
+
+    function forgot() {
+        var Forgot = new Secure.Forgot({obj: $('.b-section')});
+        Forgot.render();
+    }
 
     $(function () {
-        //var signup  = new Signup({obj: $('.b-section')}),
-        var menu    = new Menu({el: $('.b-menu')}),
+        var router  = new Backbone.Router(),
+            menu    = new Menu({el: $('.b-menu')}),
             loader  = new Loader({obj: $('body')});
 
         menu.render();
-        //signup.render();
         loader.render();
+
+        // Маршрутизация
+        router.route('*other', 'default', signin);
+        router.route('login', 'signin', signin);
+        router.route('forgot', 'forgot', forgot);
 
         Backbone.history.start();
     });

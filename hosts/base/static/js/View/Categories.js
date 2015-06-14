@@ -3,7 +3,7 @@
  *
  * @module      View.Categories
  * @category    Client side
- * @main        Yandex.Market API
+ * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
  */
 
@@ -12,17 +12,18 @@ define([
     'backbone',
     'validator',
     'View/Popup',
+    'View/Georegion',
     'text!Templates/Offers/Loader.tpl',
     'text!Templates/Categories/Layout.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _loader, _layout, _success, _error) {
+], function (Backbone, Validator, Popup, Georegion, _loader, _layout, _success, _error) {
 
 
     /**
      * Представление списка товарных предложений
      *
-     * @class       Layot
+     * @class       Layout
      * @namespace   View
      * @constructor
      * @extends     Backbone.View
@@ -32,6 +33,10 @@ define([
 
         events: {
 
+        },
+
+        initialize: function () {
+            Georegion.getGeoModel().on('change', this.changeRegion, this);
         },
 
         render: function () {
@@ -99,9 +104,18 @@ define([
         },
 
         statge: function () {
+            var georegion;
+
             if (this.result.hasOwnProperty('categories') && this.result.hasOwnProperty('path')) {
                 this.$el.html(_.template(_layout)(this.result));
+
+                georegion = new Georegion.Panel();
+                this.$el.find('.j-georegion').html(georegion.render());
             }
+        },
+
+        changeRegion: function (model) {
+            console.log('test');
         }
     });
 

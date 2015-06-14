@@ -3,13 +3,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },
@@ -32,13 +33,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },
@@ -61,13 +63,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },
@@ -90,13 +93,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },
@@ -119,13 +123,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },
@@ -148,13 +153,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },
@@ -177,13 +183,14 @@ module.exports = {
         options: {
             baseUrl: "hosts/base/static/js",
             paths: {
-                requireLib  : '../lib/requirejs/require',
-                text        : '../lib/requirejs/text',
-                jquery      : '../lib/jquery/jquery-2.1.1.min',
-                ui          : '../lib/jquery-ui/jquery-ui.min',
-                validator   : '../lib/validator.min',
-                underscore  : '../lib/underscore/underscore-min',
-                backbone    : '../lib/backbone/backbone-min',
+                requireLib      : '../lib/requirejs/require',
+                text            : '../lib/requirejs/text',
+                jquery          : '../lib/jquery/jquery-2.1.1.min',
+                ui              : '../lib/jquery-ui/jquery-ui.min',
+                validator       : '../lib/validator.min',
+                underscore      : '../lib/underscore/underscore-min',
+                backbone        : '../lib/backbone/backbone-min',
+                localStorage    : '../lib/backbone/localStorage-min',
 
                 Templates   : '../Templates'
             },

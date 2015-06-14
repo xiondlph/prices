@@ -52,6 +52,7 @@ var controller = {
     user:       require('./controller/user'),
     profile:    require('./controller/profile'),
     request:    require('./controller/request'),
+    georegion:  require('./controller/georegion'),
     category:   require('./controller/category'),
     models:     require('./controller/models'),
     offers:     require('./controller/offers')
@@ -126,8 +127,12 @@ router.post('^https://www.' + host + '.ru/profile/pass/?$', controller.profile.p
 router.get('^(http|https)://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
 router.post('^https://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
 
-// Category
+// Georegion
+router.post('^https://www.' + host + '.ru/georegion/?$', controller.request.api, controller.georegion.get);
+router.post('^https://www.' + host + '.ru/georegion/path/?$', controller.request.api, controller.georegion.path);
+router.post('^https://www.' + host + '.ru/georegions/?$', controller.request.api, controller.georegion.list);
 
+// Category
 router.get('^https://www.' + host + '.ru/categories/?$', controller.category.index);
 router.post('^https://www.' + host + '.ru/category/?$', controller.request.api, controller.category.get);
 router.post('^https://www.' + host + '.ru/path/?$', controller.request.api, controller.category.path);

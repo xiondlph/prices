@@ -3,7 +3,7 @@
  *
  * @module      View.Models
  * @category    Client side
- * @main        Yandex.Market API
+ * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
  */
 

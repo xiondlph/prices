@@ -13,13 +13,14 @@ define([
     'validator',
     'View/Popup',
     'View/Georegion',
+    'View/Filters',
     'text!Templates/Models/Loader.tpl',
     'text!Templates/Models/Layout.tpl',
     'text!Templates/Models/Models.tpl',
     'text!Templates/Models/Filters.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, Georegion, _loader, _layout, _models, _filters, _success, _error) {
+], function (Backbone, Validator, Popup, Georegion, Filters, _loader, _layout, _models, _filters, _success, _error) {
 
 
     /**
@@ -34,8 +35,9 @@ define([
         className:  'b-models b-switch b-switch_animate',
 
         events: {
-            'change input':        'filtersChange',
-            'change select':       'filtersChange'
+            // 'change input':             'filtersChange',
+            // 'change select':            'filtersChange',
+            'click .j-filter__item_label':    'toggleWidget'
         },
 
         render: function () {
@@ -57,6 +59,27 @@ define([
             }, 200);
 
             return this.$el;
+        },
+
+        toggleWidget: function (e) {
+            var widget,
+                me      = this,
+                item    = $(e.currentTarget).parent()
+                option  = this.result.filters[item.attr('filter-index')],
+                value   = item.attr('filter-value');
+
+            e.preventDefault();
+            item.toggleClass('b-filter__item_open');
+
+            if (item.hasClass('b-filter__item_open') && Filters.hasOwnProperty(option.type)) {
+                widget = new Filters[option.type]({option: option, value: value, accept: function (value) {
+                    item.attr('filter-value', value);
+                    me.filtersChange();
+                }});
+                $(e.currentTarget).next().html(widget.render());
+            } else {
+                $(e.currentTarget).next().html('');
+            }
         },
 
         filtersChange: function () {

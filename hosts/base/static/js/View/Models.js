@@ -12,13 +12,14 @@ define([
     'backbone',
     'validator',
     'View/Popup',
+    'View/Georegion',
     'text!Templates/Models/Loader.tpl',
     'text!Templates/Models/Layout.tpl',
     'text!Templates/Models/Models.tpl',
     'text!Templates/Models/Filters.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _loader, _layout, _models, _filters, _success, _error) {
+], function (Backbone, Validator, Popup, Georegion, _loader, _layout, _models, _filters, _success, _error) {
 
 
     /**
@@ -58,7 +59,7 @@ define([
             return this.$el;
         },
 
-        filtersChange: function (e) {
+        filtersChange: function () {
             var filterUrl = document.location.protocol + '//' + document.location.hostname + document.location.pathname + '#' + this.options.categoryId;
 
             if (filterUrl === document.location.href) {
@@ -77,7 +78,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     categoryId: me.options.categoryId || 90401,
-                    geo_id:     213
+                    geo_id:     Georegion.getGeoId()
                 }
             }).done(function (data) {
                 me.result.path = data.path;
@@ -120,7 +121,7 @@ define([
             params.categoryId   = _categoryId;
             params.page         = page;
             params.count        = 30;
-            params.geo_id       = 213;
+            params.geo_id       = Georegion.getGeoId();
 
             $.ajax({
                 url         : '/models',
@@ -139,7 +140,7 @@ define([
                 me.result.models = _.extend(data.models, {categoryId: categoryId});
                 call();
 
-            }).fail(function (data) {
+            }).fail(function () {
                 popup = new Popup({content: $(_error)});
                 popup.render();
             });
@@ -155,7 +156,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     categoryId: me.options.categoryId || 90401,
-                    geo_id:     213
+                    geo_id:     Georegion.getGeoId()
                 }
             }).done(function (data) {
                 me.result.filters = data.filters;
@@ -167,6 +168,8 @@ define([
         },
 
         statge: function () {
+            var georegion;
+
             if (this.result.hasOwnProperty('path') && this.result.hasOwnProperty('models') && this.result.hasOwnProperty('filters')) {
                 this.$el.html(_.template(_layout)({
                     path: this.result.path
@@ -174,6 +177,9 @@ define([
 
                 this.$el.find('.j-filters').html(_.template(_filters)({filters: this.result.filters}));
                 this.list();
+
+                georegion = new Georegion.Panel();
+                this.$el.find('.j-georegion').html(georegion.render());
             }
         },
 

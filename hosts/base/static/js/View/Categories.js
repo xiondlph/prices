@@ -35,10 +35,6 @@ define([
 
         },
 
-        initialize: function () {
-            Georegion.getGeoModel().on('change', this.changeRegion, this);
-        },
-
         render: function () {
             var me = this;
 
@@ -70,7 +66,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     categoryId: me.options.categoryId,
-                    geo_id:     213,
+                    geo_id:     Georegion.getGeoId(),
                     count:      30
                 }
             }).done(function (data) {
@@ -92,7 +88,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     categoryId: me.options.categoryId || 90401,
-                    geo_id:     213
+                    geo_id:     Georegion.getGeoId()
                 }
             }).done(function (data) {
                 me.result.path = data.path;
@@ -112,10 +108,6 @@ define([
                 georegion = new Georegion.Panel();
                 this.$el.find('.j-georegion').html(georegion.render());
             }
-        },
-
-        changeRegion: function (model) {
-            console.log('test');
         }
     });
 

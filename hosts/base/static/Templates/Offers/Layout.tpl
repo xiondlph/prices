@@ -1,4 +1,7 @@
 <div class="b-table b-offers__table">
+    <div class="b-table__tr">
+        <div class="b-table__tr__td b-table__tr__td_right b-table__tr__td_wide j-georegion"></div>
+    </div>
     <div class="b-table__tr j-path">
         <div class="b-table__tr__td b-table__tr__td_wide">
             <a href="/categories">Категории</a>

@@ -1,11 +1,11 @@
 <div class="b-table b-georegion__table">
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide">
-            <a href="#" data-id="10000" class="j-georegion">Регионы</a>
+            <a href="#" data-index="0" class="j-georegion__path">Регионы</a>
 <% if (path.length > 1) { %>
 <%     for (var i = 1; i < path.length; i++) { %>
 <%         if (path[i].georegion.childrenCount > 0) { %>
-            <a href="#<%= path[i].georegion.id %>" data-id="<%= path[i].georegion.id %>" class="j-georegion"><%= path[i].georegion.name %></a>
+            <a href="#<%= path[i].georegion.id %>" data-index="<%= i %>" class="j-georegion__path"><%= path[i].georegion.name %></a>
 <%         } %>
 <%     } %>
 <% } %>
@@ -17,7 +17,7 @@
             <table cellpadding="0" cellspacing="0" class="b-grid">
 <%     for (var i = 0; i < georegions.items.length; i++) { %>
                 <tr class="b-grid__row">
-                    <td class="b-grid__cell b-grid__cell_item"><a href="#<%= georegions.items[i].id %>" data-id="<%= georegions.items[i].id %>" class="b-georegion__item j-georegion" title="<%= georegions.items[i].name %>"><%= georegions.items[i].name %></a></td>
+                    <td class="b-grid__cell b-grid__cell_item"><a href="#<%= georegions.items[i].id %>" data-index="<%= i %>" class="b-georegion__item j-georegion__item" title="<%= georegions.items[i].name %>"><%= georegions.items[i].name %></a></td>
                 </tr>
 <%     } %>
 <%     if (georegions.total > 5) { %>

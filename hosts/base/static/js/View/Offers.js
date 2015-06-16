@@ -12,12 +12,13 @@ define([
     'backbone',
     'validator',
     'View/Popup',
+    'View/Georegion',
     'text!Templates/Offers/Loader.tpl',
     'text!Templates/Offers/Layout.tpl',
     'text!Templates/Offers/Offers.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _loader, _layout, _offers, _success, _error) {
+], function (Backbone, Validator, Popup, Georegion, _loader, _layout, _offers, _success, _error) {
 
 
     /**
@@ -69,7 +70,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     modelId:    modelId,
-                    geo_id:     213
+                    geo_id:     Georegion.getGeoId()
                 }
             }).done(function (data) {
                 me.path(data.model.categoryId);
@@ -91,7 +92,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     categoryId: categoryId,
-                    geo_id:     213
+                    geo_id:     Georegion.getGeoId()
                 }
             }).done(function (data) {
                 me._path = data;
@@ -110,7 +111,7 @@ define([
             params.modelId  = modelId;
             params.page     = page;
             params.count    = 30;
-            params.geo_id   = 213;
+            params.geo_id   = Georegion.getGeoId();
 
             $.ajax({
                 url         : '/offers',
@@ -128,6 +129,8 @@ define([
         },
 
         statge: function () {
+            var georegion;
+
             if (this._state < 4) {
                 this._state++;
             }
@@ -143,6 +146,9 @@ define([
                 }));
 
                 this.$el.find('.j-offers').html(_.template(_offers)(this._offers));
+
+                georegion = new Georegion.Panel();
+                this.$el.find('.j-georegion').html(georegion.render());
             }
         },
 
@@ -157,7 +163,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     modelId:    me.options.modelId,
-                    geo_id:     213,
+                    geo_id:     Georegion.getGeoId(),
                     count:      30
                 }
             }).done(function (data) {

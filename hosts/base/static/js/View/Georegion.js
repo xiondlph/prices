@@ -21,8 +21,26 @@ define([
 
     var GeoModel = new Geo({ id: 'geo' }),
 
+
+        /**
+         * Получение модели текущего гео-региона
+         *
+         * @method getGeoModel
+         * @return {Object} GeoModel
+         */
         getGeoModel = function () {
             return GeoModel;
+        },
+
+
+        /**
+         * Получение id текущего гео-региона
+         *
+         * @method getGeoModel
+         * @return {Object} GeoModel
+         */
+        getGeoId = function () {
+            return GeoModel.get('geo') || 213;
         },
 
 
@@ -38,12 +56,13 @@ define([
             className:  'b-georegion',
 
             events: {
-                'click .j-georegion':   'select',
-                'click .j-page':        'page'
+                'click .j-georegion__path':     'selectPath',
+                'click .j-georegion__item':     'selectItem',
+                'click .j-page':                'page'
             },
 
             render: function () {
-                this.options.geoId  = 10000;
+                this.options.geoId  = GeoModel.get('parent') || 10000;
                 this.options.page   = 1;
                 this.fetch();
                 return this.$el;
@@ -65,21 +84,36 @@ define([
                 }
             },
 
-            select: function (e) {
+            selectPath: function (e) {
                 var items;
 
                 e.preventDefault();
-                if ($(e.currentTarget).data('id')) {
-                    items = this.result.georegions.items[$(e.currentTarget).parents('.b-grid__row').index()];
-                    GeoModel.save({
-                        id:     'geo',
-                        geo:    items.id,
-                        name:   items.name
-                    });
+                items = this.result.path[$(e.currentTarget).data('index')];
+                GeoModel.save({
+                    id:     'geo',
+                    geo:    items.georegion.id,
+                    name:   items.georegion.name,
+                    parent: items.georegion.parentId
+                });
 
-                    this.options.geoId = $(e.currentTarget).data('id');
-                    this.fetch();
-                }
+                this.options.geoId = items.georegion.id;
+                this.fetch();
+            },
+
+            selectItem: function (e) {
+                var items;
+
+                e.preventDefault();
+                items = this.result.georegions.items[$(e.currentTarget).data('index')];
+                GeoModel.save({
+                    id:     'geo',
+                    geo:    items.id,
+                    name:   items.name,
+                    parent: items.parentId
+                });
+
+                this.options.geoId = items.id;
+                this.fetch();
             },
 
             path: function () {
@@ -167,7 +201,7 @@ define([
                 popup.render();
             },
 
-            changeRegion: function (model) {
+            changeRegion: function () {
                 this.$el.html(_.template(_panel)(GeoModel.toJSON()));
             }
         });
@@ -177,6 +211,7 @@ define([
 
     return {
         getGeoModel:    getGeoModel,
+        getGeoId:       getGeoId,
         Layout:         Layout,
         Panel:          Panel
     };

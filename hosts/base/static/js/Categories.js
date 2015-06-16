@@ -12,7 +12,6 @@ require.config({
     paths: {
         text            : '../lib/requirejs/text',
         jquery          : '../lib/jquery/jquery-2.1.1.min',
-        ui              : '../lib/jquery-ui/jquery-ui.min',
         validator       : '../lib/validator.min',
         underscore      : '../lib/underscore/underscore-min',
         backbone        : '../lib/backbone/backbone-min',
@@ -33,8 +32,9 @@ require([
     'jquery',
     'View/Menu',
     'View/Categories',
+    'View/Georegion',
     'View/Loader'
-], function ($, Menu, Categories, Loader) {
+], function ($, Menu, Categories, Georegion, Loader) {
     var Params = Backbone.Model.extend({}),
         params,
         Layout;
@@ -44,12 +44,20 @@ require([
     });
 
     params.on('change:categoryId', function () {
+        if (Layout) {
+            Layout.remove();
+            console.log(Layout);
+        }
         Layout  = new Categories.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined});
         Layout.render();
     });
 
+    Georegion.getGeoModel().on('change', function () {
+        params.trigger('change:categoryId');
+    });
+
     // Маршруты
-    function Index(categoryId, page) {
+    function Index(categoryId) {
         params.set({
             categoryId: categoryId  || undefined
         });

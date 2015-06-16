@@ -10,12 +10,12 @@
 require.config({
     baseUrl: 'js',
     paths: {
-        text        : '../lib/requirejs/text',
-        jquery      : '../lib/jquery/jquery-2.1.1.min',
-        ui          : '../lib/jquery-ui/jquery-ui.min',
-        validator   : '../lib/validator.min',
-        underscore  : '../lib/underscore/underscore-min',
-        backbone    : '../lib/backbone/backbone-min',
+        text            : '../lib/requirejs/text',
+        jquery          : '../lib/jquery/jquery-2.1.1.min',
+        validator       : '../lib/validator.min',
+        underscore      : '../lib/underscore/underscore-min',
+        backbone        : '../lib/backbone/backbone-min',
+        localStorage    : '../lib/backbone/localStorage-min',
 
         Templates   : '../Templates'
     },
@@ -32,8 +32,9 @@ require([
     'jquery',
     'View/Menu',
     'View/Models',
+    'View/Georegion',
     'View/Loader'
-], function ($, Menu, Models, Loader) {
+], function ($, Menu, Models, Georegion, Loader) {
     var Params = Backbone.Model.extend({}),
         params,
         Layout;
@@ -57,6 +58,11 @@ require([
         if (Layout) {
             Layout.models(params.get('categoryId'), params.get('page'));
         }
+    });
+
+
+    Georegion.getGeoModel().on('change', function () {
+        params.trigger('change:page');
     });
 
     // Маршруты

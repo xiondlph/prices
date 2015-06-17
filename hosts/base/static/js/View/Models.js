@@ -43,6 +43,7 @@ define([
         render: function () {
             var me = this;
 
+            me.timer = null;
             me.result = {};
             me.path();
             me.filters();
@@ -64,7 +65,7 @@ define([
         toggleWidget: function (e) {
             var widget,
                 me      = this,
-                item    = $(e.currentTarget).parent()
+                item    = $(e.currentTarget).parent(),
                 option  = this.result.filters[item.attr('filter-index')],
                 value   = item.attr('filter-value');
 
@@ -73,7 +74,12 @@ define([
 
             if (item.hasClass('b-filter__item_open') && Filters.hasOwnProperty(option.type)) {
                 widget = new Filters[option.type]({option: option, value: value, accept: function (value) {
-                    item.attr('filter-value', value);
+                    if (value && value.length > 0) {
+                        item.attr('filter-value', value);
+                    } else {
+                        item.removeAttr('filter-value');
+                    }
+
                     me.filtersChange();
                 }});
                 $(e.currentTarget).next().html(widget.render());
@@ -82,14 +88,14 @@ define([
             }
         },
 
-        filtersChange: function () {
+        filtersChange: _.debounce(function () {
             var filterUrl = document.location.protocol + '//' + document.location.hostname + document.location.pathname + '#' + this.options.categoryId;
 
             if (filterUrl === document.location.href) {
                 this.models(this.options.categoryId);
             }
             document.location.href = filterUrl;
-        },
+        }, 1000),
 
         path: function () {
             var me = this,
@@ -114,33 +120,16 @@ define([
 
         models: function (categoryId, page) {
             var me          = this,
-                filters     = $('#filters').serializeArray(),
                 params      = {},
                 _categoryId = categoryId || 90401,
                 popup,
                 i;
 
-            for (i = 0; i < filters.length; i++) {
-
-                switch (filters[i].value) {
-                case '0':
-                    params[filters[i].name] = 'n';
-                    break;
-
-                case '1':
-                    params[filters[i].name] = 'y';
-                    break;
-
-                case '-1':
-                    break;
-
-                default:
-                    params[filters[i].name] = filters[i].value;
-                    break;
-                }
+            for (i = 0; i < me.$el.find('.j-filter__item[filter-value]').length; i++) {
+                params[me.$el.find('.j-filter__item[filter-value]:eq(' + i + ')').attr('filter-id')] = me.$el.find('.j-filter__item[filter-value]:eq(' + i + ')').attr('filter-value');
             }
 
-            params.vendor_id    = $('#vendor').val();
+            //params.vendor_id    = $('#vendor').val();
             params.categoryId   = _categoryId;
             params.page         = page;
             params.count        = 30;

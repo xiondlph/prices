@@ -1,5 +1,5 @@
 <select>
-    <option value="-1" <% if (obj.hasOwnProperty('value') || value === "-1") { %>selected="select"<% } %>>Неважно</option>
-    <option value="1" <% if (obj.hasOwnProperty('value') && value === "1") { %>selected="select"<% } %>>Да</option>
-    <option value="0" <% if (obj.hasOwnProperty('value') && value === "0") { %>selected="select"<% } %>>Нет</option>
+    <option value="">Неважно</option>
+    <option value="y" <% if (obj.hasOwnProperty('value') && value === "y") { %>selected="select"<% } %>>Да</option>
+    <option value="n" <% if (obj.hasOwnProperty('value') && value === "n") { %>selected="select"<% } %>>Нет</option>
 </select>

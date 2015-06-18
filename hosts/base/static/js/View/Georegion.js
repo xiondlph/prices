@@ -106,7 +106,7 @@ define([
             },
 
             apply: function (e) {
-                var items,
+                var item,
                     index = this.$el.find('.j-georegion__item__input:checked').data('index');
 
                 e.preventDefault();

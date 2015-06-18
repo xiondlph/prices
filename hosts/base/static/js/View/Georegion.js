@@ -56,9 +56,10 @@ define([
             className:  'b-georegion',
 
             events: {
-                'click .j-georegion__path':     'selectPath',
-                'click .j-georegion__item':     'selectItem',
-                'click .j-page':                'page'
+                'click .j-georegion__path':             'selectPath',
+                'click .j-georegion__item__link':       'selectItem',
+                'click .j-georegion__apply':            'apply',
+                'click .j-page':                        'page'
             },
 
             render: function () {
@@ -89,12 +90,6 @@ define([
 
                 e.preventDefault();
                 items = this.result.path[$(e.currentTarget).data('index')];
-                GeoModel.save({
-                    id:     'geo',
-                    geo:    items.georegion.id,
-                    name:   items.georegion.name,
-                    parent: items.georegion.parentId
-                });
 
                 this.options.geoId = items.georegion.id;
                 this.fetch();
@@ -105,15 +100,25 @@ define([
 
                 e.preventDefault();
                 items = this.result.georegions.items[$(e.currentTarget).data('index')];
-                GeoModel.save({
-                    id:     'geo',
-                    geo:    items.id,
-                    name:   items.name,
-                    parent: items.parentId
-                });
 
                 this.options.geoId = items.id;
                 this.fetch();
+            },
+
+            apply: function (e) {
+                var items,
+                    index = this.$el.find('.j-georegion__item__input:checked').data('index');
+
+                e.preventDefault();
+                item = this.result.georegions.items[index];
+                if (item) {
+                    GeoModel.save({
+                        id:     'geo',
+                        geo:    item.id,
+                        name:   item.name,
+                        parent: item.parentId
+                    });
+                }
             },
 
             path: function () {

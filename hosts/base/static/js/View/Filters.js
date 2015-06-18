@@ -12,10 +12,11 @@ define([
     'backbone',
     'text!Templates/Filters/Bool.tpl',
     'text!Templates/Filters/Enumerator.tpl',
+    'text!Templates/Filters/Vendor.tpl',
     'text!Templates/Filters/Numeric.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, _bool, _enumerator, _numeric, _success, _error) {
+], function (Backbone, _bool, _enumerator, _vendor, _numeric, _success, _error) {
 
 
     /**
@@ -56,7 +57,7 @@ define([
          * @extends     Backbone.View
          */
         Enumerator = Backbone.View.extend({
-            className:  'b-filter__item__widget_bool',
+            className:  'b-filter__item__widget_enumerator',
 
             events: {
                 'change input': 'change'
@@ -90,6 +91,34 @@ define([
 
 
         /**
+         * Представление виджета Vendor
+         *
+         * @class       Vendor
+         * @namespace   View
+         * @constructor
+         * @extends     Backbone.View
+         */
+        Vendor = Backbone.View.extend({
+            className:  'b-filter__item__widget_vendor',
+
+            events: {
+                'change select': 'change'
+            },
+
+            render: function () {
+                this.$el.append(_.template(_vendor)({
+                    option: this.options.option,
+                    value:  this.options.value
+                }));
+                return this.$el;
+            },
+
+            change: function (e) {
+                this.options.accept($(e.currentTarget).val());
+            }
+        }),
+
+        /**
          * Представление виджета NUMERIC
          *
          * @class       Numeric
@@ -98,7 +127,7 @@ define([
          * @extends     Backbone.View
          */
         Numeric = Backbone.View.extend({
-            className:  'b-filter__item__widget_bool',
+            className:  'b-filter__item__widget_numeric',
 
             events: {
                 'input input': 'change'
@@ -132,6 +161,7 @@ define([
     return {
         BOOL:       Bool,
         ENUMERATOR: Enumerator,
+        VENDOR:     Vendor,
         NUMERIC:    Numeric
     };
 });

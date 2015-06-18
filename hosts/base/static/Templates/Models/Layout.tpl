@@ -22,7 +22,7 @@
 </div>
 <div class="b-table b-models__table">
     <div class="b-table__tr">
-        <div class="b-table__tr__td j-filters"></div>
-        <div class="b-table__tr__td j-models"></div>
+        <div class="b-table__tr__td b-table__tr__td_nowidth j-filters"></div>
+        <div class="b-table__tr__td b-table__tr__td_wide j-models"></div>
     </div>
 </div>

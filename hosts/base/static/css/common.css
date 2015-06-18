@@ -180,6 +180,10 @@ b, strong {
     width: 100%;
 }
 
+.b-table__tr__td_nowidth {
+    width: auto;
+}
+
 .b-table__tr__td_right {
     text-align: right;
 }
@@ -831,4 +835,42 @@ b, strong {
 
 .b-footer__menu__item_counter {
     float: right;
+}
+
+
+/*** Geo Regions ***/
+.b-georegion {
+    width: 450px;
+}
+
+.b-georegion__table {
+    width: 100%;
+}
+
+.b-georegion__table__items {
+    -webkit-column-width: 215px;
+    -moz-column-width: 215px;
+    column-width: 215px;
+}
+
+.b-georegion__item {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 0 12px 0 0;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    width: 200px;
+}
+
+.b-georegion__item:after {
+    -webkit-box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+    -moz-box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+    box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+
+    position: absolute;
+    content: "\00a0";
+    display: block;
+    right: -5px;
+    top: 0;
 }

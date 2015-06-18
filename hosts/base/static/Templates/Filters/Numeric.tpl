@@ -1,3 +1,3 @@
-<label>От<input type="text" value="<%= obj.value %>" placeholder="<%= option.minValue %>" class="j-filters__input_min" size="5"></label>
-<label>До<input type="text" value="<%= obj.value %>" placeholder="<%= option.maxValue %>" class="j-filters__input_max" size="5"></label>
-<%= option.unit %>
+<label class="b-filter__item__widget_numeric__label">От<input type="text" value="<%= obj.value %>" placeholder="<%= option.minValue %>" class="b-filter__item__widget_numeric__input j-filters__input_min" size="5"></label>
+<label class="b-filter__item__widget_numeric__label">До<input type="text" value="<%= obj.value %>" placeholder="<%= option.maxValue %>" class="b-filter__item__widget_numeric__input j-filters__input_max" size="5"></label>
+<span class="b-filter__item__widget_numeric__unit"><%if (option.unit === 'RUR') { %>Руб<%} else { %><%= option.unit %><%} %></span>

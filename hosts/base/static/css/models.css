@@ -15,3 +15,82 @@
     outline: none;
     width: 190px;
 }
+
+.b-fiters {
+    width: 300px;
+}
+
+.b-filter__item {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    padding: 5px;
+}
+
+.b-filter__item:before {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgOCA2IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNiMmIyYjIiPjxwYXRoIGQ9Ik03LjE5Ny42MDRsLTMuMTk4IDMuMTk2LTMuMTk3LTMuMTk2LS43OTkuNzk5IDMuOTk2IDMuOTk0IDMuOTk2LTMuOTk0LS43OTgtLjc5OXoiLz48L3N2Zz4K');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    position: absolute;
+    text-align: center;
+    margin-top: -3px;
+    content: "";
+    height: 6px;
+    right: 17px;
+    width: 8px;
+    top: 15px;
+}
+
+.b-filter__item_open:before {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI2IiB2aWV3Qm94PSIwIDAgOCA2IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNiMmIyYjIiPjxwYXRoIGQ9Ik0uODAxIDUuMzk2bDMuMTk4LTMuMTk2IDMuMTk3IDMuMTk2Ljc5OS0uNzk5LTMuOTk2LTMuOTk0LTMuOTk2IDMuOTk0Ljc5OC43OTl6Ii8+PC9zdmc+Cg==')
+}
+
+.b-filter__item:first-child {
+    border-top: 1px solid #efefef;
+}
+
+.b-filter__item__label {
+    padding: 0 0 0 5px;
+    position: relative;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.b-filter__item[filter-value] .b-filter__item__label:before {
+    position: absolute;
+    top: calc(50% - 9px);
+    background: #ffc600;
+    height: 18px;
+    content: '';
+    width: 5px;
+    left: -5px;
+}
+
+.b-filter__item__widget {
+    max-height: 100px;
+    overflow: auto;
+    display: none;
+    padding: 10px;
+}
+
+.b-filter__item_open .b-filter__item__widget {
+    display: block;
+}
+
+/* Numeric */
+.b-filter__item__widget_numeric__label {
+    display: inline-block;
+    position: relative;
+    line-height: 25px;
+    width: 100px;
+    height: 25px;
+}
+
+.b-filter__item__widget_numeric__input {
+    background: transparent;
+    border: 1px solid #efefef;
+    position: absolute;
+    padding: 0 0 0 30px;
+    height: 25px;
+    width: 100px;
+    left: -7px;
+}

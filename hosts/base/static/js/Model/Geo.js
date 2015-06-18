@@ -1,5 +1,5 @@
 /**
- * Модуль модель гео-региона
+ * Модуль модели гео-региона
  *
  * @module      Model.Georegion
  * @category    Client side

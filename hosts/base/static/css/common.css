@@ -420,11 +420,6 @@ b, strong {
     color: #f4f3eb;
 }
 
-.b-nav__logo__icsystem {
-    font-size: 10px;
-    display: block;
-}
-
 .b-nav__logo:hover {
     text-decoration: none;
     color: #aeaeae;
@@ -457,6 +452,10 @@ b, strong {
     height: 2px;
     left: 0;
     top: 0;
+}
+
+.b-nav__item_right {
+    float: right;
 }
 
 /*** Всплывающий блок вложенного меню ***/

@@ -70,19 +70,19 @@ exports.create = function (req, res) {
                         smtpTransport = nodemailer.createTransport({
                             service: 'Gmail',
                             auth: {
-                                user: 'support@icsystem.ru',
-                                pass: '159753QsEfT'
+                                user: 'support@ismax.ru',
+                                pass: '159753qSeFt'
                             }
                         });
 
                         smtpTransport.sendMail({
-                            from: 'ICSYSTEM ISMAX <support@icsystem.ru>',
+                            from: 'Support Ismax <support@ismax.ru>',
                             to: data.email,
                             bcc: 'Notification Icsystem <notification@icsystem.ru>',
-                            subject: 'Регистрация в сервисе ICSYSTEM',
+                            subject: 'Регистрация в сервисе ISMAX',
                             text: text,
                             headers: {
-                                'X-Mailer': 'ICSYSTEM'
+                                'X-Mailer': 'ISMAX'
                             }
                         }, function (error, response) {
                             if (error) {
@@ -159,19 +159,19 @@ exports.forgot = function (req, res) {
                     smtpTransport = nodemailer.createTransport({
                         service: 'Gmail',
                         auth: {
-                            user: 'support@icsystem.ru',
-                            pass: '159753QsEfT'
+                            user: 'support@ismax.ru',
+                            pass: '159753qSeFt'
                         }
                     });
 
                     smtpTransport.sendMail({
-                        from: 'ICSYSTEM ISMAX <support@icsystem.ru>',
+                        from: 'Support Ismax <support@ismax.ru>',
                         to: user.email,
                         bcc: 'Notification Icsystem <notification@icsystem.ru>',
-                        subject: 'Востановления доступа к сервису ICSYSTEM',
+                        subject: 'Востановления доступа к сервису ISMAX',
                         text: text,
                         headers: {
-                            'X-Mailer': 'ICSYSTEM'
+                            'X-Mailer': 'ISMAX'
                         }
                     }, function (error, response) {
                         if (error) {
@@ -216,7 +216,7 @@ exports.remaining = function (req, res) {
 
         format = /[\w\W]*(xml|json)[\w\W]*/.exec(req.url) ? /[\w\W]*(xml|json)[\w\W]*/.exec(req.url)[1] : '';
 
-        res.setHeader('Server', 'ICSYSTEM');
+        res.setHeader('Server', 'ISMAX');
         res.statusCode = 200;
         if (format === 'xml') {
             res.setHeader('Content-Type', 'application/xml;charset=UTF-8');

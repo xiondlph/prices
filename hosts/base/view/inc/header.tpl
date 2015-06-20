@@ -2,7 +2,6 @@
             <nav class="b-nav">
                 <a href="/" class="b-nav__logo">
                     ism<span class="b-nav__logo__ismax icon-ismax"></span>x
-                    <span class="b-nav__logo__icsystem">icsystem</span>
                 </a>
                 <# if(this.data.user){#>
                 <div class="b-menu">

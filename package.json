@@ -1,11 +1,11 @@
 {
-  "name": "Yandex.MarketAPI",
+  "name": "Prices",
   "version": "1.0.0",
-  "description": "Yandex Market API",
+  "description": "Prices monitoring service",
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:xiondlph/icsystem.git"
+    "url": "git@github.com:xiondlph/prices.git"
   },
   "author": "ismax <admin@ismax.ru> (http://ismax.ru)",
   "dependencies": {

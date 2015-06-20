@@ -36,12 +36,12 @@ require([
 ], function ($, Menu, Signup, Loader) {
 
     $(function () {
-        //var signup  = new Signup({obj: $('.b-section')}),
-        var menu    = new Menu({el: $('.b-menu')}),
+        var signup  = new Signup({obj: $('.b-section')}),
+            menu    = new Menu({el: $('.b-menu')}),
             loader  = new Loader({obj: $('body')});
 
         menu.render();
-        //signup.render();
+        signup.render();
         loader.render();
 
         Backbone.history.start();

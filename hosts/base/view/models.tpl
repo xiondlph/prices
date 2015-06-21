@@ -7,6 +7,7 @@
 <# if (process.env.NODE_ENV !== 'prod') { #>
     <link href="/css/common.css" rel="stylesheet" type="text/css" />
     <link href="/css/models.css" rel="stylesheet" type="text/css" />
+    <link href="/css/filter.css" rel="stylesheet" type="text/css" />
     <script data-main="/js/Models" src="/lib/requirejs/require.js"></script>
 <# } else { #>
     <link href="/build/models.css" rel="stylesheet" type="text/css" />

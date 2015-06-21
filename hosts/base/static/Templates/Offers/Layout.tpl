@@ -28,6 +28,7 @@
 </div>
 <div class="b-table b-offers__table">
     <div class="b-table__tr">
-        <div class="b-table__tr__td j-offers"></div>
+        <div class="b-table__tr__td b-table__tr__td_nowidth j-filters">gdfgdfgdfg</div>
+        <div class="b-table__tr__td b-table__tr__td_wide j-offers"></div>
     </div>
 </div>

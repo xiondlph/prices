@@ -2,12 +2,12 @@
             <table cellpadding="0" cellspacing="0" class="b-grid">
                 <tr class="b-grid__row">
                     <th class="b-grid__head">Название</th>
-                    <th class="b-grid__head">Цена</th>
+                    <th class="b-grid__head">Цена (руб.)</th>
                 </tr>
 <%     for (var i = 0; i < offers.items.length; i++) { %>
                 <tr class="b-grid__row">
                     <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].name %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].price.value %> <%= offers.items[i].price.currencyName %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].price.value %></span></td>
                 </tr>
 <%     } %>
 <%     if (offers.total > 30) { %>

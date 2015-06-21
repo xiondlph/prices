@@ -12,11 +12,12 @@ define([
     'backbone',
     'text!Templates/Filters/Bool.tpl',
     'text!Templates/Filters/Enumerator.tpl',
+    'text!Templates/Filters/Select.tpl',
     'text!Templates/Filters/Vendor.tpl',
     'text!Templates/Filters/Numeric.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, _bool, _enumerator, _vendor, _numeric, _success, _error) {
+], function (Backbone, _bool, _enumerator, _select, _vendor, _numeric, _success, _error) {
 
 
     /**
@@ -91,6 +92,34 @@ define([
 
 
         /**
+         * Представление виджета Select
+         *
+         * @class       Select
+         * @namespace   View
+         * @constructor
+         * @extends     Backbone.View
+         */
+        Select = Backbone.View.extend({
+            className:  'b-filter__item__widget_select',
+
+            events: {
+                'change select': 'change'
+            },
+
+            render: function () {
+                this.$el.append(_.template(_select)({
+                    option: this.options.option,
+                    value:  this.options.value
+                }));
+                return this.$el;
+            },
+
+            change: function (e) {
+                this.options.accept($(e.currentTarget).val());
+            }
+        }),
+
+        /**
          * Представление виджета Vendor
          *
          * @class       Vendor
@@ -161,6 +190,7 @@ define([
     return {
         BOOL:       Bool,
         ENUMERATOR: Enumerator,
+        SELECT:     Select,
         VENDOR:     Vendor,
         NUMERIC:    Numeric
     };

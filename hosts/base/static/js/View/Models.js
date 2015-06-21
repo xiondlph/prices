@@ -39,8 +39,6 @@ define([
             className:  'b-models b-switch b-switch_animate',
 
             events: {
-                // 'change input':             'filtersChange',
-                // 'change select':            'filtersChange',
                 'click .j-filter__item_label':      'toggleWidget',
                 'click .j-filters__reset':          'filtersReset'
             },

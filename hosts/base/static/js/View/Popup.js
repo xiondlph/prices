@@ -24,8 +24,9 @@ define([
     var Popup = Backbone.View.extend({
         className:      'b-popup',
         events: {
-            'click':    'click',
-            'close':    'close'
+            'click':                    'click',
+            'close':                    'close',
+            'click .j-popup__close':    'close'
         },
 
         render: function () {

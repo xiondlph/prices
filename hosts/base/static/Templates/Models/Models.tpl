@@ -4,9 +4,9 @@
                     <th class="b-grid__head">Фото</th>
                     <th class="b-grid__head">Производитель</th>
                     <th class="b-grid__head">Название</th>
-                    <th class="b-grid__head">Макс. цена</th>
-                    <th class="b-grid__head">Мин. цена</th>
-                    <th class="b-grid__head">Средняя цена</th>
+                    <th class="b-grid__head">Макс. цена (руб.)</th>
+                    <th class="b-grid__head">Мин. цена (руб.)</th>
+                    <th class="b-grid__head">Средняя цена (руб.)</th>
                     <th class="b-grid__head">Предложений</th>
                 </tr>
 <%     for (var i = 0; i < models.items.length; i++) { %>
@@ -14,9 +14,9 @@
                     <td class="b-grid__cell b-grid__cell_item"><span><img src="<%= models.items[i].mainPhoto.url %>" width="30"/></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span><%= models.items[i].vendor %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span><%= models.items[i].name %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.max + ' ' + models.items[i].prices.curName) } else { print('-')} %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.min + ' ' + models.items[i].prices.curName) } else { print('-')} %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.avg + ' ' + models.items[i].prices.curName) } else { print('-')} %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.max) } else { print('-')} %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.min) } else { print('-')} %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.avg) } else { print('-')} %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><a href="/offers#<%= models.items[i].id %>"><%= models.items[i].offersCount %></a></td>
                 </tr>
 <%     } %>

@@ -54,7 +54,7 @@
 <% } %>
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide">
-            <button class="f-btn j-georegion__apply">Ok</button>
+            <button class="f-btn j-georegion__apply j-popup__close">Ok</button>
         </div>
     </div>
 </div>

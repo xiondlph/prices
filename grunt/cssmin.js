@@ -49,7 +49,7 @@ module.exports = {
             banner: '/* Sodels minified */'
         },
         files: {
-            'hosts/base/static/build/models.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/models.css']
+            'hosts/base/static/build/models.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/models.css', 'hosts/base/static/css/filter.css']
         }
     },
 
@@ -58,7 +58,7 @@ module.exports = {
             banner: '/* Offers minified */'
         },
         files: {
-            'hosts/base/static/build/offers.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/offers.css']
+            'hosts/base/static/build/offers.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/offers.css', 'hosts/base/static/css/filter.css']
         }
     }
 };

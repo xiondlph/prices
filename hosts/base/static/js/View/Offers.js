@@ -14,11 +14,11 @@ define([
     'Store/OffersFilterParams',
     'View/Popup',
     'View/Georegion',
-    'View/Filters',
+    'View/Filter',
     'text!Templates/Offers/Loader.tpl',
     'text!Templates/Offers/Layout.tpl',
     'text!Templates/Offers/Offers.tpl',
-    'text!Templates/Offers/Filter.tpl',
+    'text!Templates/Partials/Filter.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
 ], function (Backbone, OffersFilterParamsModel, OffersFilterParamsStore, PopupView, GeoregionView, FilterView, loaderTpl, layoutTpl, offersTpl, filterTpl, successPopupTpl, errorPopupTpl) {
@@ -80,7 +80,7 @@ define([
             e.preventDefault();
             item.toggleClass('b-filter__item_open');
 
-            if (item.hasClass('b-filter__item_open') && Filters.hasOwnProperty(option.type)) {
+            if (item.hasClass('b-filter__item_open') && FilterView.hasOwnProperty(option.type)) {
                 widget = new FilterView[option.type]({option: option, value: value, accept: function (value) {
                     if (value && value.length > 0) {
                         item.attr('filter-value', value);
@@ -100,7 +100,7 @@ define([
 
         filterChange: function () {
             OffersFilterParamsModel.save({
-                id:         'offersFilter',
+                id:         'offersFilterParams',
                 modelId:    this.options.modelId,
                 params:     this.params
             });
@@ -126,7 +126,7 @@ define([
                 }
             }).done(function (data) {
                 me.result.model = data.model;
-                me.path(data.model.categoryId);
+                me.getPath(data.model.categoryId);
                 me.statge();
             }).fail(function () {
                 popup = new PopupView({content: $(errorPopupTpl)});
@@ -196,7 +196,7 @@ define([
                     model:  this.result.model
                 }));
 
-                this.$el.find('.j-filters').html(_.template(filterTpl)({filters: this.result.filter, params: this.params}));
+                this.$el.find('.j-filters').html(_.template(filterTpl)({filter: this.result.filter, params: this.params}));
                 this.list();
 
                 georegion = new GeoregionView.Panel();

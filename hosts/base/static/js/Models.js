@@ -45,7 +45,10 @@ require([
     });
 
     params.on('change:categoryId', function () {
-        Layout  = new Models.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined});
+        Layout  = new Models.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined, reloadModels: function () {
+            params.trigger('change:page');
+        }});
+
         Layout.render();
         if (!params.hasChanged('page')) {
             params.set({
@@ -56,7 +59,7 @@ require([
 
     params.on('change:page', function () {
         if (Layout) {
-            Layout.models(params.get('categoryId'), params.get('page'));
+            Layout.getModels(params.get('categoryId'), params.get('page'));
         }
     });
 

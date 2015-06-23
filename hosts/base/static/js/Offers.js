@@ -60,7 +60,7 @@ require([
 
     params.on('change:page', function () {
         if (Layout) {
-            Layout.offers(params.get('modelId'), params.get('page'));
+            Layout.getOffers(params.get('modelId'), params.get('page'));
         }
     });
 

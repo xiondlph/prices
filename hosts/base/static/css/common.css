@@ -838,7 +838,16 @@ b, strong {
 
 
 /*** Geo Regions ***/
+.b-loader__table_georegion {
+    height: 100%;
+}
+
+.b-table__tr__td_georegion {
+    vertical-align: middle;
+}
+
 .b-georegion {
+    height: 255px;
     width: 450px;
 }
 

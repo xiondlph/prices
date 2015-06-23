@@ -1,7 +1,7 @@
 /**
- * Модуль модели параметров фильтра
+ * Модуль модели параметров фильтра товарных предложений
  *
- * @module      Model.Georegion
+ * @module      Model.OffersFilterParams
  * @category    Client side
  * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
@@ -13,9 +13,9 @@ define([
     'localStorage'
 ], function (Backbone, localStorage) {
 
-    var Filter = Backbone.Model.extend({
+    var OffersFilterParams = Backbone.Model.extend({
         localStorage: new Backbone.LocalStorage('ismax')
     });
 
-    return Filter;
+    return new OffersFilterParams({ id: 'offersFilterParams' });
 });

@@ -1,7 +1,7 @@
 /**
  * Модуль представления виджетов фильтра
  *
- * @module      View.Filters
+ * @module      View.Filter
  * @category    Client side
  * @main        Prices monitoring service
  * @author      Ismax <admin@ismax.ru>
@@ -10,14 +10,14 @@
 
 define([
     'backbone',
-    'text!Templates/Filters/Bool.tpl',
-    'text!Templates/Filters/Enumerator.tpl',
-    'text!Templates/Filters/Select.tpl',
-    'text!Templates/Filters/Vendor.tpl',
-    'text!Templates/Filters/Numeric.tpl',
+    'text!Templates/Filter/Bool.tpl',
+    'text!Templates/Filter/Enumerator.tpl',
+    'text!Templates/Filter/Select.tpl',
+    'text!Templates/Filter/Vendor.tpl',
+    'text!Templates/Filter/Numeric.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, _bool, _enumerator, _select, _vendor, _numeric, _success, _error) {
+], function (Backbone, boolTpl, enumeratorTpl, selectTpl, vendorTpl, numericTpl, successPopupTpl, errorPopupTpl) {
 
 
     /**
@@ -36,7 +36,7 @@ define([
             },
 
             render: function () {
-                this.$el.append(_.template(_bool)({
+                this.$el.append(_.template(boolTpl)({
                     option: this.options.option,
                     value:  this.options.value
                 }));
@@ -72,7 +72,7 @@ define([
                 }
 
 
-                this.$el.append(_.template(_enumerator)({
+                this.$el.append(_.template(enumeratorTpl)({
                     option: this.options.option,
                     value:  this.value
                 }));
@@ -107,7 +107,7 @@ define([
             },
 
             render: function () {
-                this.$el.append(_.template(_select)({
+                this.$el.append(_.template(selectTpl)({
                     option: this.options.option,
                     value:  this.options.value
                 }));
@@ -135,7 +135,7 @@ define([
             },
 
             render: function () {
-                this.$el.append(_.template(_vendor)({
+                this.$el.append(_.template(vendorTpl)({
                     option: this.options.option,
                     value:  this.options.value
                 }));
@@ -163,7 +163,7 @@ define([
             },
 
             render: function () {
-                this.$el.append(_.template(_numeric)({
+                this.$el.append(_.template(numericTpl)({
                     option: this.options.option,
                     value:  this.options.value
                 }));

@@ -76,3 +76,7 @@
     width: 100px;
     left: -7px;
 }
+
+.b-filter__item__widget_select__input {
+    width: 250px;
+}

@@ -1,18 +1,22 @@
 <% if (obj.offers && offers.items.length > 0 && offers.page > 0) { %>
             <table cellpadding="0" cellspacing="0" class="b-grid">
                 <tr class="b-grid__row">
+                    <th class="b-grid__head">Магазин</th>
                     <th class="b-grid__head">Название</th>
                     <th class="b-grid__head">Цена (руб.)</th>
+                    <th class="b-grid__head">В наличии</th>
                 </tr>
 <%     for (var i = 0; i < offers.items.length; i++) { %>
                 <tr class="b-grid__row">
+                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].shopInfo.name %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].name %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].price.value %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].onStock %></span></td>
                 </tr>
 <%     } %>
 <%     if (offers.total > 30) { %>
                 <tr class="b-grid__row b-pagination j-pagination">
-                    <td class="b-grid__cell" colspan="6">
+                    <td class="b-grid__cell" colspan="4">
 <%         if (offers.page > 1) { %>
                         <a href="#<%= modelId %>/1">В начало</a>
                         <a href="#<%= modelId %>/<%= offers.page - 1 %>">&larr;</a>

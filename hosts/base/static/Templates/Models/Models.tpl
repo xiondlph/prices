@@ -7,6 +7,7 @@
                     <th class="b-grid__head">Макс. цена (руб.)</th>
                     <th class="b-grid__head">Мин. цена (руб.)</th>
                     <th class="b-grid__head">Средняя цена (руб.)</th>
+                    <th class="b-grid__head">Рейтинг</th>
                     <th class="b-grid__head">Предложений</th>
                 </tr>
 <%     for (var i = 0; i < models.items.length; i++) { %>
@@ -17,6 +18,7 @@
                     <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.max) } else { print('-')} %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.min) } else { print('-')} %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span><% if (models.items[i].prices) { print(models.items[i].prices.avg) } else { print('-')} %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span><%= models.items[i].rating %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><a href="/offers#<%= models.items[i].id %>"><%= models.items[i].offersCount %></a></td>
                 </tr>
 <%     } %>
@@ -25,7 +27,7 @@
 
        if (models.total > 30) { %>
                 <tr class="b-grid__row b-pagination j-pagination">
-                    <td class="b-grid__cell" colspan="7">
+                    <td class="b-grid__cell" colspan="8">
 <%         if (models.page > 1) { %>
                         <a href="#<%= models.categoryId %>/1">В начало</a>
                         <a href="#<%= models.categoryId %>/<%= models.page - 1 %>">&larr;</a>

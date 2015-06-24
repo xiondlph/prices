@@ -1,34 +1,33 @@
-<div class="b-table b-offers__table">
+<div class="b-table b-top__table">
     <div class="b-table__tr">
-        <div class="b-table__tr__td b-table__tr__td_right b-table__tr__td_wide j-georegion"></div>
-    </div>
-    <div class="b-table__tr j-path">
         <div class="b-table__tr__td b-table__tr__td_wide">
-            <a href="/categories">Категории</a>
+            <a href="/categories" class="b-categories__path__item">Категории</a>
 <% if (path.length > 1) { %>
 <%     for (var i = 1; i < path.length; i++) { %>
-            <a href="/categories#<%= path[i].category.id %>"><%= path[i].category.name %></a>
+<%         if (i < path.length-1) { %>
+            <a href="/categories#<%= path[i].category.id %>" class="b-categories__path__item"><%= path[i].category.name %></a>
+<%         } else { %>
+            <a href="/models#<%= path[i].category.id %>" class="b-categories__path__item"><%= path[i].category.name %></a>
+<%         }  %>
 <%     } %>
 <% } %>
         </div>
+        <div class="b-table__tr__td b-table__tr__td_right j-georegion"></div>
     </div>
-<% if (obj.model) { %>
     <div class="b-table__tr">
         <div class="b-table__tr__td">
-            <h3><%= model.name %></h3>
-            <p><%= model.description %></p>
-        </div>
-    </div>
+<% if (obj.model) { %>
+            <a><%= model.name %></a>
 <% } %>
-    <div class="b-table__tr">
-        <div class="b-table__tr__td j-export">
-            <a href="#">Экспорт</a>
+        </div>
+        <div class="b-table__tr__td b-table__tr__td_right j-export">
+            Экспорт: <a href="#">csv</a>
         </div>
     </div>
 </div>
 <div class="b-table b-offers__table">
     <div class="b-table__tr">
-        <div class="b-table__tr__td b-table__tr__td_nowidth j-filters">gdfgdfgdfg</div>
+        <div class="b-table__tr__td b-table__tr__td_nowidth j-filters"></div>
         <div class="b-table__tr__td b-table__tr__td_wide j-offers"></div>
     </div>
 </div>

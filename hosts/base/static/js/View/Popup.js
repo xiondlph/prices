@@ -36,7 +36,7 @@ define([
             $('body').prepend(me.$el);
             me.$el.find('.b-popup__inner').css({
                 width: me.options.content.outerWidth(),
-                marginTop: '-' + (me.options.content.outerHeight()) + 'px'
+                marginTop: '-' + (me.options.content.outerHeight() / 2) + 'px'
             });
 
 

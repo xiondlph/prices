@@ -3,15 +3,22 @@
 }
 
 .b-loader__table,
-.b-path__table,
+.b-top__table,
+.b-category__table,
 .b-models__table {
     background-color: #fff;
     padding: 10px;
     width: 100%;
 }
 
-.b-categories__item {
-    display: inline-block;
-    outline: none;
-    width: 190px;
+.b-categories__path__item {
+    font-size: 12px;
+}
+
+.b-categories__path__item:before {
+    content: '\21e2\00a0';
+}
+
+.b-categories__path__item:first-child:before {
+    content: '';
 }

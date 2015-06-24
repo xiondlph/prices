@@ -837,7 +837,17 @@ b, strong {
 }
 
 
-/*** Geo Regions ***/
+/*** Geo region Panel ***/
+.b-georegion-panel {
+    white-space: nowrap;
+}
+
+.b-georegion-panel__link {
+    font-size: 12px;
+}
+
+
+/*** Geo regions ***/
 .b-loader__table_georegion {
     height: 100%;
 }

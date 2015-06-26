@@ -744,25 +744,49 @@ b, strong {
 }
 
 .b-grid__head {
-    background-color: #e2dec8;
-}
-
-.b-grid__row {
-    background-color: #f4f3eb;
-}
-
-.b-grid__row:nth-child(odd) {
-    background-color: #faf9ef;
-}
-
-.b-grid__cell_item {
-    text-align: center;
+    border-bottom: 1px solid #efefef;
+    font-weight: normal;
+    white-space: nowrap;
+    padding: 5px 10px;
+    color: #77808b;
 }
 
 .b-grid__head,
 .b-grid__cell {
+    line-height: 30px;
+    text-align: left;
     font-size: 12px;
-    padding: 5px;
+}
+
+.b-grid__head_center,
+.b-grid__cell_center {
+    text-align: center;
+}
+
+.b-grid__head_right,
+.b-grid__cell_right {
+    text-align: right;
+}
+
+.b-grid__cell {
+    padding: 10px 10px 0 10px;
+}
+
+.b-grid__cell__cont {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 30px;
+}
+
+.b-grid__cell__cont_break:after {
+    position: absolute;
+    content: '...';
+    height: 30px;
+    width: auto;
+    right: 0;
+    top: 0;
 }
 
 .b-grid__cell__action {

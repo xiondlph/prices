@@ -30,6 +30,19 @@ exports.index = function (req, res, next) {
 
 
 /**
+ * Основная модели
+ *
+ * @method model
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.model = function (req, res, next) {
+    res.render(__dirname + '/../view/', 'model');
+};
+
+
+/**
  * Информация о модели
  *
  * @method get

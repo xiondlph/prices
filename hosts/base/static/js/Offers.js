@@ -47,7 +47,11 @@ require([
 
     params.on('change:modelId', function () {
         Layout  = new Offers.Layout({obj: $('.b-section'), modelId: params.get('modelId') || undefined, reloadOffers: function () {
-            params.trigger('change:page');
+            if (+params.get('page') > 1) {
+                params.set('page', 1);
+            } else {
+                params.trigger('change:page');
+            }
         }});
 
         Layout.render();

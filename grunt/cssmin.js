@@ -44,6 +44,15 @@ module.exports = {
         }
     },
 
+    model: {
+        options: {
+            banner: '/* Sodels minified */'
+        },
+        files: {
+            'hosts/base/static/build/model.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/model.css']
+        }
+    },
+
     models: {
         options: {
             banner: '/* Sodels minified */'

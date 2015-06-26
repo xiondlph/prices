@@ -9,5 +9,10 @@
         <div class="b-filter__item__widget j-filter__item_widget"></div>
     </div>
 <% } %>
+<% if (params.hasOwnProperty('shop_id')) { %>
+	<div class="b-filter__item">
+		<div class="b-filter__item__label j-filter__item_label">Магазин</div>
+	</div>
+<% } %>
     <button class="f-btn j-filter__reset">Сбросить фильтр</button>
 </div>

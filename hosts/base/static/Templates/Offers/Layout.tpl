@@ -17,7 +17,7 @@
     <div class="b-table__tr">
         <div class="b-table__tr__td">
 <% if (obj.model) { %>
-            <a><%= model.name %></a>
+            <a href="/model#<%= model.id %>"><%= model.name %></a>
 <% } %>
         </div>
         <div class="b-table__tr__td b-table__tr__td_right j-export">

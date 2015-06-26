@@ -3,15 +3,23 @@
                 <tr class="b-grid__row">
                     <th class="b-grid__head">Магазин</th>
                     <th class="b-grid__head">Название</th>
-                    <th class="b-grid__head">Цена (руб.)</th>
-                    <th class="b-grid__head">В наличии</th>
+                    <th class="b-grid__head b-grid__head_center">Цена</th>
+                    <th class="b-grid__head b-grid__head_center">В наличии</th>
                 </tr>
 <%     for (var i = 0; i < offers.items.length; i++) { %>
                 <tr class="b-grid__row">
-                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].shopInfo.name %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].name %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].price.value %></span></td>
-                    <td class="b-grid__cell b-grid__cell_item"><span><%= offers.items[i].onStock %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><a href="#" class="j-shop" data-shop="<%= offers.items[i].shopInfo.id %>"><%= offers.items[i].shopInfo.name %></a></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont<% if (offers.items[i].name.length > 72) { %> b-grid__cell__cont_break<% } %>" title='<%= offers.items[i].name %>'><%= offers.items[i].name %></span></td>
+                    <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><%= offers.items[i].price.value %></span></td>
+                    <td class="b-grid__cell b-grid__cell_center b-grid__cell_item">
+                        <span class="b-grid__cell__cont">
+<%     if (offers.items[i].onStock > 0) { %>
+                            Да
+<%     } else { %>
+                            Нет
+<%     } %>
+                        </span>
+                    </td>
                 </tr>
 <%     } %>
 <%     if (offers.total > 30) { %>

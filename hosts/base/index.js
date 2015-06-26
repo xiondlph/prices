@@ -141,6 +141,7 @@ router.post('^https://www.' + host + '.ru/filters/?$', controller.request.api, c
 
 // Models
 router.get('^https://www.' + host + '.ru/models/?$', controller.models.index);
+router.get('^https://www.' + host + '.ru/model/?$', controller.models.model);
 router.post('^https://www.' + host + '.ru/model/?$', controller.request.api, controller.models.get);
 router.post('^https://www.' + host + '.ru/models/?$', controller.request.api, controller.models.list);
 

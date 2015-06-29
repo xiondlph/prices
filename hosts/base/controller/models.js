@@ -30,7 +30,7 @@ exports.index = function (req, res, next) {
 
 
 /**
- * Основная модели
+ * Cтраница модели
  *
  * @method model
  * @param {Object} req Объект запроса сервера

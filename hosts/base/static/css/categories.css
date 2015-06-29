@@ -4,7 +4,8 @@
 
 .b-loader__table,
 .b-top__table,
-.b-categories__table {
+.b-categories__table,
+.b-search__table {
     background-color: #fff;
     padding: 10px;
     width: 100%;
@@ -41,4 +42,9 @@
     display: block;
     right: -5px;
     top: 0;
+}
+
+/*** Поисковая строка ***/
+.b-category__search__input {
+    width: 100%;
 }

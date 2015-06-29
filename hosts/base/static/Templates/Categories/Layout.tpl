@@ -34,3 +34,11 @@
 <% } %>
     </div>
 </div>
+<form>
+    <div class="b-table b-search__table b-category__search">
+        <div class="b-table__tr">
+            <div class="b-table__tr__td b-table__tr__td_wide"><input type="text" class="b-category__search__input"/></div>
+            <div class="b-table__tr__td b-table__tr__td_nowidth"><button class="b-category__search__button">Найти</button></div>
+        </div>
+    </div>
+</form>

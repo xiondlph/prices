@@ -55,7 +55,8 @@ var controller = {
     georegion:  require('./controller/georegion'),
     category:   require('./controller/category'),
     models:     require('./controller/models'),
-    offers:     require('./controller/offers')
+    offers:     require('./controller/offers'),
+    search:     require('./controller/search')
 };
 
 
@@ -149,3 +150,7 @@ router.post('^https://www.' + host + '.ru/models/?$', controller.request.api, co
 router.get('^https://www.' + host + '.ru/offers/?$', controller.offers.index);
 router.post('^https://www.' + host + '.ru/offers/?$', controller.request.api, controller.offers.list);
 router.post('^https://www.' + host + '.ru/offers/all/?$', controller.request.api, controller.offers.all);
+
+// Search
+router.get('^https://www.' + host + '.ru/search/?$', controller.search.index);
+router.post('^https://www.' + host + '.ru/search/?$', controller.request.api, controller.search.get);

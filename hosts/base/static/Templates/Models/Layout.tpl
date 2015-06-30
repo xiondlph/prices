@@ -10,6 +10,7 @@
 <%     } %>
 <% } %>
         </div>
+        <div class="b-table__tr__td b-table__tr__td_right j-search_panel"></div>
         <div class="b-table__tr__td b-table__tr__td_right j-georegion"></div>
     </div>
     <div class="b-table__tr">

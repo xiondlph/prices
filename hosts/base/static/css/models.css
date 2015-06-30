@@ -22,3 +22,8 @@
 .b-categories__path__item:first-child:before {
     content: '';
 }
+
+/*** Поисковая форма ***/
+.b-search-form {
+    white-space: nowrap;
+}

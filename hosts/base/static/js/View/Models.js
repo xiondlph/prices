@@ -14,6 +14,7 @@ define([
     'Store/ModelsFilterParams',
     'View/Popup',
     'View/Georegion',
+    'View/Search',
     'View/Filter',
     'text!Templates/Models/Loader.tpl',
     'text!Templates/Models/Layout.tpl',
@@ -21,7 +22,7 @@ define([
     'text!Templates/Partials/Filter.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, ModelsFilterParamsModel, ModelsFilterParamsStore, PopupView, GeoregionView, FilterView, loaderTpl, layoutTpl, modelsTpl, filterTpl, successPopupTpl, errorPopupTpl) {
+], function (Backbone, ModelsFilterParamsModel, ModelsFilterParamsStore, PopupView, GeoregionView, SearchView, FilterView, loaderTpl, layoutTpl, modelsTpl, filterTpl, successPopupTpl, errorPopupTpl) {
 
 
     /**
@@ -212,8 +213,13 @@ define([
                 this.$el.find('.j-filters').html(_.template(filterTpl)({filter: this.result.filter, params: this.params}));
                 this.list();
 
-                georegion = new GeoregionView.Panel();
-                this.$el.find('.j-georegion').html(georegion.render());
+                georegionPanel      = new GeoregionView.Panel();
+                searchPanel         = new SearchView.Panel({
+                    categoryId:     this.options.categoryId
+                });
+
+                this.$el.find('.j-georegion').html(georegionPanel.render());
+                this.$el.find('.j-search_panel').html(searchPanel.render());
             }
         },
 

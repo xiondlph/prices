@@ -59,7 +59,7 @@ require([
     // Маршруты
     function Index(categoryId) {
         params.set({
-            categoryId: categoryId  || undefined
+            categoryId: categoryId || 90401
         });
     }
 

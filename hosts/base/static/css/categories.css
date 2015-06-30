@@ -44,7 +44,7 @@
     top: 0;
 }
 
-/*** Поисковая строка ***/
-.b-category__search__input {
-    width: 100%;
+/*** Поисковая форма ***/
+.b-search-form {
+    white-space: nowrap;
 }

@@ -13,11 +13,12 @@ define([
     'validator',
     'View/Popup',
     'View/Georegion',
+    'View/Search',
     'text!Templates/Offers/Loader.tpl',
     'text!Templates/Categories/Layout.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, Georegion, _loader, _layout, _success, _error) {
+], function (Backbone, Validator, Popup, GeoregionView, SearchView, _loader, _layout, _success, _error) {
 
 
     /**
@@ -66,7 +67,7 @@ define([
                 dataType    : 'json',
                 data        : {
                     categoryId: me.options.categoryId,
-                    geo_id:     Georegion.getGeoId(),
+                    geo_id:     GeoregionView.getGeoId(),
                     count:      30
                 }
             }).done(function (data) {
@@ -87,8 +88,8 @@ define([
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
-                    categoryId: me.options.categoryId || 90401,
-                    geo_id:     Georegion.getGeoId()
+                    categoryId: me.options.categoryId,
+                    geo_id:     GeoregionView.getGeoId()
                 }
             }).done(function (data) {
                 me.result.path = data.path;
@@ -105,8 +106,13 @@ define([
             if (this.result.hasOwnProperty('categories') && this.result.hasOwnProperty('path')) {
                 this.$el.html(_.template(_layout)(this.result));
 
-                georegion = new Georegion.Panel();
-                this.$el.find('.j-georegion').html(georegion.render());
+                georegionPanel      = new GeoregionView.Panel();
+                searchPanel         = new SearchView.Panel({
+                    categoryId:     this.options.categoryId
+                });
+
+                this.$el.find('.j-georegion').html(georegionPanel.render());
+                this.$el.find('.j-search_panel').html(searchPanel.render());
             }
         }
     });

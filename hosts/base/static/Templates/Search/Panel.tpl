@@ -1,0 +1,1 @@
+<label>Поиск: <input type="text" class="b-search-form__input j-search-form__input" value="<% if (obj.hasOwnProperty('searchText')){ %><%= searchText %><% } %>" /></label>

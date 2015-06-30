@@ -1,0 +1,12 @@
+.b-loader__table,
+.b-top__table,
+.b-search__table {
+    background-color: #fff;
+    padding: 10px;
+    width: 100%;
+}
+
+/*** Поисковая форма ***/
+.b-search-form {
+    white-space: nowrap;
+}

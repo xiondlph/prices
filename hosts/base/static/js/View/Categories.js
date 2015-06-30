@@ -101,7 +101,8 @@ define([
         },
 
         statge: function () {
-            var georegion;
+            var georegionPanel,
+                searchPanel;
 
             if (this.result.hasOwnProperty('categories') && this.result.hasOwnProperty('path')) {
                 this.$el.html(_.template(_layout)(this.result));

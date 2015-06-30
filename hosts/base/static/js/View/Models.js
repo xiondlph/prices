@@ -203,7 +203,8 @@ define([
         },
 
         statge: function () {
-            var georegion;
+            var georegionPanel,
+                searchPanel;
 
             if (this.result.hasOwnProperty('path') && this.result.hasOwnProperty('models') && this.result.hasOwnProperty('filter')) {
                 this.$el.html(_.template(layoutTpl)({

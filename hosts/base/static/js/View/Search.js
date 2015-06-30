@@ -22,6 +22,34 @@ define([
 
 
         /**
+         * Представление панели формы поиска
+         *
+         * @class       Panel
+         * @namespace   View
+         * @constructor
+         * @extends     Backbone.View
+         */
+    var Panel = Backbone.View.extend({
+            className:  'b-search-form',
+            tagName:    'form',
+
+            events: {
+                'submit': 'searchFormSubmit'
+            },
+
+            render: function () {
+                this.$el.html(_.template(panelTpl)({searchText: this.options.searchText}));
+                return this.$el;
+            },
+
+            searchFormSubmit: function (e) {
+                e.preventDefault();
+                window.location.href = '/search#' + this.options.categoryId + '/' + this.$el.find('.j-search-form__input').val();
+            }
+        }),
+
+
+        /**
          * Представление страницы поиска
          *
          * @class       Layout
@@ -29,7 +57,7 @@ define([
          * @constructor
          * @extends     Backbone.View
          */
-    var Layout = Backbone.View.extend({
+        Layout = Backbone.View.extend({
             className:  'b-search b-switch b-switch_animate',
 
             events: {
@@ -134,34 +162,6 @@ define([
 
             list: function () {
                 this.$el.find('.j-search').html(_.template(searchTpl)({categoryId: this.options.categoryId, search: this.result.search}));
-            }
-        }),
-
-
-        /**
-         * Представление панели формы поиска
-         *
-         * @class       Panel
-         * @namespace   View
-         * @constructor
-         * @extends     Backbone.View
-         */
-        Panel = Backbone.View.extend({
-            className:  'b-search-form',
-            tagName:    'form',
-
-            events: {
-                'submit': 'searchFormSubmit'
-            },
-
-            render: function () {
-                this.$el.html(_.template(panelTpl)({searchText: this.options.searchText}));
-                return this.$el;
-            },
-
-            searchFormSubmit: function (e) {
-                e.preventDefault();
-                window.location.href = '/search#' + this.options.categoryId + '/' + this.$el.find('.j-search-form__input').val();
             }
         });
 

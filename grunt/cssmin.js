@@ -71,6 +71,15 @@ module.exports = {
         }
     },
 
+    reviews: {
+        options: {
+            banner: '/* Reviews minified */'
+        },
+        files: {
+            'hosts/base/static/build/offers.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/reviews.css', 'hosts/base/static/css/filter.css']
+        }
+    },
+
     search: {
         options: {
             banner: '/* Offers minified */'

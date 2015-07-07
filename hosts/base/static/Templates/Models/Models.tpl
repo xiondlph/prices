@@ -7,7 +7,8 @@
                     <th class="b-grid__head b-grid__head_center">Мин. цена</th>
                     <th class="b-grid__head b-grid__head_center">Ср. цена</th>
                     <th class="b-grid__head b-grid__head_center">Рейтинг</th>
-                    <th class="b-grid__head b-grid__head_center">Предложений</th>
+                    <th class="b-grid__head b-grid__head_center">Предложения</th>
+                    <th class="b-grid__head b-grid__head_center">Отзывы</th>
                 </tr>
 <%     for (var i = 0; i < models.items.length; i++) { %>
                 <tr class="b-grid__row">
@@ -17,7 +18,8 @@
                     <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><% if (models.items[i].prices) { print(models.items[i].prices.min) } else { print('-')} %></span></td>
                     <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><% if (models.items[i].prices) { print(models.items[i].prices.avg) } else { print('-')} %></span></td>
                     <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><%= models.items[i].rating %></span></td>
-                    <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><a href="/offers#<%= models.items[i].id %>"><%= models.items[i].offersCount %></a></span></td>
+                    <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><a href="/offers#<%= models.items[i].id %>">Все</a></span></td>
+                    <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><a href="/reviews#<%= models.items[i].id %>"><%= models.items[i].reviewsCount %></a></span></td>
                 </tr>
 <%     } %>
 <%

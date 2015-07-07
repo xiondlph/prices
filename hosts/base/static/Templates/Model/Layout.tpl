@@ -13,6 +13,7 @@
             <p><%= model.vendor %></p>
             <p><%= model.name %></p>
             <p><%= model.description %></p>
+            <p><a href="reviews#<%= model.id %>">Отзывы (<%= model.reviewsCount %>)</a></p>
         </div>
     </div>
 </div>

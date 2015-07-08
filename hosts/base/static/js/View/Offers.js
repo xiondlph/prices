@@ -49,13 +49,13 @@ define([
                 filter: OffersFilterParamsStore
             };
 
-            if (OffersFilterParamsModel.get('modelId') === this.options.modelId) {
+            if (OffersFilterParamsModel.get('modelId') === me.options.modelId) {
                 me.params = OffersFilterParamsModel.get('params');
             } else {
                 me.params   = {};
             }
 
-            delete me.params.shop_id;
+            me.result.filter[0].options.push({valueId: me.options.modelId, valueText: 'Магаз'});
 
             me.getModel(me.options.modelId);
 

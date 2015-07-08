@@ -64,6 +64,27 @@ exports.get = function (req, res, next) {
 
 
 /**
+ * Список точек продаж модели
+ *
+ * @method outlets
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.outlets = function (req, res, next) {
+    var modelId = req.params.modelId;
+
+    delete req.params.modelId;
+
+    req.api('/v1/model/' + modelId + '/outlets.json?' + querystring.stringify(req.params), function (status, data) {
+        res.statusCode = status;
+        res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+        res.end(data);
+    });
+};
+
+
+/**
  * Список моделей категории
  *
  * @method list

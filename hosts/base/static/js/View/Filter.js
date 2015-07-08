@@ -10,14 +10,17 @@
 
 define([
     'backbone',
+    'View/Shops',
+    'View/Popup',
     'text!Templates/Filter/Bool.tpl',
     'text!Templates/Filter/Enumerator.tpl',
     'text!Templates/Filter/Select.tpl',
     'text!Templates/Filter/Vendor.tpl',
+    'text!Templates/Filter/Shops.tpl',
     'text!Templates/Filter/Numeric.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, boolTpl, enumeratorTpl, selectTpl, vendorTpl, numericTpl, successPopupTpl, errorPopupTpl) {
+], function (Backbone, ShopsView, PopupView, boolTpl, enumeratorTpl, selectTpl, vendorTpl, shopsTpl, numericTpl, successPopupTpl, errorPopupTpl) {
 
 
     /**
@@ -148,6 +151,40 @@ define([
         }),
 
         /**
+         * Представление виджета Shops
+         *
+         * @class       Shops
+         * @namespace   View
+         * @constructor
+         * @extends     Backbone.View
+         */
+        Shops = Backbone.View.extend({
+            className:  'b-filter__item__widget_shops',
+
+            events: {
+                'click a': 'list'
+            },
+
+            render: function () {
+                this.$el.append(_.template(shopsTpl));
+                return this.$el;
+            },
+
+            list: function (e) {
+                var shopsView,
+                    popup;
+
+                e.preventDefault();
+
+                shopsView   = new ShopsView.Layout({modelId: this.options.option.options[0].valueId});
+                popup       = new PopupView({content: shopsView.render()});
+                popup.render();
+
+                //this.options.accept($(e.currentTarget).val());
+            }
+        }),
+
+        /**
          * Представление виджета NUMERIC
          *
          * @class       Numeric
@@ -192,6 +229,7 @@ define([
         ENUMERATOR: Enumerator,
         SELECT:     Select,
         VENDOR:     Vendor,
+        SHOPS:      Shops,
         NUMERIC:    Numeric
     };
 });

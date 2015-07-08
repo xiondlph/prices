@@ -11,6 +11,12 @@
 define(['backbone'], function () {
     return [
         {
+            id:         'shop_id',
+            name:       'Магазин',
+            options:    [],
+            type:       'SHOPS'
+        },
+        {
             id:         'delivery',
             name:       'С учетом доставки',
             options:    [

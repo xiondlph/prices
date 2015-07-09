@@ -937,9 +937,9 @@ b, strong {
 }
 
 .b-shops__table__items {
-    -webkit-column-width: 143px;
-    -moz-column-width: 143px;
-    column-width: 143px;
+    -webkit-column-width: 133px;
+    -moz-column-width: 133px;
+    column-width: 133px;
 }
 
 .b-shops__item {

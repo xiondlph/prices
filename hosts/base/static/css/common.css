@@ -916,3 +916,50 @@ b, strong {
     right: -5px;
     top: 0;
 }
+
+
+/*** Попап списка магазинов ***/
+.b-loader__table_shops {
+    height: 100%;
+}
+
+.b-table__tr__td_shops {
+    vertical-align: middle;
+}
+
+.b-shops {
+    height: 135px;
+    width: 450px;
+}
+
+.b-shops__table {
+    width: 100%;
+}
+
+.b-shops__table__items {
+    -webkit-column-width: 143px;
+    -moz-column-width: 143px;
+    column-width: 143px;
+}
+
+.b-shops__item {
+    display: inline-block;
+    white-space: nowrap;
+    margin: 0 12px 0 0;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    width: 128px;
+}
+
+.b-shops__item:after {
+    -webkit-box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+    -moz-box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+    box-shadow: 0 0 20px 15px rgba(255,255,255,1);
+
+    position: absolute;
+    content: "\00a0";
+    display: block;
+    right: -5px;
+    top: 0;
+}

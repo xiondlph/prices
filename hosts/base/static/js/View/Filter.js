@@ -162,25 +162,63 @@ define([
             className:  'b-filter__item__widget_shops',
 
             events: {
-                'click a': 'list'
+                'click .j-filter__item__widget_shops__select': 'list',
+                'click .j-filter__item__widget_shops__delete': 'remove'
             },
 
             render: function () {
-                this.$el.append(_.template(shopsTpl));
+                var shopId = this.options.value;
+
+                this.fetch(shopId);
                 return this.$el;
+            },
+
+            fetch: function (shopId) {
+                var me = this,
+                    popup;
+
+                me.$el.html('<center><img src="/images/reload.svg"></center>');
+
+                if (shopId) {
+                    $.ajax({
+                        url         : '/shop',
+                        type        : 'POST',
+                        dataType    : 'json',
+                        data        : {
+                            shopId: shopId
+                        }
+                    }).done(function (data) {
+                        me.$el.html(_.template(shopsTpl)(data));
+                    }).fail(function () {
+                        popup = new PopupView({content: $(errorPopupTpl)});
+                        popup.render();
+                    });
+                } else {
+                    me.$el.html(_.template(shopsTpl)({}));
+                }
+
             },
 
             list: function (e) {
                 var shopsView,
+                    me = this,
                     popup;
 
                 e.preventDefault();
 
-                shopsView   = new ShopsView.Layout({modelId: this.options.option.options[0].valueId});
+                shopsView   = new ShopsView.Layout({modelId: this.options.option.options[0].valueId, setValue: function (value) {
+                    me.options.accept(value);
+                    me.fetch(value);
+                }});
+
                 popup       = new PopupView({content: shopsView.render()});
                 popup.render();
+            },
 
-                //this.options.accept($(e.currentTarget).val());
+            remove: function (e) {
+                e.preventDefault();
+                this.fetch();
+                this.options.accept();
             }
         }),
 

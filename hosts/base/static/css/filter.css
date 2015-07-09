@@ -81,3 +81,9 @@
 .b-filter__item__widget_select__input {
     width: 250px;
 }
+
+
+/*** Shops ***/
+.b-filter__item__widget_shops {
+    font-size: 12px;
+}

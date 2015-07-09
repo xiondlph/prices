@@ -38,7 +38,6 @@ define([
         events: {
             'click .j-filter__item_label':      'toggleFilterItem',
             'click .j-filter__reset':           'filterReset',
-            'click .j-shop':                    'selectShop',
             'click .j-export > a':              'export'
         },
 
@@ -220,13 +219,6 @@ define([
                 this.params = {};
                 this.filterChange();
             }
-        },
-
-        selectShop: function (e) {
-            e.preventDefault();
-            this.params.shop_id = $(e.currentTarget).data('shop');
-            this.filterChange();
-            return false;
         },
 
         export: function (e) {

@@ -11,11 +11,12 @@
 define([
     'backbone',
     'View/Popup',
+    'View/Georegion',
     'text!Templates/Shops/Loader.tpl',
     'text!Templates/Shops/Layout.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, PopupView, _loader, _layout, _success, _error) {
+], function (Backbone, PopupView, GeoregionView, _loader, _layout, _success, _error) {
 
 
     /**
@@ -30,7 +31,8 @@ define([
         className:  'b-shops',
 
         events: {
-
+            'click .j-shops__item__link':   'selectItem',
+            'click .j-page':                'page'
         },
 
         render: function () {
@@ -55,29 +57,8 @@ define([
         },
 
         selectItem: function (e) {
-            var items;
-
             e.preventDefault();
-            items = this.result.georegions.items[$(e.currentTarget).data('index')];
-
-            this.options.geoId = items.id;
-            this.fetch();
-        },
-
-        apply: function (e) {
-            var item,
-                index = this.$el.find('.j-georegion__item__input:checked').data('index');
-
-            e.preventDefault();
-            item = this.result.georegions.items[index];
-            if (item) {
-                GeoModel.save({
-                    id:     'geo',
-                    geo:    item.id,
-                    name:   item.name,
-                    parent: item.parentId
-                });
-            }
+            this.options.setValue($(e.currentTarget).data('id').toString());
         },
 
         list: function () {
@@ -90,8 +71,9 @@ define([
                 dataType    : 'json',
                 data        : {
                     modelId:    me.options.modelId,
+                    geo_id:     GeoregionView.getGeoId(),
                     page:       me.options.page,
-                    count:      5
+                    count:      9
                 }
             }).done(function (data) {
                 me.result.outlets = data.outlets;

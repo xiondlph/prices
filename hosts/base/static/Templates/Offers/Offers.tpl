@@ -8,7 +8,7 @@
                 </tr>
 <%     for (var i = 0; i < offers.items.length; i++) { %>
                 <tr class="b-grid__row">
-                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><a href="#" class="j-shop" data-shop="<%= offers.items[i].shopInfo.id %>"><%= offers.items[i].shopInfo.name %></a></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><%= offers.items[i].shopInfo.name %></span></td>
                     <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont<% if (offers.items[i].name.length > 72) { %> b-grid__cell__cont_break<% } %>" title='<%= offers.items[i].name %>'><%= offers.items[i].name %></span></td>
                     <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><%= offers.items[i].price.value %></span></td>
                     <td class="b-grid__cell b-grid__cell_center b-grid__cell_item">

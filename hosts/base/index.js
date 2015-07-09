@@ -57,7 +57,8 @@ var controller = {
     models:     require('./controller/models'),
     offers:     require('./controller/offers'),
     reviews:    require('./controller/reviews'),
-    search:     require('./controller/search')
+    search:     require('./controller/search'),
+    shops:      require('./controller/shops')
 };
 
 
@@ -160,3 +161,6 @@ router.post('^https://www.' + host + '.ru/reviews/?$', controller.request.api, c
 // Search
 router.get('^https://www.' + host + '.ru/search/?$', controller.search.index);
 router.post('^https://www.' + host + '.ru/search/?$', controller.request.api, controller.search.get);
+
+// Shops
+router.post('^https://www.' + host + '.ru/shop/?$', controller.request.api, controller.shops.get);

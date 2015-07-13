@@ -2,13 +2,19 @@
             <table cellpadding="0" cellspacing="0" class="b-grid">
                 <tr class="b-grid__row">
                     <th class="b-grid__head">Название</th>
+                    <th class="b-grid__head">Цена</th>
+                    <th class="b-grid__head">Тип</th>
                 </tr>
 <%     for (var i = 0; i < search.results.length; i++) { %>
                 <tr class="b-grid__row">
 <%         if (search.results[i].hasOwnProperty('offer')) { %>
                     <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><%= search.results[i].offer.name %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><%= search.results[i].offer.price.value %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont">Предложение</span></td>
 <%         } else { %>
-                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><%= search.results[i].model.name %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><a href="/model#<%= search.results[i].model.id %>"><%= search.results[i].model.name %></a></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><%= [search.results[i].model.prices.min, search.results[i].model.prices.max].join('-') %></span></td>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont">Модель</span></td>
 <%         } %>
                 </tr>
 <%     } %>

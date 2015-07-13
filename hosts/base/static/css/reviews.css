@@ -21,3 +21,10 @@
 .b-categories__path__item:first-child:before {
     content: '';
 }
+
+.b-reviews__details__popup {
+	max-height: 600px;
+	font-size: 12px;
+	overflow: auto;
+	width: 600px;
+}

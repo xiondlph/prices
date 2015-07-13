@@ -14,13 +14,14 @@ define(['backbone'], function () {
             id:         'grade',
             name:       'Отценка',
             options:    [
+                {valueId: '', valueText: 'все'},
                 {valueId: '2', valueText: '2'},
                 {valueId: '1', valueText: '1'},
                 {valueId: '0', valueText: '0'},
                 {valueId: '-1', valueText: '-1'},
                 {valueId: '-2', valueText: '-2'}
             ],
-            type:       'ENUMERATOR'
+            type:       'SELECT'
         },
         {
             id:         'sort',

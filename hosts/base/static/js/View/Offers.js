@@ -223,29 +223,35 @@ define([
 
         export: function (e) {
             e.preventDefault();
-            var me = this,
+            var me      = this,
+                params  = _.extend({}, me.params),
                 popup;
+
+            params.modelId  = me.options.modelId;
+            params.count    = 30;
+            params.geo_id   = GeoregionView.getGeoId();
 
             $.ajax({
                 url         : '/offers/all',
                 type        : 'POST',
                 dataType    : 'json',
-                data        : {
-                    modelId:    me.options.modelId,
-                    geo_id:     GeoregionView.getGeoId(),
-                    count:      30
-                }
+                data        : params
             }).done(function (data) {
                 var out = '',
                     i;
 
                 for (i = 0; i < data.length; i++) {
-                    out += '"' + data[i].name + '",';
-                    out += '"' + data[i].price.value + '",';
-                    //out += '"' + data[i].price.currencyName + '"\n';
+                    out += '"' + data[i].name + '";';
+                    out += '"' + data[i].shopInfo.name + '";';
+                    out += '"' + data[i].price.value + '";';
+                    if (data[i].onStock > 0) {
+                        out += '"Да"\n';
+                    } else {
+                        out += '"Нет"\n';
+                    }
                 }
 
-                me.download(out, 'test.csv', 'text/csv');
+                me.download(out, me.result.model.name + '.csv', 'text/csv;charset=utf-8');
             }).fail(function () {
                 popup = new PopupView({content: $(errorPopupTpl)});
                 popup.render();
@@ -254,34 +260,34 @@ define([
         },
 
         download: function (content, fileName, mimeType) {
-            var a = document.createElement('a'),
-                f;
+            var a = document.createElement('a');
+                //f;
             mimeType = mimeType || 'application/octet-stream';
 
-            if (navigator.msSaveBlob) { // IE10
-                return navigator.msSaveBlob(new Blob([content], {type: mimeType}), fileName);
-            }
+            // if (navigator.msSaveBlob) { // IE10
+            //     return navigator.msSaveBlob(new Blob([content], {type: mimeType}), fileName);
+            // }
 
-            if (a.hasOwnProperty('download')) { //html5 A[download]
-                a.href = 'data:' + mimeType + ',' + encodeURIComponent(content);
-                a.setAttribute('download', fileName);
-                document.body.appendChild(a);
-                setTimeout(function () {
-                    a.click();
-                    document.body.removeChild(a);
-                }, 66);
-                return true;
-            }
+        //if (a.hasOwnProperty('download')) { //html5 A[download]
+            a.href = 'data:' + mimeType + ',' + encodeURIComponent(content);
+            a.setAttribute('download', fileName);
+            document.body.appendChild(a);
+            setTimeout(function () {
+                a.click();
+                document.body.removeChild(a);
+            }, 66);
+            return true;
+        //}
 
             //do iframe dataURL download (old ch+FF):
-            f = document.createElement('iframe');
-            document.body.appendChild(f);
-            f.src = 'data:' + mimeType + ',' + encodeURIComponent(content);
+            // f = document.createElement('iframe');
+            // document.body.appendChild(f);
+            // f.src = 'data:' + mimeType + ',' + encodeURIComponent(content);
 
-            setTimeout(function () {
-                document.body.removeChild(f);
-            }, 333);
-            return true;
+            // setTimeout(function () {
+            //     document.body.removeChild(f);
+            // }, 333);
+            //return true;
         }
     });
 

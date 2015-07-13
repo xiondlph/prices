@@ -57,13 +57,13 @@ define([
 
             events: {
                 'click .j-georegion__path':             'selectPath',
-                'click .j-georegion__item__link':       'selectItem',
-                'click .j-georegion__apply':            'apply',
+                'click .j-georegion__item__select':     'selectItem',
+                'click .j-georegion__item__forward':    'forward',
                 'click .j-page':                        'page'
             },
 
             render: function () {
-                this.options.geoId  = GeoModel.get('parent') || 10000;
+                this.options.geoId  = GeoModel.get('geo') || 10000;
                 this.options.page   = 1;
                 this.fetch();
                 return this.$el;
@@ -86,28 +86,27 @@ define([
             },
 
             selectPath: function (e) {
-                var items;
+                var item;
 
                 e.preventDefault();
-                items = this.result.path[$(e.currentTarget).data('index')];
+                item = this.result.path[$(e.currentTarget).data('index')];
 
-                this.options.geoId = items.georegion.id;
-                this.fetch();
+                if (item) {
+                    GeoModel.save({
+                        id:     'geo',
+                        geo:    item.georegion.id,
+                        name:   item.georegion.name,
+                        parent: item.georegion.parentId
+                    });
+
+                    this.options.geoId = item.georegion.id;
+                    this.fetch();
+                }
             },
 
             selectItem: function (e) {
-                var items;
-
-                e.preventDefault();
-                items = this.result.georegions.items[$(e.currentTarget).data('index')];
-
-                this.options.geoId = items.id;
-                this.fetch();
-            },
-
-            apply: function (e) {
                 var item,
-                    index = this.$el.find('.j-georegion__item__input:checked').data('index');
+                    index = $(e.currentTarget).data('index');
 
                 e.preventDefault();
                 item = this.result.georegions.items[index];
@@ -118,6 +117,9 @@ define([
                         name:   item.name,
                         parent: item.parentId
                     });
+
+                    this.options.geoId = item.id;
+                    this.fetch();
                 }
             },
 
@@ -152,7 +154,7 @@ define([
                     data        : {
                         geo_id: me.options.geoId,
                         page:   me.options.page,
-                        count:      5
+                        count:      6
                     }
                 }).done(function (data) {
                     me.result.georegions = data.georegions;

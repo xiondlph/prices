@@ -18,7 +18,7 @@ define(['backbone'], function () {
         },
         {
             id:         'delivery',
-            name:       'С учетом доставки',
+            name:       'Цены с учетом доставки',
             options:    [
                 {valueId: 0, valueText: 'Нет'},
                 {valueId: 1, valueText: 'Да'}

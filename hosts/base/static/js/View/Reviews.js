@@ -18,10 +18,11 @@ define([
     'text!Templates/Reviews/Loader.tpl',
     'text!Templates/Reviews/Layout.tpl',
     'text!Templates/Reviews/Reviews.tpl',
+    'text!Templates/Reviews/Details.tpl',
     'text!Templates/Partials/Filter.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, ReviewsFilterParamsModel, ReviewsFilterParamsStore, PopupView, GeoregionView, FilterView, loaderTpl, layoutTpl, reviewsTpl, filterTpl, successPopupTpl, errorPopupTpl) {
+], function (Backbone, ReviewsFilterParamsModel, ReviewsFilterParamsStore, PopupView, GeoregionView, FilterView, loaderTpl, layoutTpl, reviewsTpl, detailsTpl, filterTpl, successPopupTpl, errorPopupTpl) {
 
 
     /**
@@ -38,8 +39,7 @@ define([
         events: {
             'click .j-filter__item_label':      'toggleFilterItem',
             'click .j-filter__reset':           'filterReset',
-            'click .j-shop':                    'selectShop',
-            'click .j-export > a':              'export'
+            'click .j-reviews__item__text':     'details'
         },
 
         render: function () {
@@ -222,11 +222,56 @@ define([
             }
         },
 
-        selectShop: function (e) {
+        dateParse: function (date) {
+            var _humanMonth = [
+                'Января',
+                'Февраля',
+                'Марта',
+                'Апреля',
+                'Мая',
+                'Июня',
+                'Июля',
+                'Августа',
+                'Сентября',
+                'Октября',
+                'Ноября',
+                'Декобря'
+            ],
+
+                _current    = new Date(),
+                _date       = new Date(date),
+                _year       = '',
+                _month      = '',
+                _day        = '';
+
+            if (_current.getFullYear() !== _date.getFullYear()) {
+                _year = ' ' + _date.getFullYear();
+            }
+
+            if (_current.getMonth() !== _date.getMonth()) {
+                _month = ' ' + _humanMonth[_date.getMonth()];
+            }
+
+            if (_current.getDate() - _date.getDate() > 1 || _month.length > 0 || _year.length > 0) {
+                _month = _month.length > 0 ? _month : ' ' + _humanMonth[_date.getMonth()];
+                _day = _date.getDate();
+            } else if (_current.getDate() - _date.getDate() > 0) {
+                _day = 'Вчера';
+            } else {
+                _day = 'Сегодня';
+            }
+
+            return _day + _month + _year;
+        },
+
+        details: function (e) {
             e.preventDefault();
-            this.params.shop_id = $(e.currentTarget).data('shop');
-            this.filterChange();
-            return false;
+            var popup,
+                details = $(_.template(detailsTpl)(_.extend({details: this.result.reviews.modelOpinions.opinion[$(e.currentTarget).data('index')]}, {dateParse: this.dateParse})));
+
+
+            popup = new PopupView({content: details});
+            popup.render();
         }
     });
 

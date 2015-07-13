@@ -16,7 +16,7 @@
                     </td>
                     <td class="b-grid__cell b-grid__cell_item">
 <%         if (modelOpinions.opinion[i].hasOwnProperty('text')) { %>
-                        <span class="b-grid__cell__cont<% if (modelOpinions.opinion[i].text.length > 72) { %> b-grid__cell__cont_break<% } %>" title='<%= modelOpinions.opinion[i].text %>'><%= modelOpinions.opinion[i].text %></span>
+                        <span class="b-grid__cell__cont<% if (modelOpinions.opinion[i].text.length > 72) { %> b-grid__cell__cont_break<% } %>" title='<%= modelOpinions.opinion[i].text %>'><a href="#" class="j-reviews__item__text" data-index="<%= i %>"><%= modelOpinions.opinion[i].text %></a></span>
 <%         } %>
                     </td>
                     <td class="b-grid__cell b-grid__cell_center b-grid__cell_item"><span class="b-grid__cell__cont"><%= modelOpinions.opinion[i].grade %></span></td>

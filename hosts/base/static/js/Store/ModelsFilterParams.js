@@ -25,8 +25,8 @@ define(['backbone'], function () {
             id:         'how',
             name:       'Направление сортировки',
             options:    [
-                {valueId: 'asc', valueText: 'По возрастанию'},
-                {valueId: 'desc', valueText: 'По убыванию'}
+                {valueId: 'desc', valueText: 'По убыванию'},
+                {valueId: 'asc', valueText: 'По возрастанию'}
             ],
             type:       'SELECT'
         }

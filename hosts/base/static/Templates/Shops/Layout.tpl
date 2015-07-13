@@ -1,4 +1,9 @@
 <div class="b-table b-shops__table">
+    <div class="b-table__tr">
+        <div class="b-table__tr__td b-table__tr__td_wide">
+            <div class="b-shops__title">Выбор магазина</div>
+        </div>
+    </div>
 <% if (outlets.outlet.length > 0) { %>
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide b-table__tr__td_col3 b-shops__table__items">
@@ -33,5 +38,11 @@
         </div>
     </div>
 <%     } %>
+<% } else { %>
+        <div class="b-table__tr">
+        <div class="b-table__tr__td b-table__tr__td_wide">
+            <p>Нет магазинов в выбранном регионе</p>
+        </div>
+    </div>
 <% } %>
 </div>

@@ -13,7 +13,11 @@
                     <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont">Предложение</span></td>
 <%         } else { %>
                     <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><a href="/model#<%= search.results[i].model.id %>"><%= search.results[i].model.name %></a></span></td>
+<%             if (search.results[i].model.hasOwnProperty('prices')) { %>
                     <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont"><%= [search.results[i].model.prices.min, search.results[i].model.prices.max].join('-') %></span></td>
+<%             } else { %>
+                    <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont">-</span></td>
+<%             } %>
                     <td class="b-grid__cell b-grid__cell_item"><span class="b-grid__cell__cont">Модель</span></td>
 <%         } %>
                 </tr>

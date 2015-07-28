@@ -2,19 +2,18 @@
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide b-georegion__table__path">
             <a href="#" data-index="0" class="b-georegion__path__item j-georegion__path">Регионы</a>
-<% if (obj.hasOwnProperty('region') && region.parentId !== 0) { %>
-
-<%     if (region.parentId !== 10000) { %>
-            <a href="#<%= region.parentId %>" data-id="<%= region.parentId %>" class="b-georegion__path__item j-georegion__path"> . . . </a>
+<% if (path.length > 1) { %>
+<%     for (var i = 1; i < path.length - 1; i++) { %>
+<%         if (path[i].georegion.childrenCount > 0) { %>
+            <a href="#<%= path[i].georegion.id %>" data-index="<%= i %>" class="b-georegion__path__item j-georegion__path"><%= path[i].georegion.name %></a>
+<%         } %>
 <%     } %>
-            <a href="#<%= region.id %>" data-id="<%= region.id %>" class="b-georegion__path__item j-georegion__path"><%= region.name %></a>
-
 <% } %>
         </div>
     </div>
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide b-georegion__table__current">
-            Текущий регион: <strong><%= region.id === 10000 ? 'Все регионы' : region.name %></strong>
+            Текущий регион: <strong><%= path[path.length - 1].georegion.id === 10000 ? 'Все регионы' : path[path.length - 1].georegion.name %></strong>
         </div>
     </div>
 <% if (georegions.items.length > 0) { %>

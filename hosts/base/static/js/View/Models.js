@@ -52,7 +52,7 @@ define([
                 me.params   = {};
             }
 
-            me.getPath();
+            me.getCategory();
             me.getFilter();
 
             me.$el.append(_.template(loaderTpl));
@@ -126,12 +126,12 @@ define([
             this.filterChange();
         }, 1000),
 
-        getPath: function () {
+        getCategory: function () {
             var me = this,
                 popup;
 
             $.ajax({
-                url         : '/path',
+                url         : '/category',
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
@@ -139,7 +139,7 @@ define([
                     geo_id:     GeoregionView.getGeoId()
                 }
             }).done(function (data) {
-                me.result.path = data.path;
+                me.result.category = data.category;
                 me.statge();
             }).fail(function () {
                 popup = new PopupView({content: $(errorPopupTpl)});
@@ -206,9 +206,9 @@ define([
             var georegionPanel,
                 searchPanel;
 
-            if (this.result.hasOwnProperty('path') && this.result.hasOwnProperty('models') && this.result.hasOwnProperty('filter')) {
+            if (this.result.hasOwnProperty('category') && this.result.hasOwnProperty('models') && this.result.hasOwnProperty('filter')) {
                 this.$el.html(_.template(layoutTpl)({
-                    path: this.result.path
+                    category: this.result.category
                 }));
 
                 this.$el.find('.j-filters').html(_.template(filterTpl)({filter: this.result.filter, params: this.params}));

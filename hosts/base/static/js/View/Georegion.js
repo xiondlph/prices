@@ -73,7 +73,7 @@ define([
                 this.result = {};
                 this.$el.html(_.template(_loader));
 
-                this.path();
+                this.region();
                 this.list();
             },
 
@@ -86,22 +86,18 @@ define([
             },
 
             selectPath: function (e) {
-                var item;
+                var id;
 
                 e.preventDefault();
-                item = this.result.path[$(e.currentTarget).data('index')];
+                id = $(e.currentTarget).data('id');
 
-                if (item) {
-                    GeoModel.save({
-                        id:     'geo',
-                        geo:    item.georegion.id,
-                        name:   item.georegion.name,
-                        parent: item.georegion.parentId
-                    });
+                GeoModel.save({
+                    id:     'geo',
+                    geo:    id
+                });
 
-                    this.options.geoId = item.georegion.id;
-                    this.fetch();
-                }
+                this.options.geoId = id;
+                this.fetch();
             },
 
             selectItem: function (e) {
@@ -113,9 +109,7 @@ define([
                 if (item) {
                     GeoModel.save({
                         id:     'geo',
-                        geo:    item.id,
-                        name:   item.name,
-                        parent: item.parentId
+                        geo:    item.id
                     });
 
                     this.options.geoId = item.id;
@@ -123,20 +117,26 @@ define([
                 }
             },
 
-            path: function () {
+            region: function () {
                 var me = this,
                     popup;
 
                 $.ajax({
-                    url         : 'georegion/path',
+                    url         : '/georegion',
                     type        : 'POST',
                     dataType    : 'json',
                     data        : {
                         geo_id: me.options.geoId
                     }
                 }).done(function (data) {
-                    me.result.path = data.path;
+                    me.result.region = data.georegion;
                     me.statge();
+
+                    GeoModel.save({
+                        id:     'geo',
+                        name:   data.georegion.name,
+                        parent: data.georegion.parentId
+                    });
                 }).fail(function () {
                     popup = new Popup({content: $(_error)});
                     popup.render();
@@ -166,7 +166,7 @@ define([
             },
 
             statge: function () {
-                if (this.result.hasOwnProperty('path') && this.result.hasOwnProperty('georegions')) {
+                if (this.result.hasOwnProperty('region') && this.result.hasOwnProperty('georegions')) {
                     this.$el.html(_.template(_layout)(this.result));
                 }
             }

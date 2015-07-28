@@ -1,6 +1,6 @@
-<div class="b-table b-form__table">
+<div class="b-table b-table_wide b-form__table">
     <div class="b-table__tr">
-        <div class="b-table__tr__td">
+        <div class="b-table__tr__td b-table__tr__td_nowidth">
             <div class="b-form__title">Личные данные</div>
             <div class="b-form__field">
                 <input type="text" name="email" value="" id="email" class="b-form__field__input j-form__field__input">
@@ -12,7 +12,7 @@
                 <a href="#pass" class="b-form__field__action icon-pencil">Изменить</a>
             </div>
         </div>
-        <div class="b-table__tr__td"></div>
+        <div class="b-table__tr__td b-table__tr__td_wide"></div>
     </div>
     <div class="b-table__tr">
         <div class="b-table__tr__td"></div>

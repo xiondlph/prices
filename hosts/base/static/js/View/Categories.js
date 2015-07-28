@@ -40,7 +40,7 @@ define([
             var me = this;
 
             me.result = {};
-            me.path();
+            me.category();
             me.categories();
 
             me.$el.append(_.template(_loader));
@@ -79,12 +79,12 @@ define([
             });
         },
 
-        path: function () {
+        category: function () {
             var me = this,
                 popup;
 
             $.ajax({
-                url         : '/path',
+                url         : '/category',
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
@@ -92,7 +92,7 @@ define([
                     geo_id:     GeoregionView.getGeoId()
                 }
             }).done(function (data) {
-                me.result.path = data.path;
+                me.result.category = data.category;
                 me.statge();
             }).fail(function () {
                 popup = new Popup({content: $(_error)});
@@ -104,7 +104,7 @@ define([
             var georegionPanel,
                 searchPanel;
 
-            if (this.result.hasOwnProperty('categories') && this.result.hasOwnProperty('path')) {
+            if (this.result.hasOwnProperty('categories') && this.result.hasOwnProperty('category')) {
                 this.$el.html(_.template(_layout)(this.result));
 
                 georegionPanel      = new GeoregionView.Panel();

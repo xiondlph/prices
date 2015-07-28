@@ -69,7 +69,7 @@ require([
     });
 
 
-    Georegion.getGeoModel().on('change', function () {
+    Georegion.getGeoModel().on('change:geo', function () {
         params.trigger('change:page');
     });
 

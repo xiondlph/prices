@@ -128,7 +128,7 @@ define([
                 }
             }).done(function (data) {
                 me.result.model = data.model;
-                me.getPath(data.model.categoryId);
+                me.getCategory(data.model.categoryId);
                 me.statge();
             }).fail(function () {
                 popup = new PopupView({content: $(errorPopupTpl)});
@@ -136,12 +136,12 @@ define([
             });
         },
 
-        getPath: function (categoryId) {
+        getCategory: function (categoryId) {
             var me = this,
                 popup;
 
             $.ajax({
-                url         : '/path',
+                url         : '/category',
                 type        : 'POST',
                 dataType    : 'json',
                 data        : {
@@ -149,7 +149,7 @@ define([
                     geo_id:     GeoregionView.getGeoId()
                 }
             }).done(function (data) {
-                me.result.path = data.path;
+                me.result.category = data.category;
                 me.statge();
             }).fail(function () {
                 popup = new PopupView({content: $(errorPopupTpl)});
@@ -192,9 +192,9 @@ define([
         statge: function () {
             var georegion;
 
-            if (this.result.hasOwnProperty('path') && this.result.hasOwnProperty('model') && this.result.hasOwnProperty('offers')) {
+            if (this.result.hasOwnProperty('category') && this.result.hasOwnProperty('model') && this.result.hasOwnProperty('offers')) {
                 this.$el.html(_.template(layoutTpl)({
-                    path:   this.result.path,
+                    category:   this.result.category,
                     model:  this.result.model
                 }));
 

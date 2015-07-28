@@ -2,11 +2,14 @@
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide">
             <a href="/categories" class="b-categories__path__item">Категории</a>
-<% if (obj.hasOwnProperty('category') && category.parentId !== 0) { %>
-<%     if (category.parentId !== 90401) { %>
-            <a href="/categories#<%= category.parentId %>" class="b-categories__path__item"> . . . </a>
+<% if (path.length > 1) { %>
+<%     for (var i = 1; i < path.length; i++) { %>
+<%         if (i < path.length-1) { %>
+            <a href="/categories#<%= path[i].category.id %>" class="b-categories__path__item"><%= path[i].category.name %></a>
+<%         } else { %>
+            <a href="/models#<%= path[i].category.id %>" class="b-categories__path__item"><%= path[i].category.name %></a>
+<%         }  %>
 <%     } %>
-            <a href="/categories#<%= category.id %>" class="b-categories__path__item"><%= category.name %></a>
 <% } %>
         </div>
         <div class="b-table__tr__td b-table__tr__td_right j-georegion"></div>

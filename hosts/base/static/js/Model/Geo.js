@@ -17,5 +17,5 @@ define([
         localStorage: new Backbone.LocalStorage('ismax')
     });
 
-    return Geo;
+    return new Geo({ id: 'geo' });
 });

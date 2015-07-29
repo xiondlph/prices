@@ -32,25 +32,25 @@ require([
     'View/Menu',
     'View/Profile',
     'View/Loader'
-], function ($, Menu, Profile, Loader) {
+], function ($, MenuView, ProfileView, LoaderView) {
 
     // Маршруты
     function profile() {
         $('.b-menu__sub__item__link_active').removeClass('b-menu__sub__item__link_active');
         $('.b-menu__sub__item__link[href="/profile#profile"]').addClass('b-menu__sub__item__link_active');
-        var form = new Profile.Form({obj: $('.b-section')});
+        var form = new ProfileView.Form({obj: $('.b-section')});
         form.render();
     }
 
     function password() {
-        var pass = new Profile.Password({obj: $('.b-section')});
+        var pass = new ProfileView.Password({obj: $('.b-section')});
         pass.render();
     }
 
     $(function () {
         var router  = new Backbone.Router(),
-            menu    = new Menu({el: $('.b-menu')}),
-            loader  = new Loader({obj: $('body')});
+            menu    = new MenuView({el: $('.b-menu')}),
+            loader  = new LoaderView({obj: $('body')});
 
         menu.render();
         loader.render();

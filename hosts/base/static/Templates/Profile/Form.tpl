@@ -11,6 +11,15 @@
                 <label for="password" class="b-form__field__label">Пароль<span class="b-form__field__label__invalid"></span></label>
                 <a href="#pass" class="b-form__field__action icon-pencil">Изменить</a>
             </div>
+            <div class="b-form__field">
+                <input type="text" name="paidup" value="" id="paidup" class="b-form__field__input b-form__field__input_fill j-form__field__input" disabled>
+                <label for="paidup" class="b-form__field__label">Оплачен до<span class="b-form__field__label__invalid"></span></label>
+                <a href="/payment" class="b-form__field__action icon-wallet">Продлить</a>
+            </div>
+            <div class="b-form__field">
+                <input type="text" name="state" value="" id="state" class="b-form__field__input b-form__field__input_fill j-form__field__input" disabled>
+                <label for="state" class="b-form__field__label">Состояние<span class="b-form__field__label__invalid"></span></label>
+            </div>
         </div>
         <div class="b-table__tr__td b-table__tr__td_wide"></div>
     </div>

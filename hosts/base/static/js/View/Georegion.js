@@ -17,18 +17,16 @@ define([
     'text!Templates/Georegion/Panel.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Geo, Popup, _loader, _layout, _panel, _success, _error) {
-
-    var GeoModel = new Geo({ id: 'geo' }),
+], function (Backbone, GeoModel, PopupView, loaderTpl, layoutTpl, panelTpl, successTpl, errorTpl) {
 
 
-        /**
-         * Получение модели текущего гео-региона
-         *
-         * @method getGeoModel
-         * @return {Object} GeoModel
-         */
-        getGeoModel = function () {
+    /**
+     * Получение модели текущего гео-региона
+     *
+     * @method getGeoModel
+     * @return {Object} GeoModel
+     */
+    var getGeoModel = function () {
             return GeoModel;
         },
 
@@ -71,7 +69,7 @@ define([
 
             fetch: function () {
                 this.result = {};
-                this.$el.html(_.template(_loader));
+                this.$el.html(_.template(loaderTpl));
 
                 this.region();
                 this.list();
@@ -138,7 +136,7 @@ define([
                         parent: data.georegion.parentId
                     });
                 }).fail(function () {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             },
@@ -160,14 +158,14 @@ define([
                     me.result.georegions = data.georegions;
                     me.statge();
                 }).fail(function () {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             },
 
             statge: function () {
                 if (this.result.hasOwnProperty('region') && this.result.hasOwnProperty('georegions')) {
-                    this.$el.html(_.template(_layout)(this.result));
+                    this.$el.html(_.template(layoutTpl)(this.result));
                 }
             }
         }),
@@ -193,7 +191,7 @@ define([
             },
 
             render: function () {
-                this.$el.html(_.template(_panel)(GeoModel.toJSON()));
+                this.$el.html(_.template(panelTpl)(GeoModel.toJSON()));
                 return this.$el;
             },
 
@@ -204,12 +202,12 @@ define([
                 e.preventDefault();
 
                 georegion = new Layout();
-                popup = new Popup({content: georegion.render()});
+                popup = new PopupView({content: georegion.render()});
                 popup.render();
             },
 
             changeRegion: function () {
-                this.$el.html(_.template(_panel)(GeoModel.toJSON()));
+                this.$el.html(_.template(panelTpl)(GeoModel.toJSON()));
             }
         });
 

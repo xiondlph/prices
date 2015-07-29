@@ -16,7 +16,7 @@ define([
     'text!Templates/Secure/Forgot.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _signin, _forgot, _success, _error) {
+], function (Backbone, Validator, PopupView, signinTpl, forgotTpl, successTpl, errorTpl) {
     var Signin,
         Forgot;
 
@@ -46,7 +46,7 @@ define([
          */
         render: function () {
             var me = this;
-            me.$el.html(_.template(_signin));
+            me.$el.html(_.template(signinTpl));
 
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
@@ -121,7 +121,7 @@ define([
                         me.$el.find('input[name="email"]').next('.b-form__field__label').find('.b-form__field__label__invalid').text('Неверные Email или пароль');
                     }
                 }).fail(function (data) {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             }
@@ -157,7 +157,7 @@ define([
          */
         render: function () {
             var me = this;
-            me.$el.html(_.template(_forgot));
+            me.$el.html(_.template(forgotTpl));
 
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
@@ -215,14 +215,14 @@ define([
                     })
                 }).done(function (data) {
                     if (data.success === true) {
-                        popup = new Popup({content: $(_.template(_success)({message: 'На Ваш Email адрес было отправлено сообщение с инструкцией по входу в систему'}))});
+                        popup = new PopupView({content: $(_.template(successTpl)({message: 'На Ваш Email адрес было отправлено сообщение с инструкцией по входу в систему'}))});
                         popup.render();
                     } else {
                         me.$el.find('input[name="email"]').addClass('b-form__field__input_invalid');
                         me.$el.find('input[name="email"]').next('.b-form__field__label').find('.b-form__field__label__invalid').text('Пользователь не найден');
                     }
                 }).fail(function (data) {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             }

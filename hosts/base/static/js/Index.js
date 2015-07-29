@@ -33,12 +33,12 @@ require([
     'View/Menu',
     'View/Signup',
     'View/Loader'
-], function ($, Menu, Signup, Loader) {
+], function ($, MenuView, SignupView, LoaderView) {
 
     $(function () {
-        var signup  = new Signup({obj: $('.b-section')}),
-            menu    = new Menu({el: $('.b-menu')}),
-            loader  = new Loader({obj: $('body')});
+        var signup  = new SignupView({obj: $('.b-section')}),
+            menu    = new MenuView({el: $('.b-menu')}),
+            loader  = new LoaderView({obj: $('body')});
 
         menu.render();
         signup.render();

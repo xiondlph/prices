@@ -5,6 +5,12 @@
         </div>
         <div class="b-table__tr__td b-table__tr__td_right j-georegion"></div>
     </div>
+    <div class="b-table__tr">
+        <div class="b-table__tr__td">
+            <h2>Модель</h2>
+        </div>
+        <div class="b-table__tr__td"></div>
+    </div>
 </div>
 <div class="b-table b-model__table">
     <div class="b-table__tr">
@@ -27,8 +33,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
-                        <a href="reviews#<%= model.id %>">Отзывы (<%= model.reviewsCount %>)</a><br />
-                        <a href="offers#<%= model.id %>">Товариные предложения (<%= model.offersCount %>)</a>
+                        <a href="offers#<%= model.id %>">Товариные предложения</a><br />
+                        <a href="reviews#<%= model.id %>">Отзывы (<%= model.reviewsCount %>)</a>
                     </td>
                 </tr>
             </table>

@@ -30,7 +30,7 @@ require.config({
 require([
     'jquery',
     'View/Menu'
-], function ($, Menu) {
-    var menu = new Menu({el: $('.b-menu')});
+], function ($, MenuView) {
+    var menu = new MenuView({el: $('.b-menu')});
     menu.render();
 });

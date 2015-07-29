@@ -18,7 +18,7 @@ define([
     'text!Templates/Categories/Layout.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, GeoregionView, SearchView, _loader, _layout, _success, _error) {
+], function (Backbone, Validator, PopupView, GeoregionView, SearchView, loaderTpl, layoutTpl, successTpl, errorTpl) {
 
 
     /**
@@ -43,7 +43,7 @@ define([
             me.category();
             me.categories();
 
-            me.$el.append(_.template(_loader));
+            me.$el.append(_.template(loaderTpl));
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
             setTimeout(function () {
@@ -74,7 +74,7 @@ define([
                 me.result.categories = data.categories;
                 me.statge();
             }).fail(function () {
-                popup = new Popup({content: $(_error)});
+                popup = new PopupView({content: $(errorTpl)});
                 popup.render();
             });
         },
@@ -95,7 +95,7 @@ define([
                 me.result.category = data.category;
                 me.statge();
             }).fail(function () {
-                popup = new Popup({content: $(_error)});
+                popup = new PopupView({content: $(errorTpl)});
                 popup.render();
             });
         },
@@ -105,7 +105,7 @@ define([
                 searchPanel;
 
             if (this.result.hasOwnProperty('categories') && this.result.hasOwnProperty('category')) {
-                this.$el.html(_.template(_layout)(this.result));
+                this.$el.html(_.template(layoutTpl)(this.result));
 
                 georegionPanel      = new GeoregionView.Panel();
                 searchPanel         = new SearchView.Panel({

@@ -16,7 +16,7 @@ define([
     'text!Templates/Shops/Layout.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, PopupView, GeoregionView, _loader, _layout, _success, _error) {
+], function (Backbone, PopupView, GeoregionView, loaderTpl, layoutTpl, successTpl, errorTpl) {
 
 
     /**
@@ -43,7 +43,7 @@ define([
 
         fetch: function () {
             this.result = {};
-            this.$el.html(_.template(_loader));
+            this.$el.html(_.template(loaderTpl));
 
             this.list();
         },
@@ -79,14 +79,14 @@ define([
                 me.result.outlets = data.outlets;
                 me.statge();
             }).fail(function () {
-                popup = new PopupView({content: $(_error)});
+                popup = new PopupView({content: $(errorTpl)});
                 popup.render();
             });
         },
 
         statge: function () {
             if (this.result.hasOwnProperty('outlets')) {
-                this.$el.html(_.template(_layout)(this.result));
+                this.$el.html(_.template(layoutTpl)(this.result));
             }
         }
     });

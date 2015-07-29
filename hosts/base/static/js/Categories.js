@@ -34,7 +34,7 @@ require([
     'View/Categories',
     'View/Georegion',
     'View/Loader'
-], function ($, Menu, Categories, Georegion, Loader) {
+], function ($, MenuView, CategoriesView, GeoregionView, LoaderView) {
     var Params = Backbone.Model.extend({}),
         params,
         Layout;
@@ -46,13 +46,12 @@ require([
     params.on('change:categoryId', function () {
         if (Layout) {
             Layout.remove();
-            console.log(Layout);
         }
-        Layout  = new Categories.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined});
+        Layout  = new CategoriesView.Layout({obj: $('.b-section'), categoryId: params.get('categoryId') || undefined});
         Layout.render();
     });
 
-    Georegion.getGeoModel().on('change:geo', function () {
+    GeoregionView.getGeoModel().on('change:geo', function () {
         params.trigger('change:categoryId');
     });
 
@@ -65,8 +64,8 @@ require([
 
     $(function () {
         var router      = new Backbone.Router(),
-            menu        = new Menu({el: $('.b-menu')}),
-            loader      = new Loader({obj: $('body')});
+            menu        = new MenuView({el: $('.b-menu')}),
+            loader      = new LoaderView({obj: $('body')});
 
         menu.render();
         loader.render();

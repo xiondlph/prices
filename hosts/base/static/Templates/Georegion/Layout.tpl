@@ -1,8 +1,8 @@
 <div class="b-table b-georegion__table">
     <div class="b-table__tr">
         <div class="b-table__tr__td b-table__tr__td_wide b-georegion__table__path">
-            <a href="#" data-index="0" class="b-georegion__path__item j-georegion__path">Регионы</a>
-<% if (obj.hasOwnProperty('region') && region.parentId !== 0) { %>
+            <a href="#" data-id="10000" class="b-georegion__path__item j-georegion__path">Регионы</a>
+<% if (obj.hasOwnProperty('region') && region.id !== 10000) { %>
 
 <%     if (region.parentId !== 10000) { %>
             <a href="#<%= region.parentId %>" data-id="<%= region.parentId %>" class="b-georegion__path__item j-georegion__path"> . . . </a>

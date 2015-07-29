@@ -34,7 +34,7 @@ require([
     'View/Offers',
     'View/Georegion',
     'View/Loader'
-], function ($, Menu, Offers, Georegion, Loader) {
+], function ($, MenuView, OffersView, GeoregionView, LoaderView) {
     var Params = Backbone.Model.extend({}),
         params,
         Layout;
@@ -46,7 +46,7 @@ require([
 
 
     params.on('change:modelId', function () {
-        Layout  = new Offers.Layout({obj: $('.b-section'), modelId: params.get('modelId') || undefined, reloadOffers: function () {
+        Layout  = new OffersView.Layout({obj: $('.b-section'), modelId: params.get('modelId') || undefined, reloadOffers: function () {
             if (+params.get('page') > 1) {
                 params.set('page', 1);
             } else {
@@ -69,7 +69,7 @@ require([
     });
 
 
-    Georegion.getGeoModel().on('change:geo', function () {
+    GeoregionView.getGeoModel().on('change:geo', function () {
         params.trigger('change:page');
     });
 
@@ -83,8 +83,8 @@ require([
 
     $(function () {
         var router      = new Backbone.Router(),
-            menu        = new Menu({el: $('.b-menu')}),
-            loader      = new Loader({obj: $('body')});
+            menu        = new MenuView({el: $('.b-menu')}),
+            loader      = new LoaderView({obj: $('body')});
 
         menu.render();
         loader.render();

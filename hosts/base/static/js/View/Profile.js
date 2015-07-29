@@ -16,7 +16,7 @@ define([
     'text!Templates/Profile/Password.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _form, _password, _success, _error) {
+], function (Backbone, Validator, PopupView, formTpl, passwordTpl, successTpl, errorTpl) {
     var Form,
         Password;
 
@@ -42,7 +42,7 @@ define([
             var me = this,
                 popup;
 
-            me.$el.html(_.template(_form));
+            me.$el.html(_.template(formTpl));
 
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
@@ -63,9 +63,17 @@ define([
             }).done(function (data) {
                 me.$el.find('input[name="email"]').val(data.profile.email);
 
+                if (data.profile.hasOwnProperty('requests')) {
+                    me.$el.find('input[name="state"]').val('Активен');
+                    me.$el.find('input[name="paidup"]').val('29.08.2015');
+                } else {
+                    me.$el.find('input[name="state"]').val('Заблокирован');
+                    me.$el.find('input[name="paidup"]').val('29.08.2015');
+                }
+
                 me.$el.find('.j-form__field__input').trigger('input');
             }).fail(function () {
-                popup = new Popup({content: $(_error)});
+                popup = new PopupView({content: $(errorTpl)});
                 popup.render();
             });
 
@@ -116,11 +124,11 @@ define([
                         me.$el.find('input[name="email"]').addClass('b-form__field__input_invalid');
                         me.$el.find('input[name="email"]').next('.b-form__field__label').find('.b-form__field__label__invalid').text('Пользователь с таким Email уже существует');
                     } else {
-                        popup = new Popup({content: $(_.template(_success)({message: 'Данные сохранены'}))});
+                        popup = new PopupView({content: $(_.template(successTpl)({message: 'Данные сохранены'}))});
                         popup.render();
                     }
                 }).fail(function (data) {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             }
@@ -149,7 +157,7 @@ define([
 
         render: function () {
             var me = this;
-            me.$el.html(_.template(_password));
+            me.$el.html(_.template(passwordTpl));
 
             me.options.obj.find('.b-switch').addClass('b-switch_animate');
             me.options.obj.append(me.$el);
@@ -217,10 +225,10 @@ define([
                         password: this.$el.find('input[name="password"]').val()
                     })
                 }).done(function (data) {
-                    popup = new Popup({content: $(_.template(_success)({message: 'Пароль обновлен'}))});
+                    popup = new PopupView({content: $(_.template(successTpl)({message: 'Пароль обновлен'}))});
                     popup.render();
                 }).fail(function (data) {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             }

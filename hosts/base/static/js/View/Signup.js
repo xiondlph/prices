@@ -15,7 +15,7 @@ define([
     'text!Templates/Signup.tpl',
     'text!Templates/Popup/Success.tpl',
     'text!Templates/Popup/Error.tpl'
-], function (Backbone, Validator, Popup, _signup, _success, _error) {
+], function (Backbone, Validator, PopupView, signupTpl, successTpl, errorTpl) {
 
 
     /**
@@ -36,7 +36,7 @@ define([
         },
 
         render: function () {
-            this.$el.append(_.template(_signup));
+            this.$el.append(_.template(signupTpl));
 
             this.options.obj.append(this.$el);
             return this.$el;
@@ -87,11 +87,11 @@ define([
                         me.$el.find('input[name="email"]').addClass('b-form__field__input_invalid');
                         me.$el.find('input[name="email"]').next('.b-form__field__label').find('.b-form__field__label__invalid').text('Пользователь с таким Email адресом уже существует');
                     } else {
-                        popup = new Popup({content: $(_.template(_success)({message: '<h2>Вы зарегистрированы</h2>На Ваш Email было выслано сообщение с информации о доступе и спользовании сервиса.'}))});
+                        popup = new PopupView({content: $(_.template(successTpl)({message: '<h2>Вы зарегистрированы</h2>На Ваш Email было выслано сообщение с информации о доступе и спользовании сервиса.'}))});
                         popup.render();
                     }
                 }).fail(function (data) {
-                    popup = new Popup({content: $(_error)});
+                    popup = new PopupView({content: $(errorTpl)});
                     popup.render();
                 });
             }

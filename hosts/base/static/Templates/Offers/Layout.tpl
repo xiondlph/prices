@@ -14,6 +14,7 @@
     <div class="b-table__tr">
         <div class="b-table__tr__td">
 <% if (obj.model) { %>
+            <h2>Товарные предложения</h2>
             <a href="/model#<%= model.id %>"><%= model.name %></a>
 <% } %>
         </div>

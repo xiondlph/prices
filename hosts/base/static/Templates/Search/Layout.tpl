@@ -10,6 +10,12 @@
         <div class="b-table__tr__td b-table__tr__td_right j-search_panel"></div>
         <div class="b-table__tr__td b-table__tr__td_right j-georegion"></div>
     </div>
+    <div class="b-table__tr">
+        <div class="b-table__tr__td">
+            <h2>Результаты поиска</h2>
+        </div>
+        <div class="b-table__tr__td"></div>
+    </div>
 </div>
 <div class="b-table b-search__table">
     <div class="b-table__tr">

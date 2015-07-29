@@ -32,23 +32,23 @@ require([
     'View/Menu',
     'View/Secure',
     'View/Loader'
-], function ($, Menu, Secure, Loader) {
+], function ($, MenuView, SecureView, LoaderView) {
 
     // Маршруты
     function signin() {
-        var Signin = new Secure.Signin({obj: $('.b-section')});
+        var Signin = new SecureView.Signin({obj: $('.b-section')});
         Signin.render();
     }
 
     function forgot() {
-        var Forgot = new Secure.Forgot({obj: $('.b-section')});
+        var Forgot = new SecureView.Forgot({obj: $('.b-section')});
         Forgot.render();
     }
 
     $(function () {
         var router  = new Backbone.Router(),
-            menu    = new Menu({el: $('.b-menu')}),
-            loader  = new Loader({obj: $('body')});
+            menu    = new MenuView({el: $('.b-menu')}),
+            loader  = new LoaderView({obj: $('body')});
 
         menu.render();
         loader.render();

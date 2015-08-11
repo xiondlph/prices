@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<# if (process.env.NODE_ENV !== 'prod') { #>
+    <link href="/css/common.css" rel="stylesheet" type="text/css" />
+    <link href="/css/payment.css" rel="stylesheet" type="text/css" />
+    <script data-main="/js/Payment" src="/lib/requirejs/require.js"></script>
+<# } else { #>
+    <link href="/build/payment.css" rel="stylesheet" type="text/css" />
+    <script src="/build/payment.js"></script>
+<# } #>
+    <title>Оплата</title>
+</head>
+<body>
+<#@ /inc/header #>
+    <section class="b-section"></section>
+<#@ /inc/footer #>
+<#@ /inc/counter #>
+</body>
+</html>

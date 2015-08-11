@@ -26,6 +26,15 @@ module.exports = {
         }
     },
 
+    payment: {
+        options: {
+            banner: '/* Profile minified */'
+        },
+        files: {
+            'hosts/base/static/build/payment.css': ['hosts/base/static/css/common.css', 'hosts/base/static/css/payment.css']
+        }
+    },
+
     simple: {
         options: {
             banner: '/* Simple minified */'

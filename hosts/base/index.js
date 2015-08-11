@@ -139,7 +139,7 @@ router.post('^https://www.' + host + '.ru/ym_notification/?$', model.secure, mod
 
 // Secure zone
 router.get('^(http|https)://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
-router.post('^https://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+router.post('^https://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth, controller.secure.active);
 
 // Georegion
 router.post('^https://www.' + host + '.ru/georegion/?$', controller.request.api, controller.georegion.get);

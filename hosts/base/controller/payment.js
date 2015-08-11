@@ -53,6 +53,29 @@ function notice(data, subject) {
     });
 }
 
+// Формирование периода в timestamp
+function getPeriod (currentPeriod, amount) {
+    var currentDate = new Date(),
+        _currentPeriod = currentPeriod && currentPeriod > currentDate ? new Date(currentPeriod) : currentDate;
+
+    switch (amount) {
+    case 100:
+        _currentPeriod.setDate(_currentPeriod.getDate() + 1);
+        break;
+    case 3000:
+        _currentPeriod.setMonth(_currentPeriod.getMonth() + 1);
+        break;
+    case 6000:
+        _currentPeriod.setMonth(_currentPeriod.getMonth() + 2);
+        break;
+    default:
+        _currentPeriod.setDate(_currentPeriod.getDate() + 1);
+        break;
+    }
+
+    return _currentPeriod.valueOf();
+}
+
 //---------------------- HTTP запросы ----------------------//
 
 
@@ -78,8 +101,9 @@ exports.index = function (req, res, next) {
  * @param {Function} next
  */
 exports.notification = function (req, res, next) {
-    var hash,
-        quantity = 0;
+    var currentPeriod,
+        newPeriod,
+        hash;
 
     // Логирование уведомления
     logPayment(req.params);
@@ -95,19 +119,25 @@ exports.notification = function (req, res, next) {
         if (req.params.sha1_hash === hash) {
 
             if (req.params.codepro === 'false') {
-                quantity = Math.ceil(req.params.withdraw_amount / 0.1);
+                req.model.secure.getUserByEmail(req.params.label, function (user) {
+                    if (user) {
+                        currentPeriod   = user.period;
+                        newPeriod       = getPeriod(currentPeriod, req.params.withdraw_amount);
+
+                        req.model.secure.updatePeriodByEmail(email, newPeriod, function (user) {
+                            if (user) {
+                                req.params.lastPeriod   = currentPeriod;
+                                req.params.newPeriod    = newPeriod;
+
+                                req.model.payment.add(req.params);
+
+                                //Уведомление об успешном платеже по email
+                                notice(req.params, 'Успешный входящий платеж');
+                            }
+                        });
+                    }
+                });
             }
-
-            req.model.secure.incRequestsByEmail(req.params.label, quantity, function (user) {
-                if (user) {
-                    req.params._requests = user.requests;
-                    req.params._quantity = quantity;
-                    req.model.payment.add(req.params);
-
-                    //Уведомление об успешном платеже по email
-                    notice(req.params, 'Успешный входящий платеж');
-                }
-            });
         }
     }
 

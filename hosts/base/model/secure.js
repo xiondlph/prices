@@ -303,7 +303,34 @@ module.exports = function (req, res, next, httpErr) {
                     }
                 });
             });
-        }
+        },
+
+
+        /**
+         * Обновление периода действия аккаунта по Email
+         *
+         * @method updateperiodByEmail
+         * @param {String} email
+         * @param {String} password
+         * @param {Function} accept
+         */
+        updatePeriodByEmail: function (email, period, accept) {
+            mongo.db().collection('users', function (err, collection) {
+                if (err) {
+                    throw new Error('Mongo error - ' + err.message);
+                }
+
+                collection.update({email: email}, {$set: {period: period}}, function (err, result) {
+                    if (err) {
+                        throw new Error('Mongo error - ' + err.message);
+                    }
+
+                    if (typeof accept === 'function') {
+                        accept(result);
+                    }
+                });
+            });
+        },
     };
 
     next();

@@ -40,8 +40,9 @@ exports.get = function (req, res) {
         auth: true,
         success: true,
         profile: {
-            email:    req.user.email,
-            requests: req.user.requests
+            email:      req.user.email,
+            period:     req.user.period,
+            _active:    req.user._active
         }
     };
 

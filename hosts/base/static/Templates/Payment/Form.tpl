@@ -3,7 +3,7 @@
         <div class="b-table__tr__td b-table__tr__td_nowidth">
             <div class="b-form__title">Продление услуги</div>
             <div class="b-form__field b-form__field_payment">
-                <select id="sum" class="b-form__field__input b-form__field__input_fill b-form__field__input_payment j-form__field__input">
+                <select id="sum" name="sum" class="b-form__field__input b-form__field__input_fill b-form__field__input_payment j-form__field__input">
                     <option value="100">Сутки - 100 руб.</option>
                     <option value="3000">1 мес. - 3000 руб.</option>
                     <option value="6000">2 мес. - 6000 руб.</option>

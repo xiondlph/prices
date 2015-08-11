@@ -39,7 +39,9 @@ exports.index = function (req, res) {
  * @param {Function} next
  */
 exports.user = function (req, res, next) {
-    var _cookie = [];
+    var _cookie = [],
+        currentDate = new Date();
+
     if (res.getHeader('Set-Cookie')) { _cookie.push(res.getHeader('Set-Cookie')); }
 
     req.model.secure.getUserBySession(req.sissionId, function (user) {
@@ -47,6 +49,7 @@ exports.user = function (req, res, next) {
             _cookie.push('ismax_auth=true; path=/; domain=' + req.currentHost + '.ru;');
             res.setHeader('Set-Cookie', _cookie);
 
+            user._active = user.period > currentDate.valueOf();
             req.user        = user;
             req.local.user  = user;
         } else {
@@ -147,6 +150,38 @@ exports.auth = function (req, res, next) {
 
         res.statusCode = 302;
         res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/user');
+        res.end();
+        return;
+    }
+
+    next();
+};
+
+
+/**
+ * Проверка на активность
+ *
+ * @method active
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.active = function (req, res, next) {
+    if (req.user && !req.user._active) {
+        if (req.headers['x-requested-with'] && req.headers['x-requested-with'] === 'XMLHttpRequest') {
+            response = {
+                errors: ['Not permitted']
+            };
+
+            res.statusCode = 403;
+            res.setHeader('Content-Type', 'application-json; charset=UTF-8');
+            res.write(JSON.stringify(response, null, "\t"));
+            res.end();
+            return;
+        }
+
+        res.statusCode = 302;
+        res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/profile');
         res.end();
         return;
     }

@@ -54,7 +54,7 @@ function notice(data, subject) {
 }
 
 // Формирование периода в timestamp
-function getPeriod (currentPeriod, amount) {
+function getPeriod(currentPeriod, amount) {
     var currentDate = new Date(),
         _currentPeriod = currentPeriod && currentPeriod > currentDate ? new Date(currentPeriod) : currentDate;
 
@@ -124,7 +124,7 @@ exports.notification = function (req, res, next) {
                         currentPeriod   = user.period;
                         newPeriod       = getPeriod(currentPeriod, req.params.withdraw_amount);
 
-                        req.model.secure.updatePeriodByEmail(email, newPeriod, function (user) {
+                        req.model.secure.updatePeriodByEmail(user.email, newPeriod, function (user) {
                             if (user) {
                                 req.params.lastPeriod   = currentPeriod;
                                 req.params.newPeriod    = newPeriod;

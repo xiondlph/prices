@@ -167,6 +167,8 @@ exports.auth = function (req, res, next) {
  * @param {Function} next
  */
 exports.active = function (req, res, next) {
+    var response;
+
     if (req.user && !req.user._active) {
         if (req.headers['x-requested-with'] && req.headers['x-requested-with'] === 'XMLHttpRequest') {
             response = {

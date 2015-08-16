@@ -33,7 +33,7 @@ function notice(data, subject) {
         service: 'Gmail',
         auth: {
             user: 'notification@ismax.ru',
-            pass: '474484237QwErT'
+            pass: '159753qSeFt'
         }
     });
 

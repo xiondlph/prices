@@ -32,19 +32,19 @@ function notice(data, subject) {
     var smtpTransport = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'notification@icsystem.ru',
+            user: 'notification@ismax.ru',
             pass: '474484237QwErT'
         }
     });
 
     smtpTransport.sendMail({
-        from: 'Notification Icsystem <notification@icsystem.ru>',
-        to: 'ICSYSTEM ISMAX <support@icsystem.ru>',
+        from: 'Notification Ismax <notification@ismax.ru>',
+        to: 'Support Ismax <support@ismax.ru>',
         bcc: 'Исмаилов Шухрат <shukhrat@ismax.ru>',
         subject: subject,
         text: JSON.stringify(data, null, "\t"),
         headers: {
-            'X-Mailer': 'ICSYSTEM'
+            'X-Mailer': 'ISMAX'
         }
     }, function (error, response) {
         if (error) {
@@ -113,7 +113,7 @@ exports.notification = function (req, res, next) {
     notice(req.params, 'Входящий платеж');
 
     if (req.params) {
-        hash = req.params.notification_type + '&' + req.params.operation_id + '&' + req.params.amount + '&' + req.params.currency + '&' + req.params.datetime + '&' + req.params.sender + '&' + req.params.codepro + '&DCb7b4n2+RsQEuk5Mw+V3xOx&' + req.params.label;
+        hash = req.params.notification_type + '&' + req.params.operation_id + '&' + req.params.amount + '&' + req.params.currency + '&' + req.params.datetime + '&' + req.params.sender + '&' + req.params.codepro + '&+aMXyVPml0TWDHYEF/gfVsw5&' + req.params.label;
         hash = crypto.createHash('sha1').update(hash).digest('hex');
 
         if (req.params.sha1_hash === hash) {

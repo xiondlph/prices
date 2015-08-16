@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow:
+Host: www.ismax.ru
+Sitemap: http://www.ismax.ru/Sitemap.xml

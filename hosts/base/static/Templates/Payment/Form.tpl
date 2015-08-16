@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" name="receiver" value="410011237083903"/>
+<input type="hidden" name="receiver" value="410013408881478"/>
 <input type="hidden" name="formcomment" value="ISMAX - Продление услуги на сутки"/>
 <input type="hidden" name="short-dest" value="ISMAX - Продление услуги на сутки"/>
 <input type="hidden" name="quickpay-form" value="shop"/>

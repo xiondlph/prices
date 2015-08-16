@@ -78,7 +78,7 @@ exports.create = function (req, res) {
                         smtpTransport.sendMail({
                             from: 'Support Ismax <support@ismax.ru>',
                             to: data.email,
-                            bcc: 'Notification Icsystem <notification@icsystem.ru>',
+                            bcc: 'Notification Ismax <notification@ismax.ru>',
                             subject: 'Регистрация в сервисе ISMAX',
                             text: text,
                             headers: {
@@ -167,7 +167,7 @@ exports.forgot = function (req, res) {
                     smtpTransport.sendMail({
                         from: 'Support Ismax <support@ismax.ru>',
                         to: user.email,
-                        bcc: 'Notification Icsystem <notification@icsystem.ru>',
+                        bcc: 'Notification Ismax <notification@ismax.ru>',
                         subject: 'Востановления доступа к сервису ISMAX',
                         text: text,
                         headers: {

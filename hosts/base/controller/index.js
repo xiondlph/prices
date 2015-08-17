@@ -55,6 +55,30 @@ exports.about = function (req, res, next) {
 
 
 /**
+ * Страница возможностей
+ *
+ * @method destiny
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.destiny = function (req, res, next) {
+    res.render(__dirname + '/../view/', 'destiny');
+};
+
+/**
+ * Страница условий
+ *
+ * @method terms
+ * @param {Object} req Объект запроса сервера
+ * @param {Object} res Объект ответа сервера
+ * @param {Function} next
+ */
+exports.terms = function (req, res, next) {
+    res.render(__dirname + '/../view/', 'terms');
+};
+
+/**
  * Страница Sitemap.xml
  *
  * @method sitemap

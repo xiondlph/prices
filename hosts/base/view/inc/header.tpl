@@ -18,8 +18,8 @@
                 <div class="b-menu">
                     <ul class="b-menu__sub">
                         <li class="b-menu__sub__item"><a href="/about" class="b-menu__sub__item__link icon-page">Описание</a></li>
-                        <li class="b-menu__sub__item"><a href="#" class="b-menu__sub__item__link icon-page">Возможности</a></li>
-                        <li class="b-menu__sub__item"><a href="#" class="b-menu__sub__item__link icon-page">Условия</a></li>
+                        <li class="b-menu__sub__item"><a href="/destiny" class="b-menu__sub__item__link icon-page">Возможности</a></li>
+                        <li class="b-menu__sub__item"><a href="/terms" class="b-menu__sub__item__link icon-page">Условия</a></li>
                     </ul>
                     <span class="b-menu__label">О сервисе</span>
                 </div>

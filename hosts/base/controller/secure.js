@@ -228,11 +228,7 @@ exports.guest = function (req, res, next) {
     }
 
     res.statusCode = 302;
-    if (req.user._active) {
-        res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/categories');
-    } else {
-        res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/profile');
-    }
+    res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/categories');
     res.end();
     return;
 };

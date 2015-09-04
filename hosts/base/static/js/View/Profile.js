@@ -61,15 +61,20 @@ define([
                 dataType    : 'json',
                 global      : false
             }).done(function (data) {
-                var period = new Date(data.profile.period);
+                var period = '--.--.----';
+
+                if (data.profile.hasOwnProperty('period') && data.profile.period) {
+                    period = (new Date(data.profile.period)).toLocaleDateString();
+                }
+
                 me.$el.find('input[name="email"]').val(data.profile.email);
 
                 if (data.profile.hasOwnProperty('_active') && data.profile._active) {
                     me.$el.find('input[name="state"]').val('Активен');
-                    me.$el.find('input[name="paidup"]').val(period.toLocaleDateString());
+                    me.$el.find('input[name="paidup"]').val(period);
                 } else {
                     me.$el.find('input[name="state"]').val('Заблокирован');
-                    me.$el.find('input[name="paidup"]').val(period.toLocaleDateString());
+                    me.$el.find('input[name="paidup"]').val(period);
                 }
 
                 me.$el.find('.j-form__field__input').trigger('input');

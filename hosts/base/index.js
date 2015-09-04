@@ -140,7 +140,7 @@ router.get('^https://www.' + host + '.ru/payment/list/?$', model.payment, middle
 router.post('^https://www.' + host + '.ru/ym_notification/?$', model.secure, model.payment, controller.payment.notification);
 
 // Secure zone
-router.get('^(http|https)://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user, controller.secure.auth);
+router.get('^(http|https)://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', controller.secure.https, middleware.sessions, model.secure, controller.secure.user, controller.secure.auth, controller.secure.active);
 router.post('^https://www.' + host + '.ru/(categories|category|path|filters|model|models|offers).*$', middleware.sessions, model.secure, controller.secure.user, controller.secure.auth, controller.secure.active);
 
 // Georegion

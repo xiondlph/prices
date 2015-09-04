@@ -11,7 +11,9 @@
                     </ul>
                     <span class="b-menu__label"><#= this.data.user.email #></span>
                 </div>
+<# if(this.data.user._active){#>
                 <a href="/categories" class="b-nav__item b-nav__item_right">Каталог</a>
+<# } #>
                 <# } else { #>
                 <a href="/user" class="b-nav__item b-nav__item_right">Вход</a>
                 <# } #>

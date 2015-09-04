@@ -39,8 +39,7 @@ exports.index = function (req, res) {
  * @param {Function} next
  */
 exports.user = function (req, res, next) {
-    var _cookie = [],
-        currentDate = new Date();
+    var _cookie = [];
 
     if (res.getHeader('Set-Cookie')) { _cookie.push(res.getHeader('Set-Cookie')); }
 
@@ -49,7 +48,7 @@ exports.user = function (req, res, next) {
             _cookie.push('ismax_auth=true; path=/; domain=' + req.currentHost + '.ru;');
             res.setHeader('Set-Cookie', _cookie);
 
-            user._active = user.period > currentDate.valueOf();
+            user._active    = user.period > Date.now();
             req.user        = user;
             req.local.user  = user;
         } else {
@@ -229,7 +228,11 @@ exports.guest = function (req, res, next) {
     }
 
     res.statusCode = 302;
-    res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/categories');
+    if (req.user._active) {
+        res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/categories');
+    } else {
+        res.setHeader('Location', 'https://www.' + req.currentHost + '.ru/profile');
+    }
     res.end();
     return;
 };

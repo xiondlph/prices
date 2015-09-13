@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="right">
-                        <a href="offers#<%= model.id %>">Товариные предложения</a><br />
+                        <a href="offers#<%= model.id %>">Товарные предложения</a><br />
                         <a href="reviews#<%= model.id %>">Отзывы (<%= model.reviewsCount %>)</a>
                     </td>
                 </tr>

@@ -35,3 +35,14 @@ p {
 .b-form__field__label_signup {
   padding: 0;
 }
+.fsvs {
+  overflow: hidden;
+}
+#fsvs-body {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.slide {
+  height: 100%;
+}

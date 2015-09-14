@@ -310,7 +310,7 @@ strong {
   background-size: contain;
   position: fixed;
   font-size: 12px;
-  height: 70px;
+  height: 110px;
   width: 100%;
   z-index: 1;
 }
@@ -391,6 +391,16 @@ strong {
 }
 .b-nav__item_right {
   float: right;
+}
+.b-nav__flow {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  margin: 5px 0 0;
+  float: left;
+}
+.b-nav__flow_first {
+  clear: both;
+  padding: 0;
 }
 /*** Всплывающий блок вложенного меню ***/
 .b-menu {

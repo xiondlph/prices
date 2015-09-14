@@ -364,7 +364,7 @@ b, strong {
     background-size: contain;
     position: fixed;
     font-size: 12px;
-    height: 70px;
+    height: 110px;
     width: 100%;
     z-index: 1;
 }
@@ -449,6 +449,16 @@ b, strong {
         }
         &_right {
             float: right;
+        }
+    }
+    &__flow {
+        display: inline-block;
+        padding: 0 0 0 10px;
+        margin: 5px 0 0;
+        float: left;
+        &_first {
+            clear: both;
+            padding: 0;
         }
     }
 }

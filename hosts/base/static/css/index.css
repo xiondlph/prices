@@ -1,8 +1,11 @@
-h1 {
+.b-home__header {
   margin: 15% 0 15px 0;
 }
-p {
-  text-align: center;
+p.b-home__text {
+  display: block;
+  margin: 0 auto;
+  text-align: justify;
+  width: 60%;
 }
 .b-form__table_signup {
   background-color: transparent;
@@ -34,15 +37,4 @@ p {
 }
 .b-form__field__label_signup {
   padding: 0;
-}
-.fsvs {
-  overflow: hidden;
-}
-#fsvs-body {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-.slide {
-  height: 100%;
 }

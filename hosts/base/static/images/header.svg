@@ -7,9 +7,9 @@
             <stop offset="100%" stop-color="#000000" stop-opacity="1"/>
         </linearGradient>
 
-        <mask id="mask" x="0" y="0" width="100%" height="70" >
-            <rect x="0" y="0" width="100%" height="70" style="stroke:none; fill: url(#gradient)"/>
+        <mask id="mask" x="0" y="0" width="100%" height="110" >
+            <rect x="0" y="0" width="100%" height="110" style="stroke:none; fill: url(#gradient)"/>
         </mask>
     </defs>
-    <rect x="0" y="0" width="100%" height="70" style="stroke: none; fill: #f4f3eb; mask: url(#mask)"/>
+    <rect x="0" y="0" width="100%" height="110" style="stroke: none; fill: #f4f3eb; mask: url(#mask)"/>
 </svg>

@@ -13,7 +13,7 @@ require.config({
         text        : '../lib/requirejs/text',
         jquery      : '../lib/jquery/jquery-2.1.1.min',
         validator   : '../lib/validator.min',
-        fsvs        : '../lib/fsvs',
+        scrollTo    : '../lib/scrollTo.min',
         underscore  : '../lib/underscore/underscore-min',
         backbone    : '../lib/backbone/backbone-min',
 
@@ -30,37 +30,44 @@ require.config({
 
 require([
     'jquery',
-    'fsvs',
+    'scrollTo',
     'View/Menu',
     'View/Signup',
     'View/Loader'
-], function ($, Fsvs,  MenuView, SignupView, LoaderView) {
+], function ($, ScrollTo,  MenuView, SignupView, LoaderView) {
+
+    // Маршруты
+    function about() {
+        $('body').scrollTo($('section[name="about"]'), 800);
+    }
+
+    function destiny() {
+        $('body').scrollTo($('section[name="destiny"]'), 800);
+    }
+
+    function description() {
+        $('body').scrollTo($('section[name="description"]'), 800);
+    }
+
+    function terms() {
+        $('body').scrollTo($('section[name="terms"]'), 800);
+    }
 
     $(function () {
-        var signup  = new SignupView({obj: $('.b-section')}),
+        var router  = new Backbone.Router(),
+            signup  = new SignupView({obj: $('.b-section')}),
             menu    = new MenuView({el: $('.b-menu')}),
-            loader  = new LoaderView({obj: $('body')}),
-
-            fsvs    = $.fn.fsvs({
-                speed : 2000,
-                bodyID : 'fsvs-body',
-                selector : '> .slide',
-                mouseSwipeDisance : 40,
-                afterSlide : function(){},
-                beforeSlide : function(){},
-                endSlide : function(){},
-                mouseWheelEvents : true,
-                mouseDragEvents : true,
-                touchEvents : true,
-                arrowKeyEvents : true,
-                pagination : false,
-                nthClasses : false,
-                detectHash : true
-            });
+            loader  = new LoaderView({obj: $('body')});
 
         menu.render();
         signup.render();
         loader.render();
+
+        // Маршрутизация
+        router.route('about', 'about', about);
+        router.route('destiny', 'destiny', destiny);
+        router.route('description', 'description', description);
+        router.route('terms', 'terms', terms);
 
         Backbone.history.start();
     });

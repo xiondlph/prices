@@ -55,7 +55,7 @@ require([
 
     $(function () {
         var router  = new Backbone.Router(),
-            signup  = new SignupView({obj: $('.b-section')}),
+            signup  = new SignupView({obj: $('.b-section:first')}),
             menu    = new MenuView({el: $('.b-menu')}),
             loader  = new LoaderView({obj: $('body')});
 

@@ -394,13 +394,18 @@ strong {
 }
 .b-nav__flow {
   display: inline-block;
-  padding: 0 0 0 10px;
-  margin: 5px 0 0;
+  margin: 5px 0 0 10px;
   float: left;
 }
 .b-nav__flow_first {
+  margin: 5px 0 0 0;
   clear: both;
-  padding: 0;
+}
+.b-nav__flow_active {
+  border-bottom: 1px solid #e05d6f;
+}
+.b-nav__flow:hover {
+  text-decoration: none;
 }
 /*** Всплывающий блок вложенного меню ***/
 .b-menu {

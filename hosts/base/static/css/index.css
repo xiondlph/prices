@@ -7,6 +7,10 @@ p.b-home__text {
   text-align: justify;
   width: 60%;
 }
+.b-home__anchor {
+  display: inline-block;
+  width: 100%;
+}
 .b-form__table_signup {
   background-color: transparent;
 }

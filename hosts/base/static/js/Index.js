@@ -24,6 +24,9 @@ require.config({
         'backbone': {
             deps    : ['underscore', 'jquery'],
             exports : 'Backbone'
+        },
+        scrollspy: {
+            deps    : ['jquery']
         }
     }
 });
@@ -46,14 +49,13 @@ require([
         loader.render();
 
         $('h1').on('scrollSpy:enter', function () {
-            console.log('enter:', $(this).attr('id'));
             $('.b-nav__flow').removeClass('b-nav__flow_active');
             $('a[href="#' + $(this).attr('id') + '"]').addClass('b-nav__flow_active');
         });
 
-        $('h1').on('scrollSpy:exit', function () {
-            console.log('exit:', $(this).attr('id'));
-        });
+        // $('h1').on('scrollSpy:exit', function () {
+
+        // });
 
         $('.b-nav__flow').click(function (e) {
             var href = $(this).attr("href"),
@@ -66,7 +68,10 @@ require([
             e.preventDefault();
         });
 
-        $('h1').scrollSpy({offsetTop: 110});
+        $('h1').scrollSpy({
+            offsetTop: 110,
+            offsetBottom: 200 - $(window).height()
+        });
 
         Backbone.history.start();
     });

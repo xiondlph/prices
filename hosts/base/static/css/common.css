@@ -748,13 +748,13 @@ strong {
   text-decoration: none;
   color: #fff;
 }
-.b-footer__menu__item__link:not(:last-child) {
+.b-footer__menu__item:not(:last-child) {
   padding: 0 10px 0 0;
 }
-.b-footer__menu__item__link_copyright:not(:last-child) {
+.b-footer__menu__item_copyright:not(:last-child) {
   padding: 0 30px 0 0;
 }
-.b-footer__menu__item__link_counter {
+.b-footer__menu__item_counter {
   float: right;
 }
 /*** Geo region Panel ***/

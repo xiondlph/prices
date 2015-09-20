@@ -14,6 +14,11 @@ module.exports = {
             'hosts/base/static/css/common.css': 'hosts/base/static/less/common.less'
         }
     },
+    simple: {
+        files: {
+            'hosts/base/static/css/simple.css': 'hosts/base/static/less/simple.less'
+        }
+    },
     filter: {
         files: {
             'hosts/base/static/css/filter.css': 'hosts/base/static/less/filter.less'

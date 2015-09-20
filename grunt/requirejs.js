@@ -124,6 +124,7 @@ module.exports = {
                 text            : '../lib/requirejs/text',
                 jquery          : '../lib/jquery/jquery-2.1.1.min',
                 validator       : '../lib/validator.min',
+                scrollspy       : '../lib/scrollspy',
                 underscore      : '../lib/underscore/underscore-min',
                 backbone        : '../lib/backbone/backbone-min',
                 localStorage    : '../lib/backbone/localStorage-min',

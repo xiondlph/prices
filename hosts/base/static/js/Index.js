@@ -39,8 +39,21 @@ require([
     'View/Loader'
 ], function ($, Scrollspy,  MenuView, SignupView, LoaderView) {
 
+    // Маршруты
+    function Spy(anchor) {
+        var offsetTop = 0;
+        if (anchor) {
+            offsetTop = $('h1[anchorId=' + anchor + ']').offset().top - 110 + 1;
+        }
+
+        $('html, body').stop().animate({
+            scrollTop: offsetTop
+        }, 1000);
+    }
+
     $(function () {
-        var signup  = new SignupView({obj: $('.b-section:first')}),
+        var router  = new Backbone.Router(),
+            signup  = new SignupView({obj: $('.b-section:first')}),
             menu    = new MenuView({el: $('.b-menu')}),
             loader  = new LoaderView({obj: $('body')});
 
@@ -50,29 +63,27 @@ require([
 
         $('h1').on('scrollSpy:enter', function () {
             $('.b-nav__flow').removeClass('b-nav__flow_active');
-            $('a[href="#' + $(this).attr('id') + '"]').addClass('b-nav__flow_active');
+            $('a[href="/#' + $(this).attr('anchorId') + '"]').addClass('b-nav__flow_active');
+            if ($(this).attr('anchorId') === 'index') {
+                $('.j-nav__item__signup').addClass('b-nav__item_hidden');
+            } else {
+                $('.j-nav__item__signup').removeClass('b-nav__item_hidden');
+            }
         });
 
         // $('h1').on('scrollSpy:exit', function () {
-
+        //     console.log(this);
         // });
-
-        $('.b-nav__flow').click(function (e) {
-            var href = $(this).attr("href"),
-                offsetTop = href === "#" ? 0 : $(href).offset().top - 110 + 1;
-
-            $('html, body').stop().animate({
-                scrollTop: offsetTop
-            }, 1000);
-
-            e.preventDefault();
-        });
 
         $('h1').scrollSpy({
             offsetTop: 110,
             offsetBottom: 200 - $(window).height()
         });
 
+        // Маршрутизация
+        router.route('(:modelId)', 'spy', Spy);
+
         Backbone.history.start();
+
     });
 });
